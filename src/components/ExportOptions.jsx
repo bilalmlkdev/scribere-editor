@@ -1,14 +1,25 @@
 import { useState, useRef, useEffect } from 'react';
 import { BiPlus, BiDownload } from 'react-icons/bi';
-import { FiImage } from 'react-icons/fi';
 import * as htmlToImage from 'html-to-image';
+import Canvas from './Canvas';
+import ThemeOverride from './ThemeOverride';
 
-export default function ExportOptions({ targetRef }) {
+export default function ExportOptions({
+  targetRef,
+  inputValue,
+  canvasBG,
+  canvasTextColor,
+  canvasTextColorClass,
+  canvasFont,
+  placeholderColor,
+  canvasFontSize,
+  canvasTextPadding,
+}) {
   // targetRef is the ref of the design element to export
   const [isOpen, setIsOpen] = useState(false);
   const [quality, setQuality] = useState('Standard');
   const [format, setFormat] = useState('PNG');
-  const [themeOverride, setThemeOverride] = useState('Current theme');
+  const [overrideColors, setOverrideColors] = useState(null);
   const [isExporting, setIsExporting] = useState(false);
   const panelRef = useRef(null);
 
@@ -18,6 +29,28 @@ export default function ExportOptions({ targetRef }) {
     High: { scale: 3, label: '3x', size: '3240×3240' },
     Ultra: { scale: 4, label: '4x', size: '4320×4320' },
   };
+
+  // Get current theme object for ThemeOverride
+  const currentThemeObj = {
+    bgColor: canvasBG,
+    bgValue:
+      canvasBG === 'bg-white'
+        ? '#FFFFFF'
+        : canvasBG === 'bg-black'
+          ? '#000000'
+          : canvasBG === 'bg-gray-900'
+            ? '#111827'
+            : canvasBG === 'bg-rose-50'
+              ? '#FFF1F2'
+              : '#0F172A',
+    textColor: canvasTextColorClass,
+    textValue: canvasTextColor,
+  };
+
+  // Use override colors if available, otherwise use original props
+  const displayBG = overrideColors?.bgColor || canvasBG;
+  const displayTextColor = overrideColors?.textValue || canvasTextColor;
+  const displayTextColorClass = overrideColors?.textColor || canvasTextColorClass;
 
   // Close on outside click
   useEffect(() => {
@@ -51,11 +84,9 @@ export default function ExportOptions({ targetRef }) {
     const scale = qualityMap[quality].scale;
 
     try {
-      // Get original dimensions
       const originalWidth = targetRef.current.offsetWidth;
       const originalHeight = targetRef.current.offsetHeight;
 
-      // Set scaling options
       const options = {
         quality: 1,
         pixelRatio: scale,
@@ -88,24 +119,17 @@ export default function ExportOptions({ targetRef }) {
 
     setIsExporting(true);
     try {
-      // Get SVG string from DOM
       const svgElement = targetRef.current.querySelector('svg');
       if (svgElement) {
-        // Clone to avoid modifying original
         const clonedSvg = svgElement.cloneNode(true);
-        // Add namespace
         clonedSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-        // Serialize
         const serializer = new XMLSerializer();
         let svgString = serializer.serializeToString(clonedSvg);
-        // Add XML declaration
         svgString = '<?xml version="1.0" encoding="UTF-8"?>\n' + svgString;
-        // Convert to data URL
         const dataUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgString);
         const filename = `glyphic-export-${Date.now()}.svg`;
         downloadFile(dataUrl, filename);
       } else {
-        // Fallback: use html-to-image for non-SVG content (but will produce PNG inside SVG wrapper, not ideal)
         const dataUrl = await htmlToImage.toSvg(targetRef.current, { quality: 1 });
         downloadFile(dataUrl, `glyphic-export-${Date.now()}.svg`);
       }
@@ -122,19 +146,15 @@ export default function ExportOptions({ targetRef }) {
     } else {
       exportAsSVG();
     }
-    // Optionally close panel after export
-    // setIsOpen(false);
+    setIsOpen(false);
   };
-
-  // Preview text
-  const previewText = `Quality: ${quality} • Format: ${format} • Theme: ${themeOverride}`;
 
   return (
     <div className="relative">
       {/* Export Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-1.5 px-2 py-1.5 bg-white/80 rounded-[7px] "
+        className="flex items-center gap-1.5 px-2 py-1.5 bg-white/80 rounded-[7px]"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -188,7 +208,7 @@ export default function ExportOptions({ targetRef }) {
                   {/* Quality Section */}
                   <div className="mb-5">
                     <h4 className="text-xs font-medium text-white/50 mb-2">Quality</h4>
-                    <div className="space-x-1.5  flex items-center justify-between">
+                    <div className="space-x-1.5 flex items-center justify-between">
                       {Object.entries(qualityMap).map(([key, val]) => (
                         <button
                           key={key}
@@ -210,34 +230,11 @@ export default function ExportOptions({ targetRef }) {
 
                   {/* Theme Override */}
                   <div className="mb-5">
-                    <h4 className="text-xs font-medium text-white/50  mb-2">Theme Override</h4>
-                    <div className="relative">
-                      <select
-                        value={themeOverride}
-                        onChange={e => setThemeOverride(e.target.value)}
-                        className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white/80 focus:outline-none focus:border-white/30 appearance-none cursor-pointer"
-                      >
-                        <option value="Current theme">Current theme</option>
-                        <option value="Light theme">Light theme</option>
-                        <option value="Dark theme">Dark theme</option>
-                        <option value="Sepia">Sepia</option>
-                      </select>
-                      <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
-                        <svg
-                          className="w-3 h-3 text-white/40"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M19 9l-7 7-7-7"
-                          />
-                        </svg>
-                      </div>
-                    </div>
+                    <h4 className="text-xs font-medium text-white/50 mb-2">Theme Override</h4>
+                    <ThemeOverride
+                      onThemeOverride={setOverrideColors}
+                      currentTheme={currentThemeObj}
+                    />
                   </div>
 
                   {/* Format */}
@@ -276,17 +273,26 @@ export default function ExportOptions({ targetRef }) {
 
               {/* Preview Box */}
               <div className="relative bottom-3 left-10">
-                <div className="flex items-center gap-1 mb-2">
-                  <FiImage className="text-white/40 text-sm" />
-                  <span className="text-[12px] font-medium text-white/30">Preview</span>
+                <div className="flex items-center relative right-10">
+                  <span className="text-[12px] font-medium text-white/80">Preview</span>
                 </div>
-                <div className="bg-white/5 p-3 text-center flex items-center justify-center h-[300px] w-[350px]">
-                  <p className="text-white/80 text-sm font-mono">{previewText}</p>
-                  {/* <p className="text-white/20 text-xs mt-2">hello</p> */}
+
+                <div className="text-center flex items-center justify-center h-[310px] w-[315px]">
+                  <Canvas
+                    inputValue={inputValue}
+                    canvasBG={displayBG}
+                    canvasTextColor={displayTextColor}
+                    canvasTextColorClass={displayTextColorClass}
+                    canvasFont={canvasFont}
+                    placeholderColor={placeholderColor}
+                    height="525px"
+                    canvasRadius={0}
+                    canvasFontSize={canvasFontSize}
+                    canvasTextPadding={canvasTextPadding}
+                  />
                 </div>
               </div>
             </div>
-            {/* end  */}
           </div>
         </div>
       )}

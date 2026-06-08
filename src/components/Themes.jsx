@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import { BiPlus, BiSearch } from 'react-icons/bi';
 import { IoColorPalette } from 'react-icons/io5';
 import { themes } from '../data/themes';
-export default function Themes() {
+export default function Themes({ onThemeSelect }) {
   const [themesPanel, setThemesPanel] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const themesMenu = useRef();
@@ -81,6 +81,7 @@ export default function Themes() {
                     className={`w-full h-33 text-left rounded-[8px]  ${theme.bgColor}`}
                     onClick={() => {
                       console.log('Selected theme:', theme.name);
+                      onThemeSelect(theme);
                       setThemesPanel(false);
                     }}
                   >

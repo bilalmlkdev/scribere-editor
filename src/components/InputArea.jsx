@@ -1,13 +1,11 @@
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 
-export default function InputArea({ onTextChange, initialValue = '' }) {
-  const [inputValue, setInputValue] = useState(initialValue);
+export default function InputArea({ inputValue, setInputValue }) {
   const textareaRef = useRef(null);
 
   const handleChange = e => {
     const newValue = e.target.value;
     setInputValue(newValue);
-    onTextChange?.(newValue);
   };
 
   return (

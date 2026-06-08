@@ -86,7 +86,7 @@ export default function ViewPorts() {
       {openMenu && (
         <div
           className="absolute top-full mt-0.5 right-0 min-w-[180px]
-                       bg-white/5 backdrop-blur-md
+                       bg-mauve-950 backdrop-blur-md
                        border-2 border-gray-200/10 rounded-[12px]
                        shadow-2xl shadow-black/50
                        overflow-hidden z-50 px-1

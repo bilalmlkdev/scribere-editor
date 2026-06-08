@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import ExportOptions from './ExportOptions';
 import Logo from './Logo';
 import Themes from './Themes';
@@ -7,6 +6,7 @@ import ViewPorts from './ViewPorts';
 export default function Navbar({
   targetRef,
   onThemeSelect,
+  onViewportChange,
   inputValue,
   canvasBG,
   canvasTextColor,
@@ -23,7 +23,7 @@ export default function Navbar({
 
       {/* right side */}
       <div className="flex items-center gap-1.5">
-        <ViewPorts />
+        <ViewPorts onViewportChange={onViewportChange} />
         <Themes onThemeSelect={onThemeSelect} />
         <span className="h-6 w-[1px] mx-1 bg-white/20"></span>
         <ExportOptions

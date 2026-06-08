@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { BiPlus, BiDownload } from 'react-icons/bi';
+import { BiPlus } from 'react-icons/bi';
 import * as htmlToImage from 'html-to-image';
 import Canvas from './Canvas';
 import ThemeOverride from './ThemeOverride';
@@ -17,6 +17,7 @@ export default function ExportOptions({
 }) {
   // targetRef is the ref of the design element to export
   const [isOpen, setIsOpen] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
   const [quality, setQuality] = useState('Standard');
   const [format, setFormat] = useState('PNG');
   const [overrideColors, setOverrideColors] = useState(null);
@@ -52,11 +53,21 @@ export default function ExportOptions({
   const displayTextColor = overrideColors?.textValue || canvasTextColor;
   const displayTextColorClass = overrideColors?.textColor || canvasTextColorClass;
 
+  const openPanel = () => {
+    setIsOpen(true);
+    setTimeout(() => setIsAnimating(true), 10);
+  };
+
+  const closePanel = () => {
+    setIsAnimating(false);
+    setTimeout(() => setIsOpen(false), 300);
+  };
+
   // Close on outside click
   useEffect(() => {
     const handleClickOutside = event => {
       if (panelRef.current && !panelRef.current.contains(event.target)) {
-        setIsOpen(false);
+        closePanel();
       }
     };
     if (isOpen) {
@@ -146,15 +157,15 @@ export default function ExportOptions({
     } else {
       exportAsSVG();
     }
-    setIsOpen(false);
+    closePanel();
   };
 
   return (
     <div className="relative">
       {/* Export Button */}
       <button
-        onClick={() => setIsOpen(true)}
-        className="flex items-center gap-1.5 px-2 py-1.5 bg-white/80 rounded-[7px]"
+        onClick={openPanel}
+        className="flex items-center gap-1.5 px-2 py-1.5 bg-white/80 rounded-[7px] hover:bg-white/90 transition-all duration-200 active:scale-95"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -180,121 +191,157 @@ export default function ExportOptions({
         <span className="text-[12px] font-medium text-black/90">Export</span>
       </button>
 
-      {/* Export Modal Panel */}
+      {/* Export Modal Panel with Animations */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+        <>
+          {/* Backdrop with fade animation */}
           <div
-            ref={panelRef}
-            className="w-full max-w-[980px] bg-black border-2 border-gray-200/10 rounded-[12px] shadow-2xl overflow-hidden p-5"
-          >
-            {/* Header */}
-            <div className="flex items-center justify-between px-5 py-4 mb-3 relative">
-              <div>
-                <h3 className="text-lg font-semibold text-white/90">Export Image</h3>
-                <p className="text-xs text-white/40 mt-0.5">Configure and download your design</p>
-              </div>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="w-7 h-7 flex items-center absolute -top-4 -right-4 justify-center rounded-lg hover:bg-white/10 transition-colors"
+            className={`fixed inset-0 z-50 transition-all duration-300 ease-out
+              ${isAnimating ? 'bg-black/60 backdrop-blur-sm' : 'bg-black/0 backdrop-blur-none'}`}
+            onClick={closePanel}
+          />
+
+          {/* Modal Container */}
+          <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
+            <div
+              ref={panelRef}
+              className={`w-full max-w-[980px] bg-black border-2 border-gray-200/10 rounded-[12px] shadow-2xl p-5 pointer-events-auto
+                transition-all duration-300 ease-out
+                ${
+                  isAnimating
+                    ? 'opacity-100 scale-100 translate-y-0'
+                    : 'opacity-0 scale-95 translate-y-4'
+                }`}
+            >
+              {/* Header with slide animation */}
+              <div
+                className={`flex items-center justify-between px-5 py-4 mb-3 relative
+                transition-all duration-300 delay-75
+                ${isAnimating ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}
               >
-                <BiPlus className="rotate-45 text-white/70 text-xl" />
-              </button>
-            </div>
-            {/* main Content */}
-            <div className="grid grid-cols-2 gap-x-5 px-5">
-              {/* left side */}
-              <div className="flex flex-col items-start">
-                <div className="w-full">
-                  {/* Quality Section */}
-                  <div className="mb-5">
-                    <h4 className="text-xs font-medium text-white/50 mb-2">Quality</h4>
-                    <div className="space-x-1.5 flex items-center justify-between">
-                      {Object.entries(qualityMap).map(([key, val]) => (
-                        <button
-                          key={key}
-                          onClick={() => setQuality(key)}
-                          className={`w-full flex flex-col items-center justify-between gap-2 px-3 py-2.5 rounded-[5px] transition-all ${
-                            quality === key
-                              ? 'bg-white/10 border border-white/20'
-                              : 'bg-transparent border border-white/5 hover:bg-white/5'
-                          }`}
-                        >
-                          <span className="text-sm font-medium text-white/80">{key}</span>
-                          <span className="text-xs text-white/40">
-                            {val.label} - {val.size}
-                          </span>
-                        </button>
-                      ))}
+                <div>
+                  <h3 className="text-lg font-semibold text-white/90">Export Image</h3>
+                  <p className="text-xs text-white/40 mt-0.5">Configure and download your design</p>
+                </div>
+                <button
+                  onClick={closePanel}
+                  className="w-7 h-7 flex items-center absolute -top-4 -right-4 justify-center rounded-lg hover:bg-white/10 transition-colors active:scale-90"
+                >
+                  <BiPlus className="rotate-45 text-white/70 text-xl" />
+                </button>
+              </div>
+
+              {/* main Content with stagger animation */}
+              <div className="grid grid-cols-2 gap-x-5 px-5">
+                {/* left side */}
+                <div className="flex flex-col items-start">
+                  <div className="w-full">
+                    {/* Quality Section */}
+                    <div
+                      className={`mb-5 transition-all duration-300 delay-100
+                      ${isAnimating ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+                    >
+                      <h4 className="text-xs font-medium text-white/50 mb-2">Quality</h4>
+                      <div className="space-x-1.5 flex items-center justify-between">
+                        {Object.entries(qualityMap).map(([key, val]) => (
+                          <button
+                            key={key}
+                            onClick={() => setQuality(key)}
+                            className={`w-full flex flex-col items-center justify-between gap-2 px-3 py-2.5 rounded-[5px] transition-all duration-200 hover:scale-[1.02] active:scale-95 ${
+                              quality === key
+                                ? 'bg-white/80 text-black border border-white/20'
+                                : 'bg-transparent border border-gray-200/20 hover:bg-white/5'
+                            }`}
+                          >
+                            <span className="text-sm font-medium">{key}</span>
+                            <span className="text-xs">
+                              {val.label} - {val.size}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Theme Override */}
+                    <div
+                      className={`mb-5 transition-all duration-300 delay-150
+                      ${isAnimating ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+                    >
+                      <h4 className="text-xs font-medium text-white/50 mb-2">Theme Override</h4>
+                      <ThemeOverride
+                        onThemeOverride={setOverrideColors}
+                        currentTheme={currentThemeObj}
+                      />
+                    </div>
+
+                    {/* Format */}
+                    <div
+                      className={`transition-all duration-300 delay-200
+                      ${isAnimating ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+                    >
+                      <h4 className="text-xs font-medium text-white/50 mb-2">Format</h4>
+                      <div className="flex gap-2">
+                        {['PNG', 'SVG'].map(fmt => (
+                          <button
+                            key={fmt}
+                            onClick={() => setFormat(fmt)}
+                            className={`flex-1 py-2 rounded-[5px] text-sm font-medium transition-all duration-200 hover:scale-[1.02] active:scale-95 ${
+                              format === fmt
+                                ? 'bg-white/80 text-black'
+                                : 'bg-white/5 text-white/60 hover:bg-white/10'
+                            }`}
+                          >
+                            {fmt}
+                          </button>
+                        ))}
+                      </div>
                     </div>
                   </div>
 
-                  {/* Theme Override */}
-                  <div className="mb-5">
-                    <h4 className="text-xs font-medium text-white/50 mb-2">Theme Override</h4>
-                    <ThemeOverride
-                      onThemeOverride={setOverrideColors}
-                      currentTheme={currentThemeObj}
+                  {/* Export Button Footer */}
+                  <div
+                    className={`py-4 border-t w-full border-white/10 flex justify-end mt-4
+                    transition-all duration-300 delay-250
+                    ${isAnimating ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+                  >
+                    <button
+                      onClick={handleExport}
+                      disabled={isExporting}
+                      className="flex items-center justify-center gap-2 w-full text-center px-5 py-2 bg-white/80 rounded-[5px] hover:bg-white/90 transition-all duration-200 active:scale-95 text-black font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <span>{isExporting ? 'Exporting...' : `Export ${format}`}</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Preview Box */}
+                <div
+                  className={`relative bottom-3 left-10 transition-all duration-300 delay-100
+                  ${isAnimating ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
+                >
+                  <div className="flex items-center relative right-10">
+                    <span className="text-[12px] font-medium text-white/80">Preview</span>
+                  </div>
+
+                  <div className="text-center flex items-center justify-center h-[310px] w-[315px]">
+                    <Canvas
+                      inputValue={inputValue}
+                      canvasBG={displayBG}
+                      canvasTextColor={displayTextColor}
+                      canvasTextColorClass={displayTextColorClass}
+                      canvasFont={canvasFont}
+                      placeholderColor={placeholderColor}
+                      height="525px"
+                      canvasRadius={0}
+                      canvasFontSize={canvasFontSize}
+                      canvasTextPadding={canvasTextPadding}
                     />
                   </div>
-
-                  {/* Format */}
-                  <div>
-                    <h4 className="text-xs font-medium text-white/50 mb-2">Format</h4>
-                    <div className="flex gap-2">
-                      {['PNG', 'SVG'].map(fmt => (
-                        <button
-                          key={fmt}
-                          onClick={() => setFormat(fmt)}
-                          className={`flex-1 py-2 rounded-[5px] text-sm font-medium transition-all ${
-                            format === fmt
-                              ? 'bg-white text-black'
-                              : 'bg-white/5 text-white/60 hover:bg-white/10'
-                          }`}
-                        >
-                          {fmt}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Export Button Footer */}
-                <div className="py-4 border-t w-full border-white/10 flex justify-end">
-                  <button
-                    onClick={handleExport}
-                    disabled={isExporting}
-                    className="flex items-center justify-center gap-2 w-full text-center px-5 py-2 bg-white rounded-[5px] hover:bg-white/90 transition-all text-black font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    <BiDownload size={14} />
-                    <span>{isExporting ? 'Exporting...' : `Export ${format}`}</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* Preview Box */}
-              <div className="relative bottom-3 left-10">
-                <div className="flex items-center relative right-10">
-                  <span className="text-[12px] font-medium text-white/80">Preview</span>
-                </div>
-
-                <div className="text-center flex items-center justify-center h-[310px] w-[315px]">
-                  <Canvas
-                    inputValue={inputValue}
-                    canvasBG={displayBG}
-                    canvasTextColor={displayTextColor}
-                    canvasTextColorClass={displayTextColorClass}
-                    canvasFont={canvasFont}
-                    placeholderColor={placeholderColor}
-                    height="525px"
-                    canvasRadius={0}
-                    canvasFontSize={canvasFontSize}
-                    canvasTextPadding={canvasTextPadding}
-                  />
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </>
       )}
     </div>
   );

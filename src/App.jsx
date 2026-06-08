@@ -13,14 +13,33 @@ export default function App() {
   const [selectedFont, setSelectedFont] = useState(defaultFont);
   const [lineHeight, setLineHeight] = useState(2.0);
 
-  // Derived values from current theme
-  const canvasBG = currentTheme.bgColor;
-  const canvasTextColor = currentTheme.textValue;
-  const canvasTextColorClass = currentTheme.textColor;
+  // Custom theme colors state
+  const [customBgColor, setCustomBgColor] = useState('#0f3460');
+  const [customTextColor, setCustomTextColor] = useState('#e0e0e0');
+  const [textureIntensity, setTextureIntensity] = useState(65);
+  const [useCustomColors, setUseCustomColors] = useState(false);
+
+  // Derived values - for custom colors we use inline styles, for themes we use Tailwind classes
+  const useCustom = useCustomColors;
+  const canvasBgColor = useCustom ? customBgColor : null;
+  const canvasTextColorValue = useCustom ? customTextColor : currentTheme.textValue;
+  const canvasBgClass = !useCustom ? currentTheme.bgColor : '';
+  const canvasTextColorClass = !useCustom ? currentTheme.textColor : '';
   const placeholderColor = currentTheme.placeholderColor || 'text-gray-400';
 
   const handleCanvasColors = theme => {
     setCurrentTheme(theme);
+    setUseCustomColors(false);
+  };
+
+  const handleThemeColorsChange = ({ bg, text }) => {
+    setCustomBgColor(bg);
+    setCustomTextColor(text);
+    setUseCustomColors(true);
+  };
+
+  const handleTextureChange = intensity => {
+    setTextureIntensity(intensity);
   };
 
   const handleViewportChange = size => {
@@ -37,26 +56,22 @@ export default function App() {
     setLineHeight(value);
   };
 
-  // drop cap logic
   const [dropCap, setDropCap] = useState(false);
 
   const handleDropCapChange = value => {
     setDropCap(value);
   };
 
-  // canvas padding
   const [canvasTextPadding, setCanvasTextPadding] = useState(52);
 
   const handlePaddingChange = value => {
     setCanvasTextPadding(value);
   };
 
-  // Append kaomoji to input value
   const handleKaomojiInsert = emoji => {
     setInputValue(prev => prev + emoji);
   };
 
-  // handle decorations
   const handleDecorationInsert = symbol => {
     setInputValue(prev => prev + symbol);
   };
@@ -69,17 +84,22 @@ export default function App() {
           onViewportChange={handleViewportChange}
           targetRef={canvasRef}
           inputValue={inputValue}
-          canvasBG={canvasBG}
-          canvasTextColor={canvasTextColor}
+          canvasBG={canvasBgClass}
+          canvasTextColor={canvasTextColorValue}
           canvasTextColorClass={canvasTextColorClass}
           canvasFont={selectedFont.fontFamily}
           placeholderColor={placeholderColor}
           canvasFontSize={18}
           canvasTextPadding={30}
+          useCustomColors={useCustom}
+          customBgColor={customBgColor}
+          customTextColor={customTextColor}
+          textureIntensity={textureIntensity}
+          lineHeight={lineHeight}
+          dropCap={dropCap}
         />
 
         <div className="grid grid-cols-2 flex-1 min-h-0">
-          {/* Left Column */}
           <div className="flex flex-col gap-3 h-full min-h-0">
             <div className="flex-shrink-0">
               <CanvasControls
@@ -93,24 +113,27 @@ export default function App() {
                 currentPadding={canvasTextPadding}
                 onKaomojiInsert={handleKaomojiInsert}
                 onDecorationInsert={handleDecorationInsert}
+                onThemeColorsChange={handleThemeColorsChange}
+                currentBg={customBgColor}
+                currentText={customTextColor}
+                onTextureChange={handleTextureChange}
+                currentTexture={textureIntensity}
               />
             </div>
 
-            {/* Input Area */}
             <div className="flex-1 min-h-0">
               <InputArea inputValue={inputValue} setInputValue={setInputValue} />
             </div>
           </div>
 
-          {/* Right Column */}
           <div className="flex flex-col gap-3 h-full min-h-0">
-            {/* Canvas Area */}
             <div className="flex-1 min-h-0 border-l border-gray-200/20 flex items-center justify-center p-3">
               <Canvas
                 targetRef={canvasRef}
                 inputValue={inputValue}
-                canvasBG={canvasBG}
-                canvasTextColor={canvasTextColor}
+                canvasBgColor={canvasBgColor}
+                canvasBgClass={canvasBgClass}
+                canvasTextColor={canvasTextColorValue}
                 canvasTextColorClass={canvasTextColorClass}
                 canvasFont={selectedFont.fontFamily}
                 placeholderColor={placeholderColor}
@@ -118,10 +141,11 @@ export default function App() {
                 canvasHeight={viewportSize.height}
                 canvasRadius={18}
                 canvasFontSize={28}
-                canvasTextPadding={52}
+                canvasTextPadding={canvasTextPadding}
                 lineHeight={lineHeight}
                 dropCap={dropCap}
-                canvasTextPadding={canvasTextPadding}
+                textureIntensity={textureIntensity}
+                useCustomColors={useCustom}
               />
             </div>
           </div>

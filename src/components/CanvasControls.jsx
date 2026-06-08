@@ -4,6 +4,7 @@ import DropCap from './DropCap';
 import Padding from './Padding';
 import KaomojiSelector from './KaomojiSelector';
 import Decorations from './Decorations';
+import ThemeColors from './ThemeColors';
 
 export default function CanvasControls({
   onFontChange,
@@ -16,9 +17,21 @@ export default function CanvasControls({
   currentPadding,
   onKaomojiInsert,
   onDecorationInsert,
+  onThemeColorsChange,
+  currentBg,
+  currentText,
+  onTextureChange,
+  currentTexture,
 }) {
   return (
     <div className="px-4 border-b border-white/20 w-full pt-4.5 pb-4.5 flex items-center gap-3 flex-wrap">
+      <ThemeColors
+        onThemeChange={onThemeColorsChange}
+        currentBg={currentBg}
+        currentText={currentText}
+        onTextureChange={onTextureChange}
+        currentTexture={currentTexture}
+      />
       <FontSelector onFontChange={onFontChange} currentFont={{ fontFamily: canvasFont }} />
       <LineHeight onLineHeightChange={onLineHeightChange} currentLineHeight={currentLineHeight} />
       <DropCap onDropCapChange={onDropCapChange} currentDropCap={currentDropCap} />

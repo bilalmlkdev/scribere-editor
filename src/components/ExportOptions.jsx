@@ -14,8 +14,14 @@ export default function ExportOptions({
   placeholderColor,
   canvasFontSize,
   canvasTextPadding,
+  // New props for custom colors
+  useCustomColors = false,
+  customBgColor = null,
+  customTextColor = null,
+  textureIntensity = 65,
+  lineHeight = 2.0,
+  dropCap = false,
 }) {
-  // targetRef is the ref of the design element to export
   const [isOpen, setIsOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [quality, setQuality] = useState('Standard');
@@ -24,7 +30,6 @@ export default function ExportOptions({
   const [isExporting, setIsExporting] = useState(false);
   const panelRef = useRef(null);
 
-  // Quality multipliers and dimensions
   const qualityMap = {
     Standard: { scale: 2, label: '2x', size: '2160×2160' },
     High: { scale: 3, label: '3x', size: '3240×3240' },
@@ -35,7 +40,8 @@ export default function ExportOptions({
   const currentThemeObj = {
     bgColor: canvasBG,
     bgValue:
-      canvasBG === 'bg-white'
+      customBgColor ||
+      (canvasBG === 'bg-white'
         ? '#FFFFFF'
         : canvasBG === 'bg-black'
           ? '#000000'
@@ -43,15 +49,32 @@ export default function ExportOptions({
             ? '#111827'
             : canvasBG === 'bg-rose-50'
               ? '#FFF1F2'
-              : '#0F172A',
+              : '#0F172A'),
     textColor: canvasTextColorClass,
-    textValue: canvasTextColor,
+    textValue: customTextColor || canvasTextColor,
   };
 
-  // Use override colors if available, otherwise use original props
-  const displayBG = overrideColors?.bgColor || canvasBG;
-  const displayTextColor = overrideColors?.textValue || canvasTextColor;
-  const displayTextColorClass = overrideColors?.textColor || canvasTextColorClass;
+  // Use override colors if available
+  const getDisplayProps = () => {
+    if (overrideColors) {
+      return {
+        bgClass: overrideColors.bgColor,
+        bgColorValue: overrideColors.bgValue,
+        textColorValue: overrideColors.textValue,
+        textColorClass: overrideColors.textColor,
+        isCustom: overrideColors.id !== 'current',
+      };
+    }
+    return {
+      bgClass: canvasBG,
+      bgColorValue: customBgColor,
+      textColorValue: customTextColor,
+      textColorClass: canvasTextColorClass,
+      isCustom: useCustomColors,
+    };
+  };
+
+  const displayProps = getDisplayProps();
 
   const openPanel = () => {
     setIsOpen(true);
@@ -63,7 +86,6 @@ export default function ExportOptions({
     setTimeout(() => setIsOpen(false), 300);
   };
 
-  // Close on outside click
   useEffect(() => {
     const handleClickOutside = event => {
       if (panelRef.current && !panelRef.current.contains(event.target)) {
@@ -76,7 +98,6 @@ export default function ExportOptions({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isOpen]);
 
-  // Helper: download file
   const downloadFile = (data, filename) => {
     const link = document.createElement('a');
     link.download = filename;
@@ -84,7 +105,6 @@ export default function ExportOptions({
     link.click();
   };
 
-  // Export PNG with scaling
   const exportAsPNG = async () => {
     if (!targetRef?.current) {
       console.error('Target element not found');
@@ -121,7 +141,6 @@ export default function ExportOptions({
     }
   };
 
-  // Export SVG
   const exportAsSVG = async () => {
     if (!targetRef?.current) {
       console.error('Target element not found');
@@ -162,7 +181,6 @@ export default function ExportOptions({
 
   return (
     <div className="relative">
-      {/* Export Button */}
       <button
         onClick={openPanel}
         className="flex items-center gap-1.5 px-2 py-1.5 bg-white/80 rounded-[7px] hover:bg-white/90 transition-all duration-200 active:scale-95"
@@ -191,29 +209,21 @@ export default function ExportOptions({
         <span className="text-[12px] font-medium text-black/90">Export</span>
       </button>
 
-      {/* Export Modal Panel with Animations */}
       {isOpen && (
         <>
-          {/* Backdrop with fade animation */}
           <div
             className={`fixed inset-0 z-50 transition-all duration-300 ease-out
               ${isAnimating ? 'bg-black/60 backdrop-blur-sm' : 'bg-black/0 backdrop-blur-none'}`}
             onClick={closePanel}
           />
 
-          {/* Modal Container */}
           <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
             <div
               ref={panelRef}
               className={`w-full max-w-[980px] bg-black border-2 border-gray-200/10 rounded-[12px] shadow-2xl p-5 pointer-events-auto
                 transition-all duration-300 ease-out
-                ${
-                  isAnimating
-                    ? 'opacity-100 scale-100 translate-y-0'
-                    : 'opacity-0 scale-95 translate-y-4'
-                }`}
+                ${isAnimating ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-4'}`}
             >
-              {/* Header with slide animation */}
               <div
                 className={`flex items-center justify-between px-5 py-4 mb-3 relative
                 transition-all duration-300 delay-75
@@ -231,12 +241,9 @@ export default function ExportOptions({
                 </button>
               </div>
 
-              {/* main Content with stagger animation */}
               <div className="grid grid-cols-2 gap-x-5 px-5">
-                {/* left side */}
                 <div className="flex flex-col items-start">
                   <div className="w-full">
-                    {/* Quality Section */}
                     <div
                       className={`mb-5 transition-all duration-300 delay-100
                       ${isAnimating ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
@@ -262,7 +269,6 @@ export default function ExportOptions({
                       </div>
                     </div>
 
-                    {/* Theme Override */}
                     <div
                       className={`mb-5 transition-all duration-300 delay-150
                       ${isAnimating ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
@@ -274,7 +280,6 @@ export default function ExportOptions({
                       />
                     </div>
 
-                    {/* Format */}
                     <div
                       className={`transition-all duration-300 delay-200
                       ${isAnimating ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
@@ -298,7 +303,6 @@ export default function ExportOptions({
                     </div>
                   </div>
 
-                  {/* Export Button Footer */}
                   <div
                     className={`py-4 border-t w-full border-white/10 flex justify-end mt-4
                     transition-all duration-300 delay-250
@@ -326,15 +330,23 @@ export default function ExportOptions({
                   <div className="text-center flex items-center justify-center h-[310px] w-[315px]">
                     <Canvas
                       inputValue={inputValue}
-                      canvasBG={displayBG}
-                      canvasTextColor={displayTextColor}
-                      canvasTextColorClass={displayTextColorClass}
+                      canvasBgColor={displayProps.isCustom ? displayProps.bgColorValue : null}
+                      canvasBgClass={!displayProps.isCustom ? displayProps.bgClass : ''}
+                      canvasTextColor={displayProps.textColorValue}
+                      canvasTextColorClass={
+                        !displayProps.isCustom ? displayProps.textColorClass : ''
+                      }
                       canvasFont={canvasFont}
                       placeholderColor={placeholderColor}
-                      height="525px"
+                      canvasWidth={280}
+                      canvasHeight={280}
                       canvasRadius={0}
                       canvasFontSize={canvasFontSize}
                       canvasTextPadding={canvasTextPadding}
+                      lineHeight={lineHeight}
+                      dropCap={dropCap}
+                      textureIntensity={textureIntensity}
+                      useCustomColors={displayProps.isCustom}
                     />
                   </div>
                 </div>

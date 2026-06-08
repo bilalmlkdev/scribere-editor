@@ -15,6 +15,12 @@ export default function Navbar({
   placeholderColor,
   canvasFontSize = 16,
   canvasTextPadding = 30,
+  useCustomColors = false,
+  customBgColor = null,
+  customTextColor = null,
+  textureIntensity = 65,
+  lineHeight = 2.0,
+  dropCap = false,
 }) {
   return (
     <nav className="flex items-center justify-between h-12 w-full max-w-full px-4 border-b border-white/20">
@@ -36,6 +42,12 @@ export default function Navbar({
           placeholderColor={placeholderColor}
           canvasFontSize={canvasFontSize}
           canvasTextPadding={canvasTextPadding}
+          useCustomColors={useCustomColors}
+          customBgColor={customBgColor}
+          customTextColor={customTextColor}
+          textureIntensity={textureIntensity}
+          lineHeight={lineHeight}
+          dropCap={dropCap}
         />
       </div>
     </nav>

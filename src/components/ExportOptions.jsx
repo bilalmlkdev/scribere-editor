@@ -187,9 +187,7 @@ export default function ExportOptions({ targetRef }) {
                 <div className="w-full">
                   {/* Quality Section */}
                   <div className="mb-5">
-                    <h4 className="text-xs font-semibold text-white/50 uppercase tracking-wider mb-2">
-                      Quality
-                    </h4>
+                    <h4 className="text-xs font-medium text-white/50 mb-2">Quality</h4>
                     <div className="space-x-1.5  flex items-center justify-between">
                       {Object.entries(qualityMap).map(([key, val]) => (
                         <button
@@ -212,9 +210,7 @@ export default function ExportOptions({ targetRef }) {
 
                   {/* Theme Override */}
                   <div className="mb-5">
-                    <h4 className="text-xs font-semibold text-white/50 uppercase tracking-wider mb-2">
-                      Theme Override
-                    </h4>
+                    <h4 className="text-xs font-medium text-white/50  mb-2">Theme Override</h4>
                     <div className="relative">
                       <select
                         value={themeOverride}
@@ -246,9 +242,7 @@ export default function ExportOptions({ targetRef }) {
 
                   {/* Format */}
                   <div>
-                    <h4 className="text-xs font-semibold text-white/50 uppercase tracking-wider mb-2">
-                      Format
-                    </h4>
+                    <h4 className="text-xs font-medium text-white/50 mb-2">Format</h4>
                     <div className="flex gap-2">
                       {['PNG', 'SVG'].map(fmt => (
                         <button
@@ -282,11 +276,9 @@ export default function ExportOptions({ targetRef }) {
 
               {/* Preview Box */}
               <div className="relative bottom-3 left-10">
-                <div className="flex items-center gap-2 mb-2">
+                <div className="flex items-center gap-1 mb-2">
                   <FiImage className="text-white/40 text-sm" />
-                  <span className="text-[10px] text-white/30 uppercase tracking-wider">
-                    Preview
-                  </span>
+                  <span className="text-[12px] font-medium text-white/30">Preview</span>
                 </div>
                 <div className="bg-white/5 p-3 text-center flex items-center justify-center h-[300px] w-[350px]">
                   <p className="text-white/80 text-sm font-mono">{previewText}</p>

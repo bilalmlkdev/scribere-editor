@@ -53,7 +53,7 @@ export default function ThemeColors({
   currentBg = '#0f3460',
   currentText = '#e0e0e0',
   onTextureChange,
-  currentTexture = 65,
+  currentTexture = 20,
 }) {
   const [openMenu, setOpenMenu] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);

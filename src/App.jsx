@@ -16,7 +16,7 @@ export default function App() {
   // Custom theme colors state
   const [customBgColor, setCustomBgColor] = useState('#0f3460');
   const [customTextColor, setCustomTextColor] = useState('#e0e0e0');
-  const [textureIntensity, setTextureIntensity] = useState(65);
+  const [textureIntensity, setTextureIntensity] = useState(20);
   const [useCustomColors, setUseCustomColors] = useState(false);
 
   // Derived values - for custom colors we use inline styles, for themes we use Tailwind classes

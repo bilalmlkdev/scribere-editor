@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { FaRegSquare, FaMobileAlt, FaTabletAlt, FaDesktop, FaChevronDown } from 'react-icons/fa';
+import { useState, useRef, useEffect } from 'react';
+import { FaRegSquare, FaMobileAlt, FaTabletAlt, FaDesktop } from 'react-icons/fa';
 import { MdPortrait, MdLandscape } from 'react-icons/md';
 
 export default function ViewPorts() {
@@ -70,40 +70,28 @@ export default function ViewPorts() {
       {/* Trigger Button */}
       <button
         onClick={() => setOpenMenu(!openMenu)}
-        className="flex items-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/10
-                   border border-white/10 hover:border-white/20
+        className="flex items-center gap-1.5 px-2 py-[7px] bg-white/5
+                   border border-white/10
                    rounded-[8px] transition-all duration-200
                    backdrop-blur-sm group"
       >
         <span className="text-white/80 group-hover:text-white transition-colors">
           {selectedOption?.icon || <FaRegSquare size={14} />}
         </span>
-        <span className="text-[13px] font-medium text-white/90">{option}</span>
-        <span className="text-[11px] text-white/40 font-mono">{selectedOption?.ratio}</span>
-        <FaChevronDown
-          size={10}
-          className={`text-white/50 transition-transform duration-200
-                     ${openMenu ? 'rotate-180' : ''}`}
-        />
+        <span className="text-[12px] font-medium text-white/90">{option}</span>
+        <span className="text-[11px] ">({selectedOption?.ratio})</span>
       </button>
 
       {/* Dropdown Menu */}
       {openMenu && (
         <div
-          className="absolute top-full mt-2 right-0 min-w-[180px]
-                       bg-[#0a0a0f]/90 backdrop-blur-md
-                       border border-white/10 rounded-xl
+          className="absolute top-full mt-0.5 right-0 min-w-[180px]
+                       bg-white/5 backdrop-blur-md
+                       border-2 border-gray-200/10 rounded-[12px]
                        shadow-2xl shadow-black/50
-                       overflow-hidden z-50
-                       animate-in fade-in slide-in-from-top-2 duration-200"
+                       overflow-hidden z-50 px-1
+                       animate-in fade-in slide-in-from-top-10 duration-600"
         >
-          {/* Header */}
-          <div className="px-3 py-2 border-b border-white/5">
-            <span className="text-[10px] font-medium text-white/40 uppercase tracking-wider">
-              Viewport Presets
-            </span>
-          </div>
-
           {/* Options */}
           <div className="py-1">
             {options.map(opt => (
@@ -114,8 +102,8 @@ export default function ViewPorts() {
                   setOpenMenu(false);
                 }}
                 className={`
-                  w-full flex items-center justify-between px-3 py-2.5
-                  transition-all duration-150
+                  w-full flex items-center justify-between px-3 py-1.5
+                  transition-all duration-150 rounded-[8px] mb-0.5
                   ${
                     option === opt.id
                       ? 'bg-white/10 text-white'
@@ -132,20 +120,15 @@ export default function ViewPorts() {
                   >
                     {opt.icon}
                   </span>
-                  <span className="text-[13px] font-medium">{opt.label}</span>
+                  <span className="text-[12px] font-medium">{opt.label}</span>
+                  <span className="text-[10px]">({opt.ratio})</span>
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-mono text-white/30">{opt.ratio}</span>
-                  {option === opt.id && <span className="w-1.5 h-1.5 rounded-full bg-white/60" />}
+                  {option === opt.id && <span className="text-white text-[10px]">✓</span>}
                 </div>
               </button>
             ))}
-          </div>
-
-          {/* Footer hint */}
-          <div className="px-3 py-1.5 border-t border-white/5">
-            <span className="text-[9px] text-white/25 font-mono">⌘ + K to change</span>
           </div>
         </div>
       )}

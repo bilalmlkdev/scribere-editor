@@ -90,7 +90,7 @@ const Canvas = forwardRef(
       canvasTextPadding = 52,
       lineHeight = 2.0,
       dropCap = false,
-      textureIntensity = 65,
+      textureIntensity,
       useCustomColors = false,
     },
     ref,

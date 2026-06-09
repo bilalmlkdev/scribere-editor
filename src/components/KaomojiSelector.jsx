@@ -151,11 +151,10 @@ export default function KaomojiSelector({ onInsert, currentText = '' }) {
       {/* Trigger Button */}
       <button
         onClick={toggleMenu}
-        className="flex items-center gap-1.5 px-2 py-[7px] bg-white/5 border border-white/10 rounded-[8px] transition-all duration-200 backdrop-blur-sm group hover:bg-white/10 active:scale-95"
+        className="flex items-center gap-1.5 px-2 py-[7px] bg-white/5 border border-white/10 rounded-[8px] transition-all duration-200 group"
       >
-        <FaRegSmile size={14} className="text-white/80 group-hover:text-white transition-colors" />
+        <span className="text-[10px]">(◕‿◕✿)</span>
         <span className="text-[12px] font-medium text-white/80">Kaomoji</span>
-        <TbCaretUpDownFilled size={14} className="text-white/50" />
       </button>
 
       {/* Dropdown Menu */}

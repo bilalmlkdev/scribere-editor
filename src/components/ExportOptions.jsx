@@ -18,7 +18,7 @@ export default function ExportOptions({
   useCustomColors = false,
   customBgColor = null,
   customTextColor = null,
-  textureIntensity = 65,
+  textureIntensity,
   lineHeight = 2.0,
   dropCap = false,
 }) {

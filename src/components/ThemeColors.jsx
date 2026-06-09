@@ -53,7 +53,7 @@ export default function ThemeColors({
   currentBg = '#0f3460',
   currentText = '#e0e0e0',
   onTextureChange,
-  currentTexture = 20,
+  currentTexture,
 }) {
   const [openMenu, setOpenMenu] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -145,18 +145,16 @@ export default function ThemeColors({
       {/* Trigger Button */}
       <button
         onClick={toggleMenu}
-        className="flex items-center gap-1.5 px-2 py-[7px] bg-white/5 border border-white/10 rounded-[8px] transition-all duration-200 backdrop-blur-sm group hover:bg-white/10 active:scale-95"
+        className="flex items-center justify-center px-3 py-[10px] bg-white/5 border border-white/10 rounded-[8px] transition-all duration-200  group "
       >
-        <IoColorPalette
-          size={14}
-          className="text-white/80 group-hover:text-white transition-colors"
-        />
-        <span className="text-[12px] font-medium text-white/80">Theme Colors</span>
         <div
-          className="w-3 h-3 rounded-full border border-white/30"
+          className="w-[14px] h-[14px] rounded-full border border-white/30 relative left-[1px]"
           style={{ backgroundColor: bgColor }}
         />
-        <TbCaretUpDownFilled size={14} className="text-white/50" />
+        <div
+          className="w-[14px] h-[14px] rounded-full border border-white/30 relative right-[1px]"
+          style={{ backgroundColor: textColor }}
+        />
       </button>
 
       {/* Dropdown Menu */}

@@ -24,7 +24,11 @@ export default function CanvasControls({
   currentTexture,
 }) {
   return (
-    <div className="px-4 border-b border-white/20 w-full pt-4.5 pb-4.5 flex items-center gap-3 flex-wrap">
+    <div className="px-4 border-b border-white/20 w-full pt-3.5 pb-3 flex items-center gap-2 flex-wrap">
+      <FontSelector onFontChange={onFontChange} currentFont={{ fontFamily: canvasFont }} />
+
+      <LineHeight onLineHeightChange={onLineHeightChange} currentLineHeight={currentLineHeight} />
+      <DropCap onDropCapChange={onDropCapChange} currentDropCap={currentDropCap} />
       <ThemeColors
         onThemeChange={onThemeColorsChange}
         currentBg={currentBg}
@@ -32,9 +36,6 @@ export default function CanvasControls({
         onTextureChange={onTextureChange}
         currentTexture={currentTexture}
       />
-      <FontSelector onFontChange={onFontChange} currentFont={{ fontFamily: canvasFont }} />
-      <LineHeight onLineHeightChange={onLineHeightChange} currentLineHeight={currentLineHeight} />
-      <DropCap onDropCapChange={onDropCapChange} currentDropCap={currentDropCap} />
       <Padding onPaddingChange={onPaddingChange} currentPadding={currentPadding} />
       <KaomojiSelector onInsert={onKaomojiInsert} />
       <Decorations onInsert={onDecorationInsert} />

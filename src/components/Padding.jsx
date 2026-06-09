@@ -60,15 +60,12 @@ export default function Padding({ onPaddingChange, currentPadding = 52 }) {
       {/* Trigger Button */}
       <button
         onClick={toggleMenu}
-        className="flex items-center gap-1.5 px-2 py-[7px] bg-white/5 border border-white/10 rounded-[8px] transition-all duration-200 backdrop-blur-sm group hover:bg-white/10 active:scale-95"
+        className="flex items-center gap-1.5 px-2 py-[7px] bg-white/5 border border-white/10 rounded-[5px] transition-all duration-200 group"
       >
         <RxPadding
-          size={14}
-          className="text-white/80 group-hover:text-white transition-colors mb-[1px]"
+          size={16}
+          className="text-white group-hover:text-white transition-colors mb-[1px]"
         />
-        <span className="text-[12px] font-medium text-white/80">Padding</span>
-        <span className="text-[12px] font-medium text-white/90 ml-1">{padding}px</span>
-        <TbCaretUpDownFilled size={14} className="text-white/50" />
       </button>
 
       {/* Dropdown Menu with Slider */}

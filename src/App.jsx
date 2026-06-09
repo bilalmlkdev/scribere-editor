@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import Navbar from './components/navbar/Navbar';
+import Navbar from './components/nav/Navbar';
 import InputArea from './components/InputArea';
 import CanvasControls from './components/controls/CanvasControls';
 import Canvas from './components/Canvas';
@@ -26,7 +26,6 @@ export default function App() {
   const [customTextColor, setCustomTextColor] = useState('#e0e0e0');
   const [textureIntensity, setTextureIntensity] = useState(0);
   const [useCustomColors, setUseCustomColors] = useState(false);
-
   // Floating Context Toolbar Location Engine States
   const [toolbarState, setToolbarState] = useState({
     visible: false,

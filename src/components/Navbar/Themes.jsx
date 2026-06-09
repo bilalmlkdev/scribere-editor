@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { BiPlus, BiSearch } from 'react-icons/bi';
 import { IoColorPalette } from 'react-icons/io5';
-import { themes } from '../data/themes';
+import { themes } from '../../data/themes';
 
 export default function Themes({ onThemeSelect }) {
   const [themesPanel, setThemesPanel] = useState(false);
@@ -38,11 +38,11 @@ export default function Themes({ onThemeSelect }) {
   return (
     <div className="relative" ref={themesMenu}>
       <button
-        className="flex items-center gap-1 bg-white/5 border border-white/10 px-1.5 py-[7px] rounded-[8px] hover:bg-white/10 transition-all duration-200 active:scale-95"
+        className="flex items-center gap-1 bg-gray-100/10 border border-white/5 px-2 py-[6px] rounded-[7px] "
         onClick={openPanel}
       >
         <IoColorPalette size={14} className="text-white/80" />
-        <span className="text-[13px] font-medium text-white/90">Themes</span>
+        <span className="text-[12px] font-medium text-white">Themes</span>
       </button>
 
       {/* Themes Panel Modal with Animations */}

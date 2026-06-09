@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { BiPlus } from 'react-icons/bi';
 import * as htmlToImage from 'html-to-image';
-import Canvas from './Canvas';
-import ThemeOverride from './ThemeOverride';
+import Canvas from '../Canvas';
+import ThemeOverride from '../ThemeOverride';
 
 export default function ExportOptions({
   targetRef,
@@ -14,7 +14,6 @@ export default function ExportOptions({
   placeholderColor,
   canvasFontSize,
   canvasTextPadding,
-  // New props for custom colors
   useCustomColors = false,
   customBgColor = null,
   customTextColor = null,
@@ -183,12 +182,12 @@ export default function ExportOptions({
     <div className="relative">
       <button
         onClick={openPanel}
-        className="flex items-center gap-1.5 px-2 py-1.5 bg-white/80 rounded-[7px] hover:bg-white/90 transition-all duration-200 active:scale-95"
+        className="flex items-center gap-1.5 px-2 py-1.5 bg-white/80 rounded-[6px] hover:bg-white/90"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="14"
-          height="14"
+          width="12"
+          height="12"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -206,7 +205,7 @@ export default function ExportOptions({
             strokeLinejoin="round"
           />
         </svg>
-        <span className="text-[12px] font-medium text-black/90">Export</span>
+        <span className="text-[12px] font-medium text-black">Export</span>
       </button>
 
       {isOpen && (

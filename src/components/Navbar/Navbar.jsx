@@ -31,7 +31,7 @@ export default function Navbar({
       <div className="flex items-center gap-1.5">
         <ViewPorts onViewportChange={onViewportChange} />
         <Themes onThemeSelect={onThemeSelect} />
-        <span className="h-6 w-[1px] mx-1 bg-white/20"></span>
+        <span className="h-5 w-[1px] mx-1 bg-white/10"></span>
         <ExportOptions
           targetRef={targetRef}
           inputValue={inputValue}

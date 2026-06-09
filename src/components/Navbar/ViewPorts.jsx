@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { FaRegSquare, FaMobileAlt, FaTabletAlt, FaDesktop, FaChevronDown } from 'react-icons/fa';
+import { FaRegSquare, FaMobileAlt, FaTabletAlt, FaDesktop } from 'react-icons/fa';
 import { MdPortrait, MdLandscape } from 'react-icons/md';
 
 export default function ViewPorts({ onViewportChange }) {
@@ -45,7 +45,7 @@ export default function ViewPorts({ onViewportChange }) {
       ratio: '1:1',
       width: 530,
       height: 530,
-      icon: <FaRegSquare size={14} />,
+      icon: <FaRegSquare size={15} />,
       preview: '□',
     },
     {
@@ -54,7 +54,7 @@ export default function ViewPorts({ onViewportChange }) {
       ratio: '4:5',
       width: 400,
       height: 500,
-      icon: <MdPortrait size={14} />,
+      icon: <MdPortrait size={15} />,
       preview: '▯',
     },
     {
@@ -63,7 +63,7 @@ export default function ViewPorts({ onViewportChange }) {
       ratio: '16:9',
       width: 640,
       height: 360,
-      icon: <MdLandscape size={14} />,
+      icon: <MdLandscape size={15} />,
       preview: '▭',
     },
     {
@@ -72,7 +72,7 @@ export default function ViewPorts({ onViewportChange }) {
       ratio: '9:16',
       width: 360,
       height: 640,
-      icon: <FaMobileAlt size={12} />,
+      icon: <FaMobileAlt size={15} />,
       preview: '📱',
     },
     {
@@ -81,7 +81,7 @@ export default function ViewPorts({ onViewportChange }) {
       ratio: '4:3',
       width: 600,
       height: 450,
-      icon: <FaTabletAlt size={12} />,
+      icon: <FaTabletAlt size={15} />,
       preview: '📟',
     },
     {
@@ -90,7 +90,7 @@ export default function ViewPorts({ onViewportChange }) {
       ratio: '16:10',
       width: 800,
       height: 500,
-      icon: <FaDesktop size={12} />,
+      icon: <FaDesktop size={15} />,
       preview: '🖥',
     },
   ];
@@ -115,21 +115,15 @@ export default function ViewPorts({ onViewportChange }) {
       {/* Trigger Button */}
       <button
         onClick={toggleMenu}
-        className="flex items-center gap-1.5 px-2 py-[7px] bg-white/5
-                   border border-white/10
-                   rounded-[8px] transition-all duration-200
-                   backdrop-blur-sm group hover:bg-white/10 active:scale-95"
+        className="flex items-center gap-1 px-2 py-[6px] bg-gray-100/10
+                   border border-white/5
+                   rounded-[7px] group"
       >
-        <span className="text-white/80 group-hover:text-white transition-colors">
-          {selectedOption?.icon || <FaRegSquare size={14} />}
+        <span className="text-white mr-[1.5px] ">
+          {selectedOption?.icon || <FaRegSquare size={16} />}
         </span>
-        <span className="text-[12px] font-medium text-white/90">{option}</span>
-        <span className="text-[11px] text-white/40">({selectedOption?.ratio})</span>
-        <FaChevronDown
-          size={10}
-          className={`text-white/50 transition-all duration-300
-                     ${openMenu ? 'rotate-180' : 'rotate-0'}`}
-        />
+        <span className="text-[12px] font-medium text-white">{option}</span>
+        <span className="text-[12px] text-white">({selectedOption?.ratio})</span>
       </button>
 
       {/* Dropdown Menu with Animations */}
@@ -197,7 +191,7 @@ export default function ViewPorts({ onViewportChange }) {
         </div>
       )}
 
-      {/* Add this to your global CSS or component styles */}
+      {/* component styles */}
       <style jsx>{`
         @keyframes scaleIn {
           from {

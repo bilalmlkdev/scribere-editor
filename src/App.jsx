@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar/Navbar';
 import InputArea from './components/InputArea';
 import CanvasControls from './components/CanvasControls';
 import Canvas from './components/Canvas';

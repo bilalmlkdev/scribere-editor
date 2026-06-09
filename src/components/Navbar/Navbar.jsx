@@ -1,3 +1,4 @@
+import { FiGithub } from 'react-icons/fi';
 import ExportOptions from './ExportOptions';
 import Logo from './Logo';
 import Themes from './Themes';
@@ -31,6 +32,14 @@ export default function Navbar({
       <div className="flex items-center gap-1.5">
         <ViewPorts onViewportChange={onViewportChange} />
         <Themes onThemeSelect={onThemeSelect} />
+        <a
+          href="https://github.com/byllzz/glyphic"
+          className="flex items-center gap-1 bg-gray-100/10 border border-white/5 px-2 py-[7px] rounded-[7px] "
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FiGithub />
+        </a>
         <span className="h-5 w-[1px] mx-1 bg-white/10"></span>
         <ExportOptions
           targetRef={targetRef}

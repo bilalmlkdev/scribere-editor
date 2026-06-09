@@ -185,7 +185,7 @@ export default function Decorations({ onInsert }) {
       {/* Dropdown Menu */}
       {openMenu && (
         <div
-          className={`absolute top-full mt-1 right-0 w-[380px] bg-black backdrop-blur-md border-2 border-gray-200/10 rounded-[8px] shadow-2xl shadow-black/50 overflow-hidden z-50 transition-all duration-200 ease-out origin-top-right
+          className={`absolute top-full mt-1 left-0 w-[380px] bg-black backdrop-blur-md border-2 border-gray-200/10 rounded-[8px] shadow-2xl shadow-black/50 overflow-hidden z-50 transition-all duration-200 ease-out origin-top-right
             ${isAnimating ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 -translate-y-2'}`}
         >
           {/* Header */}

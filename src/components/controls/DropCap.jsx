@@ -118,7 +118,7 @@ export default function DropCap({ onDropCapChange, currentDropCap = false }) {
       {/* Dropdown Menu */}
       {openMenu && (
         <div
-          className={`absolute top-full mt-1 right-0 w-[180px] bg-black backdrop-blur-md border-2 border-gray-200/10 rounded-[8px] shadow-2xl shadow-black/50 overflow-hidden z-50  transition-all duration-200 ease-out origin-top-right
+          className={`absolute top-full mt-1 left-0 w-[180px] bg-black backdrop-blur-md border-2 border-gray-200/10 rounded-[8px] shadow-2xl shadow-black/50 overflow-hidden z-50  transition-all duration-200 ease-out origin-top-right
             ${isAnimating ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 -translate-y-2'}`}
         >
           <div className="px-3 py-2 border-b border-white/10">

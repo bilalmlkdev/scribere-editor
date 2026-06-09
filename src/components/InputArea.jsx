@@ -8,7 +8,21 @@ const InputArea = forwardRef(({ inputValue, setInputValue, fontSize }, ref) => {
   }, [inputValue, ref]);
 
   const handleInput = e => {
-    setInputValue(e.currentTarget.innerHTML);
+    let html = e.currentTarget.innerHTML;
+
+    // Normalize browser artifacts (<br>, variations of whitespace, or raw empty tags)
+    const textContent = e.currentTarget.textContent || '';
+    if (
+      html === '<br>' ||
+      html === '<div><br></div>' ||
+      html === '<p><br></p>' ||
+      textContent.trim() === ''
+    ) {
+      html = '';
+      e.currentTarget.innerHTML = ''; // Force-clear the physical DOM node for CSS :empty to trigger
+    }
+
+    setInputValue(html);
   };
 
   const handlePaste = e => {
@@ -27,10 +41,10 @@ const InputArea = forwardRef(({ inputValue, setInputValue, fontSize }, ref) => {
         onPaste={handlePaste}
         data-placeholder="Every great design starts with a single word..."
         className="w-full flex-1 px-4 text-zinc-100 bg-transparent
-                   resize-none outline-none tracking-tight font-medium
+                   resize-none outline-none tracking-wide font-normal
                    scrollbar-thin overflow-auto transition-all duration-200
                    empty:before:content-[attr(data-placeholder)] empty:before:text-zinc-600
-                   empty:before:pointer-events-none focus:ring-0"
+                   empty:before:pointer-events-none empty:before:font-medium empty:before:tracking-tight focus:ring-0"
         style={{ fontSize: `${fontSize}px`, lineHeight: 1.6 }}
       />
     </div>

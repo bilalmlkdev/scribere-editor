@@ -1,13 +1,14 @@
 import { useState, useRef, useEffect } from 'react';
-import Navbar from './components/Navbar/Navbar';
+import Navbar from './components/navbar/Navbar';
 import InputArea from './components/InputArea';
-import CanvasControls from './components/CanvasControls/CanvasControls';
+import CanvasControls from './components/controls/CanvasControls';
 import Canvas from './components/Canvas';
-import TextToolbar from './components/TextToolbar';
+import TextToolbar from './components/toolbar/TextToolbar';
 import { themes } from './data/themes';
 import { defaultFont } from './data/fonts';
 
-const DEFAULT_FONT_SIZE = 17;
+const DEFAULT_FONT_SIZE = 16;
+const DEFAULT_CANVAS_RADIUS = 18;
 
 export default function App() {
   const [inputValue, setInputValue] = useState('');
@@ -234,20 +235,20 @@ export default function App() {
           canvasTextColorClass={canvasTextColorClass}
           canvasFont={selectedFont.fontFamily}
           placeholderColor={placeholderColor}
-          canvasFontSize={canvasFontSize}
-          canvasTextPadding={30}
+          canvasTextPadding={canvasTextPadding}
           useCustomColors={useCustom}
           customBgColor={customBgColor}
           customTextColor={customTextColor}
           textureIntensity={textureIntensity}
           lineHeight={lineHeight}
           dropCap={dropCap}
+          canvasFontSize={canvasFontSize}
         />
 
         {!isMobile && (
           <div className="grid grid-cols-2 flex-1 min-h-0">
             <div className="flex flex-col gap-3 h-full min-h-0">
-              <div className="flex-shrink-0">
+              <div className="flex-shrink-0 ">
                 <CanvasControls
                   onFontChange={handleFontChange}
                   canvasFont={selectedFont.fontFamily}
@@ -278,7 +279,7 @@ export default function App() {
               </div>
             </div>
 
-            <div className="flex flex-col h-full min-h-0 items-center justify-center  border-l border-gray-200/20">
+            <div className="flex flex-col h-full min-h-0 items-center justify-center border-l border-gray-200/20">
               <Canvas
                 targetRef={canvasRef}
                 inputValue={inputValue}
@@ -290,7 +291,7 @@ export default function App() {
                 placeholderColor={placeholderColor}
                 canvasWidth={canvasSize.width}
                 canvasHeight={canvasSize.height}
-                canvasRadius={18}
+                canvasRadius={DEFAULT_CANVAS_RADIUS}
                 canvasFontSize={canvasFontSize}
                 canvasTextPadding={canvasTextPadding}
                 lineHeight={lineHeight}
@@ -357,7 +358,7 @@ export default function App() {
                     placeholderColor={placeholderColor}
                     canvasWidth={canvasSize.width}
                     canvasHeight={canvasSize.height}
-                    canvasRadius={18}
+                    canvasRadius={DEFAULT_CANVAS_RADIUS}
                     canvasFontSize={canvasFontSize}
                     canvasTextPadding={canvasTextPadding}
                     lineHeight={lineHeight}

@@ -1,5 +1,5 @@
 import { FiGithub } from 'react-icons/fi';
-import ExportOptions from './ExportOptions';
+import ExportOptions from './Export/ExportOptions';
 import Logo from './Logo';
 import Themes from './Themes';
 import ViewPorts from './ViewPorts';
@@ -14,8 +14,8 @@ export default function Navbar({
   canvasTextColorClass,
   canvasFont,
   placeholderColor,
-  canvasFontSize = 16,
-  canvasTextPadding = 30,
+  canvasFontSize,
+  canvasTextPadding,
   useCustomColors = false,
   customBgColor = null,
   customTextColor = null,
@@ -42,6 +42,7 @@ export default function Navbar({
         </a>
         <span className="h-5 w-[1px] mx-1 bg-white/10"></span>
         <ExportOptions
+          canvasFontSize={canvasFontSize}
           targetRef={targetRef}
           inputValue={inputValue}
           canvasBG={canvasBG}
@@ -49,7 +50,6 @@ export default function Navbar({
           canvasTextColorClass={canvasTextColorClass}
           canvasFont={canvasFont}
           placeholderColor={placeholderColor}
-          canvasFontSize={canvasFontSize}
           canvasTextPadding={canvasTextPadding}
           useCustomColors={useCustomColors}
           customBgColor={customBgColor}

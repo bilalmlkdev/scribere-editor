@@ -59,7 +59,7 @@ export default function LineHeight({ onLineHeightChange, currentLineHeight = 2.0
       {/* Dropdown Menu with Slider */}
       {openMenu && (
         <div
-          className={`absolute top-full mt-1 right-0 w-[220px] bg-black backdrop-blur-md border-2 border-gray-200/10 rounded-[8px] shadow-2xl shadow-black/50 overflow-hidden z-50 py-3 px-4 transition-all duration-200 ease-out origin-top-right
+          className={`absolute top-full mt-1 left-0 w-[220px] bg-black backdrop-blur-md border-2 border-gray-200/10 rounded-[8px] shadow-2xl shadow-black/50 overflow-hidden z-50 py-3 px-4 transition-all duration-200 ease-out origin-top-right
             ${isAnimating ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 -translate-y-2'}`}
         >
           {/* Label and Value */}

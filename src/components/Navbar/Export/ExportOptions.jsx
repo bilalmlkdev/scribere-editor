@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { BiPlus } from 'react-icons/bi';
 import * as htmlToImage from 'html-to-image';
-import Canvas from '../Canvas';
-import ThemeOverride from '../ThemeOverride';
+import Canvas from '../../Canvas';
+import ThemeOverride from './ThemeOverride';
 
 export default function ExportOptions({
   targetRef,
@@ -12,14 +12,14 @@ export default function ExportOptions({
   canvasTextColorClass,
   canvasFont,
   placeholderColor,
-  canvasFontSize,
   canvasTextPadding,
   useCustomColors = false,
   customBgColor = null,
   customTextColor = null,
   textureIntensity,
-  lineHeight = 2.0,
+  lineHeight,
   dropCap = false,
+  canvasFontSize,
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -253,7 +253,7 @@ export default function ExportOptions({
                           <button
                             key={key}
                             onClick={() => setQuality(key)}
-                            className={`w-full flex flex-col items-center justify-between gap-2 px-3 py-2.5 rounded-[5px] transition-all duration-200 hover:scale-[1.02] active:scale-95 ${
+                            className={`w-full flex flex-col items-center justify-between gap-2 px-3 py-2.5 rounded-[5px] ${
                               quality === key
                                 ? 'bg-white/80 text-black border border-white/20'
                                 : 'bg-transparent border border-gray-200/20 hover:bg-white/5'
@@ -289,7 +289,7 @@ export default function ExportOptions({
                           <button
                             key={fmt}
                             onClick={() => setFormat(fmt)}
-                            className={`flex-1 py-2 rounded-[5px] text-sm font-medium transition-all duration-200 hover:scale-[1.02] active:scale-95 ${
+                            className={`flex-1 py-2 rounded-[5px] text-sm font-medium  ${
                               format === fmt
                                 ? 'bg-white/80 text-black'
                                 : 'bg-white/5 text-white/60 hover:bg-white/10'
@@ -310,7 +310,7 @@ export default function ExportOptions({
                     <button
                       onClick={handleExport}
                       disabled={isExporting}
-                      className="flex items-center justify-center gap-2 w-full text-center px-5 py-2 bg-white/80 rounded-[5px] hover:bg-white/90 transition-all duration-200 active:scale-95 text-black font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="flex items-center justify-center gap-2 w-full text-center px-5 py-2 bg-white/80 rounded-[5px] hover:bg-white/90  text-black font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <span>{isExporting ? 'Exporting...' : `Export ${format}`}</span>
                     </button>
@@ -319,34 +319,43 @@ export default function ExportOptions({
 
                 {/* Preview Box */}
                 <div
-                  className={`relative bottom-3 left-10 transition-all duration-300 delay-100
+                  className={`relative transition-all duration-300 delay-100 flex flex-col items-center
                   ${isAnimating ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
                 >
-                  <div className="flex items-center relative right-10">
+                  <div className="w-full flex items-center mb-2 justify-start pl-4">
                     <span className="text-[12px] font-medium text-white/80">Preview</span>
                   </div>
 
-                  <div className="text-center flex items-center justify-center h-[310px] w-[315px]">
-                    <Canvas
-                      inputValue={inputValue}
-                      canvasBgColor={displayProps.isCustom ? displayProps.bgColorValue : null}
-                      canvasBgClass={!displayProps.isCustom ? displayProps.bgClass : ''}
-                      canvasTextColor={displayProps.textColorValue}
-                      canvasTextColorClass={
-                        !displayProps.isCustom ? displayProps.textColorClass : ''
-                      }
-                      canvasFont={canvasFont}
-                      placeholderColor={placeholderColor}
-                      canvasWidth={280}
-                      canvasHeight={280}
-                      canvasRadius={0}
-                      canvasFontSize={canvasFontSize}
-                      canvasTextPadding={canvasTextPadding}
-                      lineHeight={lineHeight}
-                      dropCap={dropCap}
-                      textureIntensity={textureIntensity}
-                      useCustomColors={displayProps.isCustom}
-                    />
+                  {/* Frame Container */}
+                  <div className="relative h-[300px] w-[300px] flex items-center justify-center overflow-hidden">
+                    <div
+                      style={{
+                        transform: 'scale(0.70)',
+                        transformOrigin: 'center center',
+                        flexShrink: 0,
+                      }}
+                    >
+                      <Canvas
+                        inputValue={inputValue}
+                        canvasBgColor={displayProps.isCustom ? displayProps.bgColorValue : null}
+                        canvasBgClass={!displayProps.isCustom ? displayProps.bgClass : ''}
+                        canvasTextColor={displayProps.textColorValue}
+                        canvasTextColorClass={
+                          !displayProps.isCustom ? displayProps.textColorClass : ''
+                        }
+                        canvasFont={canvasFont}
+                        placeholderColor={placeholderColor}
+                        canvasWidth={530}
+                        canvasHeight={530}
+                        canvasRadius={0}
+                        canvasFontSize={canvasFontSize}
+                        canvasTextPadding={canvasTextPadding}
+                        lineHeight={lineHeight}
+                        dropCap={dropCap}
+                        textureIntensity={textureIntensity}
+                        useCustomColors={displayProps.isCustom}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>

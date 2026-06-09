@@ -1,6 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-import { TbCaretUpDownFilled } from 'react-icons/tb';
-import { IoColorPalette } from 'react-icons/io5';
 import { FaRandom } from 'react-icons/fa';
 
 const presetColors = [
@@ -48,7 +46,7 @@ const textureIntensities = [
   { value: 100, label: '100%', name: 'Maximum' },
 ];
 
-export default function ThemeColors({
+export default function CanvasThemeColors({
   onThemeChange,
   currentBg = '#0f3460',
   currentText = '#e0e0e0',
@@ -145,14 +143,14 @@ export default function ThemeColors({
       {/* Trigger Button */}
       <button
         onClick={toggleMenu}
-        className="flex items-center justify-center px-3 py-[10px] bg-white/5 border border-white/10 rounded-[8px] transition-all duration-200  group "
+        className="flex items-center justify-center px-[9px] py-[9px] bg-gray-100/10 border border-white/5 rounded-[7px]  group "
       >
         <div
-          className="w-[14px] h-[14px] rounded-full border border-white/30 relative left-[1px]"
+          className="w-[12px] h-[12px] rounded-full  relative left-[1px]"
           style={{ backgroundColor: bgColor }}
         />
         <div
-          className="w-[14px] h-[14px] rounded-full border border-white/30 relative right-[1px]"
+          className="w-[12px] h-[12px] rounded-full  relative right-[1px]"
           style={{ backgroundColor: textColor }}
         />
       </button>

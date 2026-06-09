@@ -1,6 +1,5 @@
-// components/LineHeight.jsx
 import { useState, useRef, useEffect } from 'react';
-import { TbCaretUpDownFilled, TbLineHeight } from 'react-icons/tb';
+import { TbLineHeight } from 'react-icons/tb';
 
 export default function LineHeight({ onLineHeightChange, currentLineHeight = 2.0 }) {
   const [lineHeight, setLineHeight] = useState(currentLineHeight);
@@ -51,7 +50,7 @@ export default function LineHeight({ onLineHeightChange, currentLineHeight = 2.0
       {/* Trigger Button */}
       <button
         onClick={toggleMenu}
-        className="flex items-center gap-0.5 px-2 py-[7px] bg-white/5 border border-white/10 rounded-[8px] transition-all duration-200 backdrop-blur-sm group hover:bg-white/10 active:scale-95"
+        className="flex items-center gap-0.5 px-[6px] py-[5px] bg-gray-100/10 border border-white/5 rounded-[7px] group"
       >
         <TbLineHeight />
         <span className="text-[13px] font-medium text-white/90 ml-1">{lineHeight.toFixed(1)}</span>

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { TbCaretUpDownFilled, TbGenderHermaphrodite } from 'react-icons/tb';
+import { TbGenderHermaphrodite } from 'react-icons/tb';
 
 const decorations = [
   // Dividers
@@ -173,7 +173,7 @@ export default function Decorations({ onInsert }) {
       {/* Trigger Button */}
       <button
         onClick={toggleMenu}
-        className="flex items-center gap-0.5 px-1.5 py-[7px] bg-white/5 border border-white/10 rounded-[8px] transition-all duration-200 group"
+        className="flex items-center gap-0.5 px-1.5 py-[6px] bg-gray-100/10 border border-white/5 rounded-[7px]  group"
       >
         <TbGenderHermaphrodite
           size={14}

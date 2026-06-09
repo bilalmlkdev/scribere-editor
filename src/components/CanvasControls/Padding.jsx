@@ -1,6 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-import { TbCaretUpDownFilled } from 'react-icons/tb';
-import { MdOutlineSpaceBar } from 'react-icons/md';
 import { RxPadding } from 'react-icons/rx';
 
 export default function Padding({ onPaddingChange, currentPadding = 52 }) {
@@ -60,7 +58,7 @@ export default function Padding({ onPaddingChange, currentPadding = 52 }) {
       {/* Trigger Button */}
       <button
         onClick={toggleMenu}
-        className="flex items-center gap-1.5 px-2 py-[7px] bg-white/5 border border-white/10 rounded-[5px] transition-all duration-200 group"
+        className="flex items-center gap-1.5 px-2 py-[7px] bg-gray-100/10 border border-white/5 rounded-[7px]  group"
       >
         <RxPadding
           size={16}

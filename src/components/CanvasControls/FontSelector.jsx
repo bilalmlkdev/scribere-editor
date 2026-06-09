@@ -119,12 +119,12 @@ export default function FontSelector({ onFontChange, currentFont }) {
       {/* Trigger Button */}
       <button
         onClick={toggleMenu}
-        className="flex items-center gap-1.5 px-2 py-[6px] bg-white/5 border border-white/10 rounded-[8px] transition-all duration-200 backdrop-blur-sm group hover:bg-white/10 active:scale-95"
+        className="flex items-center gap-1.5 px-2 py-[6px] bg-gray-100/10 border border-white/5 rounded-[7px] group"
       >
-        <span className="text-[14px] font-normal text-white/90 tracking-tight max-w-[100px] truncate">
+        <span className="text-[12px] font-normal text-white/90 tracking-tight max-w-[100px] truncate">
           {selectedFont?.name || 'Font'}
         </span>
-        <span className="text-[10px] text-white/80 ml-3 relative top-[1px]">
+        <span className="text-[10px] font-light text-white/80 ml-3 relative top-[1px]">
           {selectedFont?.category}
         </span>
         <TbCaretUpDownFilled size={14} className="text-white/50" />

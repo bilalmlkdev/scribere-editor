@@ -1,6 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-import { TbCaretUpDownFilled } from 'react-icons/tb';
-import { FaRegSmile } from 'react-icons/fa';
 
 const kaomojis = [
   // Happy
@@ -151,10 +149,10 @@ export default function KaomojiSelector({ onInsert, currentText = '' }) {
       {/* Trigger Button */}
       <button
         onClick={toggleMenu}
-        className="flex items-center gap-1.5 px-2 py-[7px] bg-white/5 border border-white/10 rounded-[8px] transition-all duration-200 group"
+        className="flex items-center gap-1.5 px-2 py-[6px] bg-gray-100/10 border border-white/5 rounded-[7px]  group"
       >
-        <span className="text-[10px]">(◕‿◕✿)</span>
-        <span className="text-[12px] font-medium text-white/80">Kaomoji</span>
+        <span className="text-[8px]">(◕‿◕✿)</span>
+        <span className="text-[12px] font-medium text-white">Kaomoji</span>
       </button>
 
       {/* Dropdown Menu */}

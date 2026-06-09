@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Navbar from './components/Navbar/Navbar';
 import InputArea from './components/InputArea';
-import CanvasControls from './components/CanvasControls';
+import CanvasControls from './components/CanvasControls/CanvasControls';
 import Canvas from './components/Canvas';
 import TextToolbar from './components/TextToolbar';
 import { themes } from './data/themes';

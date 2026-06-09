@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-import { TbCaretUpDownFilled } from 'react-icons/tb';
 
 export default function DropCap({ onDropCapChange, currentDropCap = false }) {
   const [dropCap, setDropCap] = useState(currentDropCap);
@@ -52,28 +51,26 @@ export default function DropCap({ onDropCapChange, currentDropCap = false }) {
     { id: 'huge', name: 'Huge', size: '6em', lines: 5 },
   ];
 
-  const selectedVariant =
-    variants.find(v => (v.id === 'none' ? !dropCap : dropCap === v.id)) || variants[0];
+  // const selectedVariant =
+  //   variants.find(v => (v.id === 'none' ? !dropCap : dropCap === v.id)) || variants[0];
 
   return (
     <div className="relative" ref={menuRef}>
       {/* Trigger Button */}
       <button
         onClick={toggleMenu}
-        className={`flex items-center gap-1.5 px-2 py-[7px] border rounded-[8px] transition-all duration-200 backdrop-blur-sm group hover:bg-white/10 active:scale-95
+        className={`flex items-center gap-1.5 px-[9px] py-[8px] border rounded-[7px] group
           ${
             dropCap && dropCap !== 'none'
-              ? 'bg-white/20 border-white/30 text-white'
-              : 'bg-white/5 border-white/10 text-white/80'
+              ? 'bg-white border-white/5 text-black'
+              : 'bg-gray-100/10 border-white/5 text-white/80'
           }`}
       >
-        {/* <span className="text-[12px] font-medium">Drop Cap</span>
-        <TbCaretUpDownFilled size={14} className="text-white/50" /> */}
         <span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="13"
+            height="13"
             viewBox="0 0 24 24"
             fill="none"
             color="currentColor"

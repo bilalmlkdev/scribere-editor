@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import glyphicLogo from '../../assets/glyphicLogo.svg';
+import glyphicLogo from '../../../public/glyphicLogo.svg';
 
 export default function Logo() {
   const [isMobile, setIsMobile] = useState(false);

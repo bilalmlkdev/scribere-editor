@@ -1,20 +1,16 @@
 import { useState, useEffect } from 'react';
-// import { FiAlignLeft, FiAlignCenter, FiAlignRight, FiCheck } from 'react-icons/fi';
 import { BiSolidQuoteAltRight } from 'react-icons/bi';
-import {
-  FiAlignLeft,
-  FiAlignCenter,
-  FiAlignRight,
-  FiAlignJustify,
-  FiChevronDown,
-  FiCheck,
-  FiRefreshCw,
-} from 'react-icons/fi';
+import { FiAlignLeft, FiAlignCenter, FiAlignRight, FiCheck, FiRefreshCw } from 'react-icons/fi';
 import FontSizeSelector from './FontSizeSelector';
 import ToolbarDropdown from './ToolbarDropdown';
 import { TextColorSelector, HighlightSelector } from './ColorSelectors';
 
-export default function TextToolbar({ textareaRef, onFontSizeChange, defaultFontSize = 17 }) {
+export default function TextToolbar({
+  textareaRef,
+  onFontSizeChange,
+  currentFontSize,
+  defaultFontSize = 17,
+}) {
   const [activeMenu, setActiveMenu] = useState(null);
   const [activeFormats, setActiveFormats] = useState({
     bold: false,
@@ -25,14 +21,21 @@ export default function TextToolbar({ textareaRef, onFontSizeChange, defaultFont
   });
 
   const [fontSizeLabel, setFontSizeLabel] = useState('Default');
-  const [opacity, setOpacity] = useState('100');
+  const [opacity, setOpacity] = useState(100);
   const [textColor, setTextColor] = useState('default');
   const [highlightColor, setHighlightColor] = useState('none');
+
+  useEffect(() => {
+    if (currentFontSize === defaultFontSize) {
+      setFontSizeLabel('Default');
+    } else {
+      setFontSizeLabel(String(currentFontSize));
+    }
+  }, [currentFontSize, defaultFontSize]);
 
   const updateActiveFormats = () => {
     if (!textareaRef?.current) return;
 
-    // Check if selection is wrapped inside a custom quote styling block
     let isQuoteActive = false;
     const selection = window.getSelection();
     if (selection && selection.rangeCount > 0) {
@@ -79,7 +82,7 @@ export default function TextToolbar({ textareaRef, onFontSizeChange, defaultFont
     textareaRef.current.dispatchEvent(event);
   };
 
-  const applySelectionStyle = (styleProperty, value, customAttributes = {}) => {
+  const applySelectionStyle = (styleProperty, value) => {
     if (!textareaRef?.current) return;
     textareaRef.current.focus();
 
@@ -88,14 +91,7 @@ export default function TextToolbar({ textareaRef, onFontSizeChange, defaultFont
 
     const range = selection.getRangeAt(0);
     const span = document.createElement('span');
-
-    if (styleProperty) {
-      span.style[styleProperty] = value;
-    }
-
-    Object.entries(customAttributes).forEach(([key, val]) => {
-      span.setAttribute(key, val);
-    });
+    span.style[styleProperty] = value;
 
     const fragment = range.extractContents();
     span.appendChild(fragment);
@@ -110,7 +106,6 @@ export default function TextToolbar({ textareaRef, onFontSizeChange, defaultFont
     updateActiveFormats();
   };
 
-  // Fixed Bulletproof Inline Quote Toggle Logic
   const toggleQuoteLayout = () => {
     if (!textareaRef?.current) return;
     textareaRef.current.focus();
@@ -119,7 +114,7 @@ export default function TextToolbar({ textareaRef, onFontSizeChange, defaultFont
     if (!selection || !selection.toString() || selection.rangeCount === 0) return;
 
     if (activeFormats.quote) {
-      // Un-unwrap: Cleanly strip the quote properties away
+      // Unwrap: pull children out, remove the span
       const range = selection.getRangeAt(0);
       let container = range.startContainer;
       while (container && container !== textareaRef.current) {
@@ -139,12 +134,65 @@ export default function TextToolbar({ textareaRef, onFontSizeChange, defaultFont
       triggerInputChange();
       setTimeout(updateActiveFormats, 20);
     } else {
-      // Wrap text in a blockquote component wrapper style layer
-      applySelectionStyle('borderLeft', '4px solid #4b5563', {
-        'data-element-type': 'blockquote',
-        style:
-          'display: inline-block; padding-left: 12px; color: #a1a1aa; font-style: italic; margin: 4px 0;',
-      });
+      //  styles via span.style directly — no setAttribute('style') conflict
+      const range = selection.getRangeAt(0);
+      const span = document.createElement('span');
+
+      span.setAttribute('data-element-type', 'blockquote');
+
+      // Apply every style property individually so nothing gets overwritten
+      span.style.display = 'inline-block';
+      span.style.borderLeft = '4px solid #4b5563';
+      span.style.paddingLeft = '12px';
+      span.style.color = '#a1a1aa';
+      span.style.fontStyle = 'italic';
+      span.style.margin = '4px 0';
+
+      const fragment = range.extractContents();
+      span.appendChild(fragment);
+      range.insertNode(span);
+
+      const newRange = document.createRange();
+      newRange.selectNodeContents(span);
+      selection.removeAllRanges();
+      selection.addRange(newRange);
+
+      triggerInputChange();
+      setTimeout(updateActiveFormats, 20);
+    }
+  };
+
+  const handleOpacitySelect = value => {
+    if (!textareaRef?.current) return;
+    setOpacity(value);
+
+    if (value === 100) {
+      // Strip any existing opacity span wrapping the selection
+      textareaRef.current.focus();
+      const selection = window.getSelection();
+      if (!selection || selection.rangeCount === 0) return;
+
+      const range = selection.getRangeAt(0);
+      let container = range.commonAncestorContainer;
+      if (container.nodeType === 3) container = container.parentNode; // text node → parent
+
+      // Walk up looking for a span with opacity set
+      while (container && container !== textareaRef.current) {
+        if (container.nodeName === 'SPAN' && container.style.opacity) {
+          const parent = container.parentNode;
+          while (container.firstChild) {
+            parent.insertBefore(container.firstChild, container);
+          }
+          container.remove();
+          break;
+        }
+        container = container.parentNode;
+      }
+
+      triggerInputChange();
+      updateActiveFormats();
+    } else {
+      applySelectionStyle('opacity', (value / 100).toString());
     }
   };
 
@@ -158,7 +206,7 @@ export default function TextToolbar({ textareaRef, onFontSizeChange, defaultFont
     }
   };
 
-  const opacities = ['100%', '90%', '80%', '70%', '60%', '50%', '40%', '30%'];
+  const opacityOptions = [100, 90, 80, 70, 60, 50, 40, 30];
 
   const resetFormatting = () => {
     if (!textareaRef?.current) return;
@@ -167,16 +215,13 @@ export default function TextToolbar({ textareaRef, onFontSizeChange, defaultFont
     const selection = window.getSelection();
     if (!selection || selection.rangeCount === 0) return;
 
-    // 1. Clear native browser styles (Bold, Italic, Underline, Font Sizes, Colors)
     document.execCommand('removeFormat', false, null);
 
-    // 2. Clear out custom span styles and blockquote blocks that execCommand ignores
     const range = selection.getRangeAt(0);
     const container = range.commonAncestorContainer;
     const parentElement = container.nodeType === 1 ? container : container.parentNode;
 
     if (parentElement && parentElement !== textareaRef.current) {
-      // If the selection is inside a custom span or quote container, pull the clean text out
       if (parentElement.tagName === 'SPAN') {
         const parent = parentElement.parentNode;
         while (parentElement.firstChild) {
@@ -186,25 +231,24 @@ export default function TextToolbar({ textareaRef, onFontSizeChange, defaultFont
       }
     }
 
-    // Reset local toolbar UI states back to default values
     setFontSizeLabel('Default');
-    setOpacity('100');
+    setOpacity(100);
     setTextColor('default');
     setHighlightColor('none');
+    setActiveMenu(null);
 
     triggerInputChange();
     setTimeout(updateActiveFormats, 20);
   };
 
   return (
-    <div className="inline-flex items-center gap-0.5 bg-zinc-950 border border-white/10 rounded-xl p-1 text-white select-none text-sm shadow-xl relative z-[999]">
-      <button className="w-8 h-8 shrink-0 flex items-center justify-center text-zinc-500 font-bold pointer-events-none">
+    <div className="inline-flex items-center gap-0.5 bg-zinc-950 border border-white/10 rounded-[16px] px-1 py-0.5 text-white select-none text-sm  relative z-[999]">
+      <button className="w-7 h-7 shrink-0 flex items-center justify-center text-zinc-500 font-bold pointer-events-none bg-zinc-800 rounded-lg">
         T
       </button>
 
       <div className="w-px h-4 bg-zinc-800 mx-1 shrink-0" />
 
-      {/* Styled Modifiers */}
       <button
         onClick={() => executeCommand('bold')}
         className={`w-8 h-8 shrink-0 flex items-center justify-center font-bold rounded-lg transition-colors ${activeFormats.bold ? 'bg-zinc-800 text-white' : 'text-zinc-400 hover:text-white hover:bg-zinc-800/40'}`}
@@ -232,7 +276,6 @@ export default function TextToolbar({ textareaRef, onFontSizeChange, defaultFont
 
       <div className="w-px h-4 bg-zinc-800 mx-0.5 shrink-0" />
 
-      {/* Font Size Component Modulo */}
       <FontSizeSelector
         isOpen={activeMenu === 'fontSize'}
         setIsOpen={open => setActiveMenu(open ? 'fontSize' : null)}
@@ -240,7 +283,6 @@ export default function TextToolbar({ textareaRef, onFontSizeChange, defaultFont
         onSelect={handleFontSizeChange}
       />
 
-      {/* Headings */}
       <button
         onClick={() => executeCommand('formatBlock', '<h1>')}
         className="w-8 h-8 shrink-0 flex items-center justify-center font-medium text-xs text-zinc-400 hover:text-white rounded-lg hover:bg-zinc-800/60"
@@ -254,7 +296,6 @@ export default function TextToolbar({ textareaRef, onFontSizeChange, defaultFont
         H₂
       </button>
 
-      {/* Dynamic Native Quote Engine Action Trigger */}
       <button
         onClick={toggleQuoteLayout}
         className={`w-8 h-8 shrink-0 flex items-center justify-center rounded-lg transition-colors ${activeFormats.quote ? 'bg-zinc-800 text-emerald-400' : 'text-zinc-400 hover:text-white hover:bg-zinc-800/60'}`}
@@ -263,7 +304,6 @@ export default function TextToolbar({ textareaRef, onFontSizeChange, defaultFont
         <BiSolidQuoteAltRight size={13} />
       </button>
 
-      {/* Opacity Selector Matrix */}
       <ToolbarDropdown
         isOpen={activeMenu === 'opacity'}
         onClose={() => setActiveMenu(null)}
@@ -280,20 +320,18 @@ export default function TextToolbar({ textareaRef, onFontSizeChange, defaultFont
           <div className="text-[10px] font-bold tracking-wider text-zinc-500 px-2 py-1">
             OPACITY
           </div>
-          {opacities.map((op, idx) => (
+          {opacityOptions.map(op => (
             <button
-              key={idx}
-              onClick={() => {
-                setOpacity(op.replace('%', ''));
-                applySelectionStyle('opacity', (parseInt(op, 10) / 100).toString());
-                setActiveMenu(null);
-              }}
+              key={op}
+              onClick={() => handleOpacitySelect(op)}
               className="w-full flex items-center gap-2 px-2 py-1.5 text-xs text-zinc-300 hover:text-white hover:bg-zinc-800/80 rounded-lg text-left"
             >
               <div
-                className={`w-2 h-2 rounded-full border ${opacity === op.replace('%', '') ? 'bg-white border-white' : 'border-zinc-600'}`}
+                className={`w-2 h-2 rounded-full border ${
+                  opacity === op ? 'bg-white border-white' : 'border-zinc-600'
+                }`}
               />
-              {op}
+              {op}%
             </button>
           ))}
         </div>
@@ -301,7 +339,6 @@ export default function TextToolbar({ textareaRef, onFontSizeChange, defaultFont
 
       <div className="w-px h-4 bg-zinc-800 mx-0.5 shrink-0" />
 
-      {/* Alignment Actions */}
       <button
         onClick={() => executeCommand('justifyLeft')}
         className="w-8 h-8 shrink-0 flex items-center justify-center text-zinc-400 hover:text-white rounded-lg hover:bg-zinc-800/40"
@@ -321,7 +358,6 @@ export default function TextToolbar({ textareaRef, onFontSizeChange, defaultFont
         <FiAlignRight size={14} />
       </button>
 
-      {/* Colors Grid Tool Components */}
       <TextColorSelector
         isOpen={activeMenu === 'textColor'}
         setIsOpen={open => setActiveMenu(open ? 'textColor' : null)}
@@ -343,7 +379,7 @@ export default function TextToolbar({ textareaRef, onFontSizeChange, defaultFont
       />
 
       <div className="w-px h-4 bg-zinc-800 mx-1 shrink-0" />
-      {/* NEW: Clear Layout Formatting Button */}
+
       <button
         onClick={resetFormatting}
         className="w-8 h-8 shrink-0 flex items-center justify-center text-zinc-400 hover:text-red-400 rounded-lg hover:bg-zinc-800/40 transition-colors"

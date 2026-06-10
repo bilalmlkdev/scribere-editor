@@ -15,7 +15,7 @@ export default function Navbar({
   canvasFont,
   placeholderColor,
   canvasFontSize,
-  canvasTextPadding,
+  canvasTextPadding = 52,
   useCustomColors = false,
   customBgColor = null,
   customTextColor = null,

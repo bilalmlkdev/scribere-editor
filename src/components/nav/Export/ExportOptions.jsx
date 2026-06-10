@@ -12,7 +12,7 @@ export default function ExportOptions({
   canvasTextColorClass,
   canvasFont,
   placeholderColor,
-  canvasTextPadding,
+  canvasTextPadding = 52,
   useCustomColors = false,
   customBgColor = null,
   customTextColor = null,

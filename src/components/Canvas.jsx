@@ -6,27 +6,15 @@ const parseFormattedText = text => {
 
   let html = text;
 
-  // Handle existing HTML tags first - preserve them
-  // Bold: **text** or <b>text</b>
   html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
   html = html.replace(/<b>(.*?)<\/b>/g, '<strong>$1</strong>');
-
-  // Italic: *text* or <i>text</i>
   html = html.replace(/\*(?!\*)(.*?)\*(?!\*)/g, '<em>$1</em>');
   html = html.replace(/<i>(.*?)<\/i>/g, '<em>$1</em>');
-
-  // Underline: <u>text</u>
   html = html.replace(/<u>(.*?)<\/u>/g, '<u>$1</u>');
-
-  // Strikethrough: ~~text~~ or <s>text</s> or <del>text</del>
   html = html.replace(/~~(.*?)~~/g, '<del>$1</del>');
   html = html.replace(/<s>(.*?)<\/s>/g, '<del>$1</del>');
   html = html.replace(/<del>(.*?)<\/del>/g, '<del>$1</del>');
-
-  // Font size: <size=24>text</size>
   html = html.replace(/<size=(\d+)>(.*?)<\/size>/g, '<span style="font-size: $1px">$2</span>');
-
-  // Headings: <h1>text</h1>
   html = html.replace(
     /<h1>(.*?)<\/h1>/g,
     '<h1 style="font-size: 2em; font-weight: bold; margin: 0.5em 0;">$1</h1>',
@@ -39,8 +27,6 @@ const parseFormattedText = text => {
     /<h3>(.*?)<\/h3>/g,
     '<h3 style="font-size: 1.2em; font-weight: bold; margin: 0.5em 0;">$1</h3>',
   );
-
-  // Markdown headings
   html = html.replace(
     /^# (.*?)$/gm,
     '<h1 style="font-size: 2em; font-weight: bold; margin: 0.5em 0;">$1</h1>',
@@ -53,14 +39,11 @@ const parseFormattedText = text => {
     /^### (.*?)$/gm,
     '<h3 style="font-size: 1.2em; font-weight: bold; margin: 0.5em 0;">$1</h3>',
   );
-
-  // Line breaks
   html = html.replace(/\n/g, '<br/>');
 
   return html;
 };
 
-// Get plain text without formatting
 const getPlainText = text => {
   if (!text) return '';
   let plain = text;
@@ -96,25 +79,16 @@ const Canvas = forwardRef(
     ref,
   ) => {
     const combinedRef = node => {
-      if (ref) {
-        ref.current = node;
-      }
-      if (targetRef) {
-        targetRef.current = node;
-      }
+      if (ref) ref.current = node;
+      if (targetRef) targetRef.current = node;
     };
 
-    // Get plain text for drop cap
     const plainText = getPlainText(inputValue);
     const firstChar = plainText.charAt(0);
     const hasDropCap = dropCap && dropCap !== 'none' && firstChar && firstChar !== '';
-
     const dropCapSize = dropCap === 'standard' ? '3em' : dropCap === 'large' ? '4.5em' : '6em';
-
-    // Parse formatted text
     const formattedHtml = parseFormattedText(inputValue);
 
-    // Determine texture color based on background
     const getTextureColor = () => {
       if (useCustomColors && canvasBgColor) {
         const r = parseInt(canvasBgColor.slice(1, 3), 16);
@@ -123,22 +97,18 @@ const Canvas = forwardRef(
         const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
         return luminance < 0.5 ? '#ffffff' : '#000000';
       }
-      return canvasTextColor === '#FFFFFF' ? '#000000' : '#ffffff';
+      return '#ffffff';
     };
 
     const textureColor = getTextureColor();
 
-    // Render content with or without drop cap
     const renderContent = () => {
       if (hasDropCap) {
         const remainingHtml = formattedHtml.replace(firstChar, '');
         return (
           <div
             className="text-start whitespace-pre-wrap break-words"
-            style={{
-              fontSize: `${canvasFontSize}px`,
-              lineHeight: lineHeight,
-            }}
+            style={{ fontSize: `${canvasFontSize}px`, lineHeight }}
           >
             <span
               style={{
@@ -161,10 +131,7 @@ const Canvas = forwardRef(
       return (
         <div
           className="text-start whitespace-pre-wrap break-words"
-          style={{
-            fontSize: `${canvasFontSize}px`,
-            lineHeight: lineHeight,
-          }}
+          style={{ fontSize: `${canvasFontSize}px`, lineHeight }}
           dangerouslySetInnerHTML={{ __html: formattedHtml }}
         />
       );
@@ -174,8 +141,8 @@ const Canvas = forwardRef(
       <div
         ref={combinedRef}
         className={`z-0 rounded-[18px] shadow-2xl shadow-black/30 flex items-center justify-center text-start
-           overflow-hidden relative group transition-all duration-300
-          ${!useCustomColors && canvasBgClass} ${!useCustomColors && canvasTextColorClass}`}
+          overflow-hidden relative group transition-all duration-300
+          ${canvasBgClass} ${canvasTextColorClass}`}
         style={{
           fontFamily: canvasFont,
           width: `${canvasWidth}px`,
@@ -183,8 +150,9 @@ const Canvas = forwardRef(
           maxWidth: '100%',
           maxHeight: '100%',
           borderRadius: `${canvasRadius}px`,
-          backgroundColor: useCustomColors ? canvasBgColor : undefined,
-          color: canvasTextColor,
+
+          ...(useCustomColors && canvasBgColor ? { backgroundColor: canvasBgColor } : {}),
+          ...(useCustomColors && canvasTextColor ? { color: canvasTextColor } : {}),
         }}
         id="canvas"
       >
@@ -199,7 +167,6 @@ const Canvas = forwardRef(
           />
         )}
 
-        {/* Subtle noise texture */}
         {textureIntensity > 30 && (
           <div
             className="absolute inset-0 pointer-events-none z-10"
@@ -220,7 +187,7 @@ const Canvas = forwardRef(
             paddingBottom: '16px',
           }}
         >
-          <div className="min-h-full w-full flex flex-col justify-center ">
+          <div className="min-h-full w-full flex flex-col justify-center">
             {inputValue ? (
               renderContent()
             ) : (

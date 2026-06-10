@@ -9,24 +9,31 @@ import { defaultFont } from './data/fonts';
 
 const DEFAULT_FONT_SIZE = 16;
 const DEFAULT_CANVAS_RADIUS = 18;
+const DEFAULT_LINE_HEIGHT = 2.0;
+const DEFAULT_PADDING = 52;
+const DEFAULT_BG_COLOR = themes[0].bgValue;
+const DEFAULT_TEXT_COLOR = themes[0].textValue;
 
 export default function App() {
   const [inputValue, setInputValue] = useState('');
   const [currentTheme, setCurrentTheme] = useState(themes[0]);
   const [viewportSize, setViewportSize] = useState({ width: 530, height: 530, id: 'Square' });
   const [selectedFont, setSelectedFont] = useState(defaultFont);
-  const [lineHeight, setLineHeight] = useState(2.0);
+  const [lineHeight, setLineHeight] = useState(DEFAULT_LINE_HEIGHT);
   const [toolbarFontSize, setToolbarFontSize] = useState(DEFAULT_FONT_SIZE);
   const [canvasFontSize, setCanvasFontSize] = useState(DEFAULT_FONT_SIZE);
 
   const [activeTab, setActiveTab] = useState('editor');
   const [isMobile, setIsMobile] = useState(false);
 
-  const [customBgColor, setCustomBgColor] = useState('#0f3460');
-  const [customTextColor, setCustomTextColor] = useState('#e0e0e0');
+  const [customBgColor, setCustomBgColor] = useState(DEFAULT_BG_COLOR);
+  const [customTextColor, setCustomTextColor] = useState(DEFAULT_TEXT_COLOR);
   const [textureIntensity, setTextureIntensity] = useState(0);
   const [useCustomColors, setUseCustomColors] = useState(false);
-  // Floating Context Toolbar Location Engine States
+
+  const [canvasTextPadding, setCanvasTextPadding] = useState(DEFAULT_PADDING);
+  const [dropCap, setDropCap] = useState(false);
+
   const [toolbarState, setToolbarState] = useState({
     visible: false,
     top: 0,
@@ -35,36 +42,31 @@ export default function App() {
 
   const canvasRef = useRef(null);
   const textareaRef = useRef(null);
+  const toolbarRef = useRef(null);
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Precise Global Selection Tracking Engine
   useEffect(() => {
     const editor = textareaRef.current;
     if (!editor) return;
 
     const evaluateSelection = () => {
-      // 1. Instantly kill the floating logic if we are on mobile
       if (isMobile) {
         setToolbarState(prev => ({ ...prev, visible: false }));
         return;
       }
 
       const selection = window.getSelection();
-
       if (!selection || selection.isCollapsed || !selection.toString().trim()) {
         setToolbarState(prev => ({ ...prev, visible: false }));
         return;
       }
 
-      // Check if selection anchors inside our editor
       if (!editor.contains(selection.anchorNode) && !editor.contains(selection.focusNode)) {
         setToolbarState(prev => ({ ...prev, visible: false }));
         return;
@@ -72,53 +74,37 @@ export default function App() {
 
       const range = selection.getRangeAt(0);
       const rect = range.getBoundingClientRect();
-
       if (rect.width === 0 || rect.height === 0) return;
 
       const spaceOffset = 55;
       let targetTop = rect.top - spaceOffset;
       let targetLeft = rect.left + rect.width / 2;
 
-      // --- BULLETPROOF X-OVERFLOW PROTECTION ---
-      // 220px is generously larger than half your toolbar. This ensures
-      // translateX(-50%) never pulls the left edge off the screen.
-      const safeHalfWidth = 220;
-      const screenMargin = 16;
+      const toolbarWidth = toolbarRef.current?.offsetWidth ?? 440;
+      const halfToolbar = toolbarWidth / 2;
+      const screenMargin = 12;
 
       targetLeft = Math.max(
-        safeHalfWidth + screenMargin,
-        Math.min(window.innerWidth - safeHalfWidth - screenMargin, targetLeft),
+        halfToolbar + screenMargin,
+        Math.min(window.innerWidth - halfToolbar - screenMargin, targetLeft),
       );
 
-      // Flip below text if it hits the top ceiling
       if (targetTop < screenMargin) {
         targetTop = rect.bottom + 12;
       }
 
-      setToolbarState({
-        visible: true,
-        top: targetTop,
-        left: targetLeft,
-      });
+      setToolbarState({ visible: true, top: targetTop, left: targetLeft });
     };
 
-    // Attach to DOCUMENT so fast sweeps outside the box are caught perfectly
     const handleGlobalMouseUp = e => {
       if (e.target.closest('[data-context-toolbar="true"]')) return;
       setTimeout(evaluateSelection, 10);
     };
-
-    const handleGlobalKeyUp = () => {
-      setTimeout(evaluateSelection, 10);
-    };
-
-    // Hide instantly if user clicks anywhere else
+    const handleGlobalKeyUp = () => setTimeout(evaluateSelection, 10);
     const handleGlobalMouseDown = e => {
       if (e.target.closest('[data-context-toolbar="true"]')) return;
       setToolbarState(prev => ({ ...prev, visible: false }));
     };
-
-    // Failsafe for internal native selection wipes (like standard typing)
     const handleSelectionChange = () => {
       setTimeout(() => {
         const selection = window.getSelection();
@@ -139,17 +125,20 @@ export default function App() {
       document.removeEventListener('mousedown', handleGlobalMouseDown);
       document.removeEventListener('selectionchange', handleSelectionChange);
     };
-  }, [isMobile]); // Re-bind if view layout state changes
+  }, [isMobile]);
 
   const useCustom = useCustomColors;
   const canvasBgColor = useCustom ? customBgColor : null;
-  const canvasTextColorValue = useCustom ? customTextColor : currentTheme.textValue;
+  const canvasTextColorValue = useCustom ? customTextColor : null;
   const canvasBgClass = !useCustom ? currentTheme.bgColor : '';
   const canvasTextColorClass = !useCustom ? currentTheme.textColor : '';
   const placeholderColor = currentTheme.placeholderColor || 'text-gray-400';
 
   const handleCanvasColors = theme => {
     setCurrentTheme(theme);
+    // Keep the color picker in sync with whichever theme is active
+    setCustomBgColor(theme.bgValue);
+    setCustomTextColor(theme.textValue);
     setUseCustomColors(false);
   };
 
@@ -159,31 +148,12 @@ export default function App() {
     setUseCustomColors(true);
   };
 
-  const handleTextureChange = intensity => {
-    setTextureIntensity(intensity);
-  };
-
-  const handleViewportChange = size => {
-    setViewportSize(size);
-  };
-
-  const handleFontChange = font => {
-    setSelectedFont(font);
-  };
-
-  const handleLineHeightChange = value => {
-    setLineHeight(value);
-  };
-
-  const [dropCap, setDropCap] = useState(false);
-  const handleDropCapChange = value => {
-    setDropCap(value);
-  };
-
-  const [canvasTextPadding, setCanvasTextPadding] = useState(52);
-  const handlePaddingChange = value => {
-    setCanvasTextPadding(value);
-  };
+  const handleTextureChange = intensity => setTextureIntensity(intensity);
+  const handleViewportChange = size => setViewportSize(size);
+  const handleFontChange = font => setSelectedFont(font);
+  const handleLineHeightChange = value => setLineHeight(value);
+  const handleDropCapChange = value => setDropCap(value);
+  const handlePaddingChange = value => setCanvasTextPadding(value);
 
   const handleKaomojiInsert = emoji => {
     if (textareaRef.current) {
@@ -221,8 +191,46 @@ export default function App() {
 
   const canvasSize = getCanvasSize();
 
+  const sharedCanvasProps = {
+    targetRef: canvasRef,
+    inputValue,
+    canvasBgColor,
+    canvasBgClass,
+    canvasTextColor: canvasTextColorValue,
+    canvasTextColorClass,
+    canvasFont: selectedFont.fontFamily,
+    placeholderColor,
+    canvasWidth: canvasSize.width,
+    canvasHeight: canvasSize.height,
+    canvasRadius: DEFAULT_CANVAS_RADIUS,
+    canvasFontSize,
+    canvasTextPadding,
+    lineHeight,
+    dropCap,
+    textureIntensity,
+    useCustomColors: useCustom,
+  };
+
+  const sharedControlProps = {
+    onFontChange: handleFontChange,
+    canvasFont: selectedFont.fontFamily,
+    onLineHeightChange: handleLineHeightChange,
+    currentLineHeight: lineHeight,
+    onDropCapChange: handleDropCapChange,
+    currentDropCap: dropCap,
+    onPaddingChange: handlePaddingChange,
+    currentPadding: canvasTextPadding,
+    onKaomojiInsert: handleKaomojiInsert,
+    onDecorationInsert: handleDecorationInsert,
+    onThemeColorsChange: handleThemeColorsChange,
+    currentBg: customBgColor,
+    currentText: customTextColor,
+    onTextureChange: handleTextureChange,
+    currentTexture: textureIntensity,
+  };
+
   return (
-    <div className="w-full h-screen overflow-hidden ">
+    <div className="w-full h-screen overflow-hidden">
       <div className="w-full max-w-[1150px] mx-auto h-full flex flex-col px-2 sm:px-0 relative">
         <Navbar
           onThemeSelect={handleCanvasColors}
@@ -247,28 +255,10 @@ export default function App() {
         {!isMobile && (
           <div className="grid grid-cols-2 flex-1 min-h-0">
             <div className="flex flex-col gap-3 h-full min-h-0">
-              <div className="flex-shrink-0 ">
-                <CanvasControls
-                  onFontChange={handleFontChange}
-                  canvasFont={selectedFont.fontFamily}
-                  onLineHeightChange={handleLineHeightChange}
-                  currentLineHeight={lineHeight}
-                  onDropCapChange={handleDropCapChange}
-                  currentDropCap={dropCap}
-                  onPaddingChange={handlePaddingChange}
-                  currentPadding={canvasTextPadding}
-                  onKaomojiInsert={handleKaomojiInsert}
-                  onDecorationInsert={handleDecorationInsert}
-                  onThemeColorsChange={handleThemeColorsChange}
-                  currentBg={customBgColor}
-                  currentText={customTextColor}
-                  onTextureChange={handleTextureChange}
-                  currentTexture={textureIntensity}
-                />
+              <div className="flex-shrink-0">
+                <CanvasControls {...sharedControlProps} />
               </div>
-
-              {/* No TextToolbar here on Desktop. It floats! */}
-              <div className="flex-1 min-h-0 ">
+              <div className="flex-1 min-h-0">
                 <InputArea
                   inputValue={inputValue}
                   setInputValue={setInputValue}
@@ -279,25 +269,7 @@ export default function App() {
             </div>
 
             <div className="flex flex-col h-full min-h-0 items-center justify-center border-l border-gray-200/20">
-              <Canvas
-                targetRef={canvasRef}
-                inputValue={inputValue}
-                canvasBgColor={canvasBgColor}
-                canvasBgClass={canvasBgClass}
-                canvasTextColor={canvasTextColorValue}
-                canvasTextColorClass={canvasTextColorClass}
-                canvasFont={selectedFont.fontFamily}
-                placeholderColor={placeholderColor}
-                canvasWidth={canvasSize.width}
-                canvasHeight={canvasSize.height}
-                canvasRadius={DEFAULT_CANVAS_RADIUS}
-                canvasFontSize={canvasFontSize}
-                canvasTextPadding={canvasTextPadding}
-                lineHeight={lineHeight}
-                dropCap={dropCap}
-                textureIntensity={textureIntensity}
-                useCustomColors={useCustom}
-              />
+              <Canvas {...sharedCanvasProps} />
             </div>
           </div>
         )}
@@ -305,26 +277,9 @@ export default function App() {
         {isMobile && (
           <div className="flex flex-col flex-1 min-h-0 gap-3 mt-1 pb-3">
             <div className="flex-shrink-0">
-              <CanvasControls
-                onFontChange={handleFontChange}
-                canvasFont={selectedFont.fontFamily}
-                onLineHeightChange={handleLineHeightChange}
-                currentLineHeight={lineHeight}
-                onDropCapChange={handleDropCapChange}
-                currentDropCap={dropCap}
-                onPaddingChange={handlePaddingChange}
-                currentPadding={canvasTextPadding}
-                onKaomojiInsert={handleKaomojiInsert}
-                onDecorationInsert={handleDecorationInsert}
-                onThemeColorsChange={handleThemeColorsChange}
-                currentBg={customBgColor}
-                currentText={customTextColor}
-                onTextureChange={handleTextureChange}
-                currentTexture={textureIntensity}
-              />
+              <CanvasControls {...sharedControlProps} />
             </div>
 
-            {/* RESTORED: Natively embedded toolbar directly under controls on Mobile! */}
             <div className="flex-shrink-0 overflow-x-auto">
               <TextToolbar
                 textareaRef={textareaRef}
@@ -346,25 +301,7 @@ export default function App() {
                 </div>
               ) : (
                 <div className="h-full flex items-center justify-center p-2 bg-black/20 rounded-xl">
-                  <Canvas
-                    targetRef={canvasRef}
-                    inputValue={inputValue}
-                    canvasBgColor={canvasBgColor}
-                    canvasBgClass={canvasBgClass}
-                    canvasTextColor={canvasTextColorValue}
-                    canvasTextColorClass={canvasTextColorClass}
-                    canvasFont={selectedFont.fontFamily}
-                    placeholderColor={placeholderColor}
-                    canvasWidth={canvasSize.width}
-                    canvasHeight={canvasSize.height}
-                    canvasRadius={DEFAULT_CANVAS_RADIUS}
-                    canvasFontSize={canvasFontSize}
-                    canvasTextPadding={canvasTextPadding}
-                    lineHeight={lineHeight}
-                    dropCap={dropCap}
-                    textureIntensity={textureIntensity}
-                    useCustomColors={useCustom}
-                  />
+                  <Canvas {...sharedCanvasProps} />
                 </div>
               )}
             </div>
@@ -387,9 +324,9 @@ export default function App() {
         )}
       </div>
 
-      {/* Dynamic Overlay Floating Toolbar Portal - DESKTOP ONLY */}
-      {!isMobile && toolbarState.visible && (
+      {!isMobile && (
         <div
+          ref={toolbarRef}
           data-context-toolbar="true"
           style={{
             position: 'fixed',
@@ -398,8 +335,11 @@ export default function App() {
             transform: 'translateX(-50%)',
             zIndex: 9999,
             width: 'max-content',
+            opacity: toolbarState.visible ? 1 : 0,
+            pointerEvents: toolbarState.visible ? 'auto' : 'none',
+            transition: 'opacity 150ms ease',
           }}
-          className="pointer-events-auto shadow-2xl transition-all duration-150 animate-in fade-in zoom-in-95 rounded-lg"
+          className="shadow-2xl rounded-lg"
         >
           <TextToolbar
             textareaRef={textareaRef}

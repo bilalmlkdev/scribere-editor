@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 export default function Loader({ onComplete }) {
   const [count, setCount] = useState(0);
   const [fillPercent, setFillPercent] = useState(0);
+  const animationFrameRef = useRef();
+  const completedRef = useRef(false); // prevent double onComplete calls
 
   useEffect(() => {
     const duration = 2400;
     const startTime = performance.now();
 
     const easeInOutCubic = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-
-    let animationId;
 
     const updateCounter = now => {
       const elapsed = now - startTime;
@@ -29,21 +29,27 @@ export default function Loader({ onComplete }) {
       setFillPercent(targetPercent);
 
       if (progress < 1) {
-        animationId = requestAnimationFrame(updateCounter);
+        animationFrameRef.current = requestAnimationFrame(updateCounter);
       } else {
         setCount(100);
         setFillPercent(100);
-        if (onComplete) setTimeout(() => onComplete(), 150);
+        if (!completedRef.current && onComplete) {
+          completedRef.current = true;
+          setTimeout(() => onComplete(), 150);
+        }
       }
     };
 
-    animationId = requestAnimationFrame(updateCounter);
-    return () => cancelAnimationFrame(animationId);
+    animationFrameRef.current = requestAnimationFrame(updateCounter);
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
   }, [onComplete]);
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black">
-      {/* Main animated wordmark container */}
       <div className="relative w-full max-w-[90vw] sm:max-w-[600px]">
         <svg viewBox="0 0 600 150" className="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -52,7 +58,6 @@ export default function Loader({ onComplete }) {
             </clipPath>
           </defs>
 
-          {/* 1. Background "glyphic" text (dimmed) */}
           <text
             x="300"
             y="75"
@@ -68,7 +73,6 @@ export default function Loader({ onComplete }) {
             glyphic
           </text>
 
-          {/* 2. Filled "glyphic" text (revealed by clip path) */}
           <text
             x="300"
             y="75"
@@ -85,7 +89,6 @@ export default function Loader({ onComplete }) {
             glyphic
           </text>
 
-          {/* 3. Background "editor" text (dimmed) */}
           <text
             x="408"
             y="33"
@@ -101,7 +104,6 @@ export default function Loader({ onComplete }) {
             editor
           </text>
 
-          {/* 4. Filled "editor" text (revealed by clip path) */}
           <text
             x="408"
             y="33"
@@ -120,7 +122,6 @@ export default function Loader({ onComplete }) {
         </svg>
       </div>
 
-      {/* Counter – bottom right */}
       <div className="fixed bottom-6 right-6">
         <span className="font-secondary text-4xl font-medium text-white/70 tracking-wide">
           {count}

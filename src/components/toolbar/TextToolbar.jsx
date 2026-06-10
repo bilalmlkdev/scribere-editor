@@ -254,8 +254,15 @@ export default function TextToolbar({
             <BiText size={16} />
           </span>
           <FontSizeSelector
+            // isOpen={activeMenu === 'fontSize'}
+            // setIsOpen={open => setActiveMenu(open ? 'fontSize' : null)}
+            // label={fontSizeLabel}
+            // onSelect={handleFontSizeChange}
             isOpen={activeMenu === 'fontSize'}
-            setIsOpen={open => setActiveMenu(open ? 'fontSize' : null)}
+            setIsOpen={open => {
+              if (open) setActiveMenu('fontSize');
+              else setActiveMenu(null);
+            }}
             label={fontSizeLabel}
             onSelect={handleFontSizeChange}
           />

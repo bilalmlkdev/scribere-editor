@@ -1,85 +1,124 @@
-import { useEffect, useRef, useState } from 'react';
+// components/toolbar/ToolbarDropdown.jsx
+
+import { useEffect, useRef, useState, useLayoutEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 export default function ToolbarDropdown({ isOpen, onClose, trigger, children, align = 'left' }) {
   const triggerRef = useRef(null);
-  const [position, setPosition] = useState({ top: 0, left: 0 });
   const dropdownRef = useRef(null);
-  const [dropdownWidth, setDropdownWidth] = useState(200);
+  const [position, setPosition] = useState({ top: 0, left: 0 });
+  const [ready, setReady] = useState(false);
 
-  // Update dropdown position when open or scroll/resize
+  // Force a synchronous position update after the dropdown is in the DOM
+  useLayoutEffect(() => {
+    if (!isOpen) {
+      setReady(false);
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      if (triggerRef.current && dropdownRef.current) {
+        const triggerRect = triggerRef.current.getBoundingClientRect();
+        const dropdownRect = dropdownRef.current.getBoundingClientRect();
+        const gap = 8;
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+
+        let left = triggerRect.left;
+        if (align === 'center') {
+          left = triggerRect.left + triggerRect.width / 2 - dropdownRect.width / 2;
+        } else if (align === 'right') {
+          left = triggerRect.right - dropdownRect.width;
+        }
+        left = Math.max(gap, Math.min(left, viewportWidth - dropdownRect.width - gap));
+
+        let top = triggerRect.bottom + gap;
+        if (top + dropdownRect.height > viewportHeight - gap) {
+          top = triggerRect.top - dropdownRect.height - gap;
+        }
+        top = Math.max(gap, Math.min(top, viewportHeight - dropdownRect.height - gap));
+
+        setPosition({ top, left });
+        setReady(true);
+      }
+    }, 10);
+
+    return () => clearTimeout(timeout);
+  }, [isOpen, align, children]);
+
+  // Re-position on scroll/resize
   useEffect(() => {
-    if (!isOpen || !triggerRef.current) return;
+    if (!isOpen || !ready) return;
 
     const updatePosition = () => {
-      const rect = triggerRef.current.getBoundingClientRect();
+      if (!triggerRef.current || !dropdownRef.current) return;
+      const triggerRect = triggerRef.current.getBoundingClientRect();
+      const dropdownRect = dropdownRef.current.getBoundingClientRect();
       const gap = 8;
-
-      let left = rect.left;
-      let top = rect.bottom + gap;
-
-      const width = dropdownRef.current ? dropdownRef.current.offsetWidth : dropdownWidth;
-
-      if (align === 'center') {
-        left = rect.left + rect.width / 2 - width / 2;
-      } else if (align === 'right') {
-        left = rect.right - width;
-      }
-
-      // Viewport boundary check
       const viewportWidth = window.innerWidth;
-      if (left + width > viewportWidth) left = viewportWidth - width - 8;
-      if (left < 8) left = 8;
+      const viewportHeight = window.innerHeight;
+
+      let left = triggerRect.left;
+      if (align === 'center') {
+        left = triggerRect.left + triggerRect.width / 2 - dropdownRect.width / 2;
+      } else if (align === 'right') {
+        left = triggerRect.right - dropdownRect.width;
+      }
+      left = Math.max(gap, Math.min(left, viewportWidth - dropdownRect.width - gap));
+
+      let top = triggerRect.bottom + gap;
+      if (top + dropdownRect.height > viewportHeight - gap) {
+        top = triggerRect.top - dropdownRect.height - gap;
+      }
+      top = Math.max(gap, Math.min(top, viewportHeight - dropdownRect.height - gap));
 
       setPosition({ top, left });
     };
 
-    updatePosition();
     window.addEventListener('resize', updatePosition);
     window.addEventListener('scroll', updatePosition, true);
     return () => {
       window.removeEventListener('resize', updatePosition);
       window.removeEventListener('scroll', updatePosition, true);
     };
-  }, [isOpen, align, dropdownWidth]);
+  }, [isOpen, ready, align]);
 
-  // Close on outside click
+  // Handle outside clicks
   useEffect(() => {
-    function handleClickOutside(event) {
-      if (triggerRef.current && !triggerRef.current.contains(event.target)) {
-        const dropdownEl = document.getElementById('toolbar-dropdown-portal');
-        if (dropdownEl && dropdownEl.contains(event.target)) return;
+    if (!isOpen) return;
+
+    const handleClickOutside = event => {
+      const isInsideTrigger = triggerRef.current?.contains(event.target);
+      const isInsideDropdown = dropdownRef.current?.contains(event.target);
+      if (!isInsideTrigger && !isInsideDropdown) {
         onClose();
       }
-    }
-    if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    };
+
+    document.addEventListener('mousedown', handleClickOutside, true);
+    return () => document.removeEventListener('mousedown', handleClickOutside, true);
   }, [isOpen, onClose]);
 
-  // Measure dropdown width after render
-  useEffect(() => {
-    if (isOpen && dropdownRef.current) {
-      setDropdownWidth(dropdownRef.current.offsetWidth);
-    }
-  }, [isOpen]);
+  /* REMOVED: if (!isOpen) return null; */
 
   return (
     <>
+      {/* The trigger wrapper is ALWAYS rendered so the buttons show up in your toolbar */}
       <div ref={triggerRef} className="inline-block">
         {trigger}
       </div>
+
+      {/* The dropdown portal is only rendered when isOpen is true */}
       {isOpen &&
         createPortal(
           <div
-            id="toolbar-dropdown-portal"
             ref={dropdownRef}
             style={{
               position: 'fixed',
               top: position.top,
               left: position.left,
               zIndex: 99999,
+              visibility: ready ? 'visible' : 'hidden',
             }}
             className="bg-[#121214] border border-[#27272a] rounded-xl p-1.5 shadow-2xl"
           >

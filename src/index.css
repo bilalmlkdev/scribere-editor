@@ -24,3 +24,31 @@
   }
 
 }
+
+/* Drop-cap styles – apply only to the first letter of the first paragraph */
+.drop-cap-standard::first-letter {
+  font-size: 3em;
+  font-weight: bold;
+  float: left;
+  margin-right: 0.15em;
+  margin-top: 0.05em;
+  line-height: 0.8;
+}
+
+.drop-cap-large::first-letter {
+  font-size: 4.5em;
+  font-weight: bold;
+  float: left;
+  margin-right: 0.15em;
+  margin-top: 0.05em;
+  line-height: 0.8;
+}
+
+.drop-cap-huge::first-letter {
+  font-size: 6em;
+  font-weight: bold;
+  float: left;
+  margin-right: 0.15em;
+  margin-top: 0.05em;
+  line-height: 0.8;
+}

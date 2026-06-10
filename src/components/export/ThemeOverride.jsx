@@ -129,10 +129,10 @@ export default function ThemeOverride({ onThemeOverride, currentTheme }) {
       });
     } else if (preset?.id === 'current') {
       onThemeOverride({
-        bgColor: currentTheme?.bgColor,
-        bgValue: currentTheme?.bgValue,
-        textColor: currentTheme?.textColor,
-        textValue: currentTheme?.textValue,
+        bgColor: currentTheme?.bgColor || 'bg-white',
+        bgValue: currentTheme?.bgValue || '#FFFFFF',
+        textColor: currentTheme?.textColor || 'text-gray-900',
+        textValue: currentTheme?.textValue || '#111827',
       });
     }
   };

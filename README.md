@@ -1,304 +1,148 @@
-<div align="center">
-  <img src="public/glyphicLogo.svg" alt="Glyphic Logo" width="96" height="96" />
+# <a href="https://useglyphic.vercel.app" target="_blank">Glyphic - A browser-based text design tool.</a>
 
-# Glyphic
+Glyphic gives you a typography-first workspace: write content, style selected text, apply curated themes, adjust spacing, and export high-resolution images. Everything runs in your browser. Your content never leaves your device.
 
-A browser based text design tool for creating typographic visuals.
-<br />
-Write content, customize styling, and export publication-ready images.
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Status-active-amber?style=flat&color=9B72FF" />
-  <img src="https://img.shields.io/badge/Built%20with-React%20%2B%20Vite-9B72FF?style=flat" />
-  <img src="https://img.shields.io/badge/Styling-Tailwind%20CSS-9B72FF?style=flat" />
-  <img src="https://img.shields.io/badge/License-MIT-9B72FF?style=flat" />
-  <a href="https://github.com/byllzz">
-    <img src="https://img.shields.io/badge/Author-Bilal%20Malik-9B72FF?style=flat" />
+<p align="left">
+  <a href="./LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-9B72FF.svg?style=flat" />
   </a>
-  <img src="https://img.shields.io/badge/Latest%20Release-10%20June%202026-9B72FF.svg" />
-  <img src="https://img.shields.io/badge/Deployed%20on-Vercel-9B72FF?style=flat" />
-</p>
-
-<br />
-
-<a href="https://useglyphic.vercel.app">
-  <img
-    src="https://img.shields.io/badge/%20Launch%20Glyphic-Live%20Demo-9B72FF?style=flat"
-    alt="Live Demo"
-  />
+  <img src="https://img.shields.io/badge/Repository%20Status-Maintained-9B72FF.svg?style=flat" />
+  <img src="https://img.shields.io/badge/Website%20Status-Online-9B72FF.svg?style=flat" />
+  <a href="https://github.com/byllzz">
+    <img src="https://img.shields.io/badge/Author-Bilal%20Malik-9B72FF.svg?style=flat" />
+  </a>
+<a href="https://github.com/byllzz/glyphic/releases">
+  <img src="https://img.shields.io/badge/Latest%20Release-10%20June%202026-9B72FF.svg" alt="Latest Release Badge" />
 </a>
-
-</div>
-<br>
-<p align="center">
-  <img src="./public/editor.png" alt="Glyphic Editor" width="100%" />
 </p>
+
+[![Visit Glyphic](https://img.shields.io/badge/View-Glyphic-9B72FF?style=flat)](https://useglyphic.vercel.app)
 
 <p align="start">
-⭐ <strong>Star the repository if Glyphic saves you from fighting CSS for your next typography project.</strong>
+  <img src="./public/editor.png" alt="Editor preview" width="100%" />
+  :star: Star me on GitHub — it helps!
 </p>
 
+## Why Glyphic?
 
-## Overview
+- **Traditional design tools** → Too heavy for typography-only tasks.
+- **Social media tools** → Require accounts and offer limited customization.
 
-Glyphic is a browser-based typography design tool built for creators, developers, writers, and designers who need beautiful text compositions without opening a full design suite.
-
-Instead of navigating dozens of menus and layers, Glyphic focuses on typography first:
-
-- Write content
-- Style selected text
-- Apply curated themes
-- Adjust spacing and layout
-- Export publication-ready visuals
-
-Everything runs entirely in the browser.
-
-Your content is never uploaded to a server.
-
----
-
-## Why Glyphic Exists
-
-Most typography workflows fall into one of two categories:
-
-### Traditional Design Tools
-
-Powerful but often excessive for typography-focused content.
-
-- Complex interfaces
-- Large project files
-- Steep learning curves
-
-### Social Media Design Tools
-
-Easy to use but limited.
-
-- Account requirements
-- Restricted customization
-- Export limitations
-
-Glyphic bridges that gap by providing:
-
-- A focused typography workflow
-- Real-time editing
-- High-quality exports
-- Local-first privacy
-- Zero setup
+Glyphic bridges the gap: focused, real-time, local-first, and zero setup.
 
 ---
 
 ## Highlights
 
-| | |
-|---|---|
-|  Real-Time Editing | Every keystroke updates instantly |
-|  25+ Themes | Carefully curated typography themes |
-|  20+ Fonts | Serif, Sans, Mono, Handwriting & more |
-|  Responsive Viewports | Social, desktop, mobile formats |
-|  Theme Overrides | Fully customizable colors |
-|  PNG Export | High-resolution image output |
-|  SVG Export | Vector-based exports |
-|  Privacy First | No uploads, no accounts |
+| Feature | Description |
+|----------|-------------|
+| Real-time editing | Instant canvas updates |
+| 25+ themes | Curated typography themes |
+| 20+ fonts | Serif, sans, mono, handwriting |
+| Responsive viewports | Social, desktop, and mobile |
+| Theme overrides | Fully customizable colors |
+| PNG / SVG export | High-resolution and vector output |
+| Privacy first | No uploads, no accounts |
 
 ---
 
-# Features
+## Features
 
-## Core Editing
+### Core Editing
 
-### Live Canvas Preview
+- Live canvas preview
+- Rich text toolbar
+  - Bold
+  - Italic
+  - Underline
+  - Strikethrough
+  - Headings
+  - Lists
+  - Case transforms
+  - Font sizing
+- Formatting applies **only to selected text**
 
-Changes are reflected instantly while typing.
+### Typography Controls
 
-### Rich Text Toolbar
-
-Apply formatting to selected text only.
-
-Supported formatting:
-
-- Bold
-- Italic
-- Underline
-- Strikethrough
-- Headings
-- Lists
-- Text case transformations
-- Font sizing
-
-### Smart Editing Workflow
-
-Built to feel fast and distraction-free while maintaining flexibility.
-
----
-
-## Typography Controls
-
-### Font Library
-
-Choose from 20+ curated Google Fonts:
-
-- Serif
-- Sans Serif
-- Monospace
-- Handwriting
-- Decorative
-
-### Advanced Spacing Controls
-
-Fine tune:
-
+- 20+ Google Fonts
 - Line height
 - Letter spacing
 - Word spacing
 - Internal padding
+- Drop caps
+  - Standard
+  - Large
+  - Huge
 
-### Drop Caps
+### Theme System
 
-Create editorial-style layouts using:
+- 25+ presets
+  - Serif
+  - Sans
+  - Mono
+  - Terminal
+  - Vintage
+  - Code
+  - Editorial
+  - More...
+- Full color overrides
+  - Background
+  - Text
+  - Texture intensity
 
-- Standard
-- Large
-- Huge
+### Creative Tools
 
-drop cap presets.
+- Kaomoji library for quick insertion:
+  (｡◕‿◕｡)
 
----
+* Decorative elements:
 
-## Theme System
+  * Dividers
+  * Bullets
+  * Stars
+  * Hearts
+  * Arrows
+  * Notes
+* Paper texture control:
 
-### Preset Themes
+  * 0% = clean
+  * 100% = heavy grain + noise
 
-Includes more than 25 typography-focused themes:
+### Export System
 
-- Serif
-- Sans
-- Mono
-- Terminal
-- Vintage
-- Modern
-- Code
-- Editorial
+* **PNG**
 
-Each theme contains:
+  * 2× scale
+  * 3× scale
+  * 4× scale
+  * Up to 4320 × 4320
+* **SVG**
 
-- Background color
-- Text color
-- Placeholder styling
+  * Vector export
+  * Print-ready
+  * Editable in design software
+* Export-time theme overrides independent from editor canvas
 
-### Theme Overrides
+### Accessibility & UX
 
-Customize:
+* Responsive layout
 
-- Background color
-- Text color
-- Texture intensity
+  * Desktop split view
+  * Mobile tab navigation
+* Keyboard shortcuts
 
-without affecting preset definitions.
+| Shortcut   | Action    |
+| ---------- | --------- |
+| `Ctrl + B` | Bold      |
+| `Ctrl + I` | Italic    |
+| `Ctrl + U` | Underline |
 
----
-
-## Creative Tools
-
-### Kaomoji Library
-
-Insert expressive characters directly at the cursor position.
-
-Examples:
-
-```text
-(｡◕‿◕｡)
-(╯°□°）╯︵ ┻━┻
-(づ｡◕‿‿◕｡)づ
-```
-
-### Decorations
-
-Quickly insert:
-
-- Dividers
-- Bullets
-- Stars
-- Hearts
-- Arrows
-- Musical notes
-
-### Paper Texture
-
-Add subtle grain and noise overlays.
-
-Range:
-
-```text
-0% → Clean
-100% → Heavy texture
-```
+* Click outside modals to close
+* Consistent interaction patterns
 
 ---
 
-## Export System
-
-### PNG Export
-
-Export high-resolution images using:
-
-- 2x scale
-- 3x scale
-- 4x scale
-
-Supports exports up to:
-
-```text
-4320 × 4320
-```
-
-### SVG Export
-
-Generate vector-based exports for:
-
-- Printing
-- Scaling
-- Editing elsewhere
-
-### Export Theme Override
-
-Change export colors independently from the editor canvas.
-
----
-
-## Accessibility & UX
-
-### Responsive Layout
-
-Desktop:
-
-```text
-Editor | Preview
-```
-
-Mobile:
-
-```text
-Editor Tab
-Preview Tab
-```
-
-### Keyboard Shortcuts
-
-| Shortcut | Action |
-|----------|---------|
-| Ctrl + B | Bold |
-| Ctrl + I | Italic |
-| Ctrl + U | Underline |
-
-### Smart UI Behavior
-
-- Click outside to close
-- Consistent modal interactions
-- Mobile-friendly controls
-
----
-
-# How It Works
+## Architecture
 
 ```text
 User Input
@@ -322,353 +166,210 @@ Export Module
 PNG / SVG Output
 ```
 
----
+### Layers
 
-# Architecture
+* **Canvas Layer**
 
-## Canvas Layer
+  * Rendering
+  * Themes
+  * Typography
+  * Textures
+  * Viewports
 
-Responsible for:
+* **Theme Layer**
 
-- Rendering content
-- Theme application
-- Typography styles
-- Texture overlays
-- Viewport rendering
+  * Presets
+  * Overrides
+  * Random generation
+  * Color management
 
----
+* **Export Layer**
 
-## Theme Layer
-
-Handles:
-
-- Theme presets
-- Theme overrides
-- Random theme generation
-- Color management
-
----
-
-## Export Layer
-
-Built using:
-
-```text
-html-to-image
-```
-
-Responsible for:
-
-- PNG generation
-- SVG generation
-- Export scaling
-- Export color overrides
+  * `html-to-image`
+  * PNG export
+  * SVG export
+  * Scaling
+  * Color overrides
 
 ---
 
-# Component Reference
+## Component Reference
 
-| Component | Responsibility |
-|------------|----------------|
-| Canvas | Typography rendering |
-| TextToolbar | Formatting actions |
-| Themes | Theme gallery |
-| ThemeColors | Theme customization |
-| ViewPorts | Canvas dimensions |
-| FontSelector | Font management |
-| FontSize | Text sizing |
-| LineHeight | Vertical rhythm |
-| DropCap | Editorial styling |
-| Padding | Layout spacing |
-| KaomojiSelector | Symbol insertion |
-| Decorations | Decorative elements |
-| ExportOptions | Export pipeline |
-| Navbar | Global actions |
-
----
-
-# Project Structure
-
-```bash
-glyphic/
-├── public/
-├── src/
-│
-├── components/
-├── data/
-├── App.jsx
-├── main.jsx
-│
-├── package.json
-├── vite.config.js
-├── tailwind.config.js
-└── README.md
-```
+| Component         | Responsibility       |
+| ----------------- | -------------------- |
+| `Canvas`          | Typography rendering |
+| `TextToolbar`     | Formatting actions   |
+| `Themes`          | Theme gallery        |
+| `ThemeColors`     | Custom color picker  |
+| `ViewPorts`       | Canvas dimensions    |
+| `FontSelector`    | Font selection       |
+| `FontSize`        | Font sizing          |
+| `LineHeight`      | Line spacing         |
+| `Padding`         | Internal spacing     |
+| `DropCap`         | Editorial styling    |
+| `KaomojiSelector` | Kaomoji insertion    |
+| `Decorations`     | Decorative elements  |
+| `ExportOptions`   | Export pipeline      |
+| `Navbar`          | Global actions       |
 
 ---
 
-# Tech Stack
+## Getting Started
 
-| Technology | Purpose |
-|------------|----------|
-| React | UI Architecture |
-| Vite | Build Tooling |
-| Tailwind CSS | Styling |
-| html-to-image | Export Engine |
-| React Icons | Icons |
-| Vercel | Hosting |
-
----
-
-# Getting Started
-
-## Clone Repository
+### Clone the Repository
 
 ```bash
 git clone https://github.com/your-username/glyphic.git
 cd glyphic
 ```
 
-## Install Dependencies
+### Install Dependencies
 
 ```bash
 npm install
 ```
 
-## Start Development Server
+### Start Development Server
 
 ```bash
 npm run dev
 ```
 
-## Production Build
+---
 
-```bash
-npm run build
-```
+## Scripts
+
+| Command           | Description                      |
+| ----------------- | -------------------------------- |
+| `npm run dev`     | Start development server         |
+| `npm run build`   | Create production build          |
+| `npm run preview` | Preview production build locally |
 
 ---
 
-# Development Guide
-
-## Available Scripts
-
-```bash
-npm run dev
-```
-
-Runs the development server.
-
-```bash
-npm run build
-```
-
-Creates a production build.
-
-```bash
-npm run preview
-```
-
-Preview the production build locally.
-
 ---
 
-## Folder Conventions
+## Contributing
 
-### components/
+Contributions are welcome, including:
 
-Reusable UI building blocks.
+* Bug fixes
+* New themes
+* Additional fonts
+* Accessibility improvements
+* Feature enhancements
 
-### data/
+### Areas to Improve
 
-Fonts, themes, and configuration data.
+#### Themes
 
-### public/
-
-Static assets and screenshots.
-
----
-
-# Contributing
-
-Contributions of all sizes are welcome.
-
-Whether you're fixing a typo, adding a theme, improving accessibility, or introducing a new feature, your help is appreciated.
-
----
-
-## Areas That Need Help
-
-### Themes
-
-Add new typography themes.
-
-File:
-
-```bash
+```text
 src/data/themes.js
 ```
 
-### Fonts
+#### Fonts
 
-Expand the font library.
-
-File:
-
-```bash
+```text
 src/data/fonts.js
 ```
 
-### Accessibility
+#### Accessibility
 
-Examples:
+* Keyboard navigation
+* Screen reader support
+* Focus management
 
-- Better keyboard navigation
-- Screen reader support
-- Improved focus states
+#### Export
 
-### Export Features
+* Custom dimensions
+* PDF support
+* Batch exports
 
-Ideas:
+#### Mobile
 
-- Custom dimensions
-- PDF export
-- Batch exports
-
-### Mobile Experience
-
-- Better touch interactions
-- Improved layouts
-- Responsive refinements
+* Touch interactions
+* Layout refinements
 
 ---
 
 ## Development Workflow
 
-### 1. Fork Repository
+### 1. Fork & Clone
 
-Create your own fork.
+```bash
+git clone <your-fork>
+```
 
-### 2. Create Branch
+### 2. Create a Branch
 
 ```bash
 git checkout -b feat/my-feature
 ```
 
-### 3. Implement Changes
-
-Make focused changes.
-
-### 4. Test Locally
+### 3. Develop & Test
 
 ```bash
 npm run dev
-```
-
-### 5. Build Project
-
-```bash
 npm run build
 ```
 
-### 6. Commit
+### 4. Commit Changes
 
-Use conventional commits:
+Use Conventional Commits:
 
-```bash
-feat: add custom viewport preset
-
-fix: resolve svg export issue
-
-docs: improve contribution guide
-
-refactor: simplify toolbar logic
+```text
+feat:
+fix:
+docs:
+refactor:
 ```
 
-### 7. Open Pull Request
+### 5. Open a Pull Request
 
-Submit a PR with:
+Include:
 
-- Description
-- Screenshots (if UI changed)
-- Testing notes
-
----
-
-# Pull Request Checklist
-
-Before opening a PR:
-
-- [ ] Builds successfully
-- [ ] No console errors
-- [ ] Existing features still work
-- [ ] Documentation updated
-- [ ] UI changes include screenshots
-- [ ] Accessibility considered
+* Description
+* Screenshots (if UI changed)
+* Testing notes
 
 ---
 
-# Roadmap
+## Pull Request Checklist
 
-## Planned
-
-- [ ] Custom canvas dimensions
-- [ ] User-created themes
-- [ ] Theme import/export
-- [ ] Undo / Redo
-- [ ] Text shadows
-- [ ] Gradient backgrounds
-- [ ] Template library
-- [ ] Keyboard shortcuts guide
-
-## Future Exploration
-
-- [ ] PDF export
-- [ ] Saved projects
-- [ ] Cloud sync
-- [ ] Collaboration features
+* [ ] No console errors
+* [ ] Existing functionality remains intact
+* [ ] Documentation updated
+* [ ] Screenshots included for UI changes
 
 ---
 
-# Privacy
+## Roadmap
 
-Glyphic is designed with a local-first approach.
-
-- No accounts
-- No tracking
-- No analytics
-- No content uploads
-- No server-side rendering
-
-Your content remains on your device.
-
----
-
-# Performance Notes
-
-- Rendering happens entirely in the browser.
-- Exports are generated locally.
-- Large exports may require additional memory.
-- No network requests are needed for editing.
+* Custom canvas dimensions
+* User-created themes
+* Theme import/export
+* Undo / Redo
+* Text shadows
+* Gradient backgrounds
+* Template library
+* Keyboard shortcuts guide
 
 ---
 
-# Acknowledgements
+## Privacy
 
-Built with the open-source ecosystem:
-
-- React
-- Vite
-- Tailwind CSS
-- html-to-image
-- React Icons
-
-Thanks to every contributor helping improve Glyphic.
+* No accounts
+* No tracking
+* No analytics
+* No content uploads
+* Everything stays on your device
+* Exports generated locally
 
 ---
 
-# License
+## License
 
-This project is licensed under the MIT License.
+MIT © Bilal Malik
 
-See [LICENSE](./LICENSE) for details.
+This project is licensed under the MIT License - see the [LICENSE.md](./LICENSE) file for details.
+

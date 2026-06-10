@@ -1,16 +1,13 @@
+// components/InputArea.jsx
+
 import { forwardRef, useEffect } from 'react';
 
 const InputArea = forwardRef(({ inputValue, setInputValue, fontSize }, ref) => {
-  useEffect(() => {
-    if (ref?.current && ref.current.innerHTML !== inputValue) {
-      ref.current.innerHTML = inputValue;
-    }
-  }, [inputValue, ref]);
+  // Remove the useEffect that overwrites innerHTML – it breaks cursor and causes loops
 
   const handleInput = e => {
     let html = e.currentTarget.innerHTML;
 
-    // Normalize browser artifacts (<br>, variations of whitespace, or raw empty tags)
     const textContent = e.currentTarget.textContent || '';
     if (
       html === '<br>' ||
@@ -19,7 +16,7 @@ const InputArea = forwardRef(({ inputValue, setInputValue, fontSize }, ref) => {
       textContent.trim() === ''
     ) {
       html = '';
-      e.currentTarget.innerHTML = ''; // Force-clear the physical DOM node for CSS :empty to trigger
+      e.currentTarget.innerHTML = '';
     }
 
     setInputValue(html);
@@ -31,8 +28,16 @@ const InputArea = forwardRef(({ inputValue, setInputValue, fontSize }, ref) => {
     document.execCommand('insertText', false, text);
   };
 
+  // Set initial content only once using a ref to avoid re‑runs
+  useEffect(() => {
+    if (ref.current && ref.current.innerHTML !== inputValue) {
+      ref.current.innerHTML = inputValue;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Only run once on mount
+
   return (
-    <div className="w-full h-full overflow-hidden flex flex-col p-3 lg:p-0  bg-zinc-950/20 lg:bg-transparent">
+    <div className="w-full h-full overflow-hidden flex flex-col p-3 lg:p-0 bg-zinc-950/20 lg:bg-transparent">
       <div
         ref={ref}
         contentEditable

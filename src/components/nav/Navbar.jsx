@@ -1,5 +1,5 @@
 import { FiGithub } from 'react-icons/fi';
-import ExportOptions from './Export/ExportOptions';
+import ExportOptions from '../export/Export';
 import Logo from './Logo';
 import Themes from './Themes';
 import ViewPorts from './ViewPorts';

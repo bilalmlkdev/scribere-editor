@@ -140,15 +140,16 @@ const Canvas = forwardRef(
     return (
       <div
         ref={combinedRef}
-        className={`z-0 rounded-[18px] shadow-2xl shadow-black/30 flex items-center justify-center text-start
-          overflow-hidden relative group transition-all duration-300
+        className={`z-0 shadow-2xl shadow-black/30 flex items-center justify-center text-start
+          overflow-hidden relative group transition-all duration-300 w-full h-full
           ${canvasBgClass} ${canvasTextColorClass}`}
         style={{
           fontFamily: canvasFont,
-          width: `${canvasWidth}px`,
-          height: `${canvasHeight}px`,
-          maxWidth: '100%',
-          maxHeight: '100%',
+          // Use explicit variables for maximum sizing constraints
+          maxWidth: `${canvasWidth}px`,
+          maxHeight: `${canvasHeight}px`,
+          // Enforce modern aspect ratio calculations natively across responsive layout viewports
+          aspectRatio: `${canvasWidth} / ${canvasHeight}`,
           borderRadius: `${canvasRadius}px`,
 
           ...(useCustomColors && canvasBgColor ? { backgroundColor: canvasBgColor } : {}),

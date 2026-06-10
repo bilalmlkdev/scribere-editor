@@ -6,7 +6,6 @@ import Canvas from './components/Canvas';
 import TextToolbar from './components/toolbar/TextToolbar';
 import { themes } from './data/themes';
 import { defaultFont } from './data/fonts';
-import { PiPencil } from 'react-icons/pi';
 import { RiEdit2Line } from 'react-icons/ri';
 import { LuImage } from 'react-icons/lu';
 import { FiGithub } from 'react-icons/fi';
@@ -185,12 +184,12 @@ export default function App() {
   };
 
   const getCanvasSize = () => {
-    if (isMobile) {
-      return {
-        width: Math.min(viewportSize.width, 350),
-        height: Math.min(viewportSize.height, 350),
-      };
-    }
+    // if (isMobile) {
+    //   return {
+    //     width: Math.min(viewportSize.width, 350),
+    //     height: Math.min(viewportSize.height, 350),
+    //   };
+    // }
     return { width: viewportSize.width, height: viewportSize.height };
   };
 
@@ -274,7 +273,7 @@ export default function App() {
               </div>
             </div>
 
-            <div className="flex flex-col h-full min-h-0 items-center justify-center border-l border-zinc-800/60">
+            <div className="flex flex-col h-full min-h-0 items-center justify-center border-l border-zinc-800/60 p-6">
               <Canvas {...sharedCanvasProps} />
             </div>
           </div>
@@ -309,8 +308,11 @@ export default function App() {
                     />
                   </div>
                 ) : (
-                  <div className="h-full flex items-center justify-center p-2 sm:p-4 overflow-auto">
-                    <Canvas {...sharedCanvasProps} />
+                  /* Clean scaling container wrapper for responsive viewports */
+                  <div className="h-full w-full flex items-center justify-center p-4 sm:p-6 overflow-hidden">
+                    <div className="w-full h-full max-w-full max-h-full flex items-center justify-center">
+                      <Canvas {...sharedCanvasProps} />
+                    </div>
                   </div>
                 )}
               </div>

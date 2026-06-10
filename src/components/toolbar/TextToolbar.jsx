@@ -246,7 +246,7 @@ export default function TextToolbar({
   };
 
   return (
-    <div className="w-full relative z-50 bg-[#09090b] border-b border-zinc-800/80 lg:border-none">
+    <div className="w-full relative z-10 lg:z-99 bg-[#09090b] border-b border-zinc-800/80 lg:border-none">
       <div className="w-full flex items-center justify-start overflow-x-auto whitespace-nowrap gap-x-1 px-3 py-1 text-white select-none text-xs sm:text-sm scrollbar-none [&::-webkit-scrollbar]:hidden">
         {/* Font Size Selector */}
         <div className="flex items-center gap-1 text-zinc-400 font-medium mr-1 shrink-0">

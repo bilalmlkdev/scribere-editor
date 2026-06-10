@@ -32,15 +32,18 @@ export default function Navbar({
       <div className="flex items-center gap-1.5">
         <ViewPorts onViewportChange={onViewportChange} />
         <Themes onThemeSelect={onThemeSelect} />
+
+        {/* GitHub icon - hidden on screens smaller than 768px */}
         <a
           href="https://github.com/byllzz/glyphic"
-          className="flex items-center gap-1 bg-gray-100/10 border border-white/5 px-2 py-[7px] rounded-[7px] "
+          className="hidden md:flex items-center gap-1 bg-gray-100/10 border border-white/5 px-2 py-[7px] rounded-[7px]"
           target="_blank"
           rel="noopener noreferrer"
         >
           <FiGithub />
         </a>
-        <span className="h-5 w-[1px] mx-1 bg-white/10"></span>
+
+        <span className="h-5 w-[1px] mx-1 bg-white/10 hidden md:flex"></span>
         <ExportOptions
           canvasFontSize={canvasFontSize}
           targetRef={targetRef}

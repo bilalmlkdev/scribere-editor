@@ -14,6 +14,7 @@ const textColors = [
   '#8b5cf6',
   '#ec4899',
 ];
+
 const highlightColors = [
   '#fde047',
   '#bbf7d0',

@@ -37,7 +37,7 @@ export default function CanvasControls({
         currentTexture={currentTexture}
       />
       <Padding onPaddingChange={onPaddingChange} currentPadding={currentPadding} />
-      <span className="h-5 w-[1px] mx-1 bg-white/10"></span>
+      <span className="h-8 w-[1px] bg-white/10 hidden md:flex"></span>
       <KaomojiSelector onInsert={onKaomojiInsert} />
       <Decorations onInsert={onDecorationInsert} />
     </div>

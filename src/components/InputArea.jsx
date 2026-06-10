@@ -32,7 +32,7 @@ const InputArea = forwardRef(({ inputValue, setInputValue, fontSize }, ref) => {
   };
 
   return (
-    <div className="w-full h-full overflow-hidden flex flex-col">
+    <div className="w-full h-full overflow-hidden flex flex-col p-3 lg:p-0  bg-zinc-950/20 lg:bg-transparent">
       <div
         ref={ref}
         contentEditable
@@ -40,8 +40,8 @@ const InputArea = forwardRef(({ inputValue, setInputValue, fontSize }, ref) => {
         onInput={handleInput}
         onPaste={handlePaste}
         data-placeholder="Every great design starts with a single word..."
-        className="w-full flex-1 px-4 text-zinc-100 bg-transparent
-                   resize-none outline-none tracking-wide font-normal
+        className="w-full flex-1 px-3 py-2 lg:py-0 text-zinc-100 bg-transparent
+                   resize-none outline-none tracking-wide font-normal border border-zinc-800/80 lg:border-none rounded-xl lg:rounded-none
                    scrollbar-thin overflow-auto transition-all duration-200
                    empty:before:content-[attr(data-placeholder)] empty:before:text-zinc-600
                    empty:before:pointer-events-none empty:before:font-medium empty:before:tracking-tight focus:ring-0"

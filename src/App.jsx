@@ -81,7 +81,8 @@ export default function App() {
       const rect = range.getBoundingClientRect();
       if (rect.width === 0 || rect.height === 0) return;
 
-      const spaceOffset = 55;
+      // Decreased from 55 to 40 to bring the toolbar closer down to the text
+      const spaceOffset = 40;
       let targetTop = rect.top - spaceOffset;
       let targetLeft = rect.left + rect.width / 2;
 
@@ -184,12 +185,6 @@ export default function App() {
   };
 
   const getCanvasSize = () => {
-    // if (isMobile) {
-    //   return {
-    //     width: Math.min(viewportSize.width, 350),
-    //     height: Math.min(viewportSize.height, 350),
-    //   };
-    // }
     return { width: viewportSize.width, height: viewportSize.height };
   };
 
@@ -308,7 +303,6 @@ export default function App() {
                     />
                   </div>
                 ) : (
-                  /* Clean scaling container wrapper for responsive viewports */
                   <div className="h-full w-full flex items-center justify-center p-4 sm:p-6 overflow-hidden">
                     <div className="w-full h-full max-w-full max-h-full flex items-center justify-center">
                       <Canvas {...sharedCanvasProps} />
@@ -384,9 +378,7 @@ export default function App() {
             width: 'max-content',
             opacity: toolbarState.visible ? 1 : 0,
             pointerEvents: toolbarState.visible ? 'auto' : 'none',
-            transition: 'opacity 150ms ease',
           }}
-          className="shadow-2xl rounded-xl border border-zinc-800/80 overflow-hidden"
         >
           <TextToolbar
             textareaRef={textareaRef}

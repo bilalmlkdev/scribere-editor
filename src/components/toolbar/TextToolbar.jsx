@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BiSolidQuoteAltRight } from 'react-icons/bi';
+import { BiSolidQuoteAltRight, BiText } from 'react-icons/bi';
 import {
   FiAlignLeft,
   FiAlignCenter,
@@ -246,12 +246,12 @@ export default function TextToolbar({
   };
 
   return (
-    <div className="w-full relative z-10 lg:z-99 bg-[#09090b] border-b border-zinc-800/80 lg:border-none">
-      <div className="w-full flex items-center justify-start overflow-x-auto whitespace-nowrap gap-x-1 px-3 py-1 text-white select-none text-xs sm:text-sm scrollbar-none [&::-webkit-scrollbar]:hidden">
+    <div className="w-full relative z-10 lg:z-99 bg-transparent lg:bg-zinc-900  rouned-none lg:rounded-[12px]  border-b border-zinc-800/80 lg:border-none">
+      <div className="w-full flex items-center justify-start overflow-x-auto whitespace-nowrap gap-[1px] px-2 py-2 lg:px-1 lg:py-0.5 text-white select-none text-xs sm:text-sm scrollbar-none [&::-webkit-scrollbar]:hidden">
         {/* Font Size Selector */}
         <div className="flex items-center gap-1 text-zinc-400 font-medium mr-1 shrink-0">
-          <span className="text-[10px] uppercase tracking-wider text-zinc-500 mr-1 font-bold">
-            Size
+          <span className="uppercase tracking-wider bg-zinc-700/50 py-1.5 px-1.5 rounded-[8px] text-white mr-1 font-bold">
+            <BiText size={16} />
           </span>
           <FontSizeSelector
             isOpen={activeMenu === 'fontSize'}

@@ -248,7 +248,7 @@ export default function ExportOptions({
                       ${isAnimating ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
                     >
                       <h4 className="text-xs font-medium text-white/50 mb-2">Quality</h4>
-                      <div className="space-x-1.5 flex items-center justify-between">
+                      <div className="space-y-1 sm:space-x-1.5  flex flex-col sm:flex-row items-center justify-between">
                         {Object.entries(qualityMap).map(([key, val]) => (
                           <button
                             key={key}
@@ -269,7 +269,7 @@ export default function ExportOptions({
                     </div>
 
                     <div
-                      className={`mb-5 transition-all duration-300 delay-150
+                      className={`mb-5 transition-all duration-300 delay-150 hidden md:flex md:flex-col
                       ${isAnimating ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
                     >
                       <h4 className="text-xs font-medium text-white/50 mb-2">Theme Override</h4>
@@ -319,16 +319,16 @@ export default function ExportOptions({
 
                 {/* Preview Box - Responsive */}
                 <div
-                  className={`relative transition-all duration-300 delay-100 flex flex-col items-center
+                  className={`relative transition-all duration-300 delay-100 flex flex-col items-center  hidden md:flex
                   ${isAnimating ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
                 >
                   <div className="w-full flex items-center mb-2 justify-start pl-4">
                     <span className="text-[12px] font-medium text-white/80">Preview</span>
                   </div>
 
-                  {/* Frame Container - desktop fixed 320x320 with overflow hidden, mobile scrollable */}
+                  {/* Responsive Canvas Container: scrollable on mobile, fixed box on desktop */}
                   <div className="relative w-full overflow-x-auto md:w-[320px] md:h-[320px] md:overflow-hidden flex justify-center">
-                    <div className="inline-block">
+                    <div className="inline-block max-w-full">
                       <Canvas
                         inputValue={inputValue}
                         canvasBgColor={displayProps.isCustom ? displayProps.bgColorValue : null}

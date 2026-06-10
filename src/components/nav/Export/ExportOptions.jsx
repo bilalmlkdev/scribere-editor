@@ -12,7 +12,7 @@ export default function ExportOptions({
   canvasTextColorClass,
   canvasFont,
   placeholderColor,
-  canvasTextPadding = 52,
+  canvasTextPadding,
   useCustomColors = false,
   customBgColor = null,
   customTextColor = null,
@@ -216,10 +216,10 @@ export default function ExportOptions({
             onClick={closePanel}
           />
 
-          <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
+          <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none p-4">
             <div
               ref={panelRef}
-              className={`w-full max-w-[980px] bg-black border-2 border-gray-200/10 rounded-[12px] shadow-2xl p-5 pointer-events-auto
+              className={`w-full max-w-[calc(100%-2rem)] md:max-w-[980px] bg-black border-2 border-gray-200/10 rounded-[12px] shadow-2xl p-5 pointer-events-auto
                 transition-all duration-300 ease-out
                 ${isAnimating ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-4'}`}
             >
@@ -240,7 +240,7 @@ export default function ExportOptions({
                 </button>
               </div>
 
-              <div className="grid grid-cols-2 gap-x-5 px-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-5 px-5">
                 <div className="flex flex-col items-start">
                   <div className="w-full">
                     <div
@@ -317,7 +317,7 @@ export default function ExportOptions({
                   </div>
                 </div>
 
-                {/* Preview Box */}
+                {/* Preview Box - Responsive */}
                 <div
                   className={`relative transition-all duration-300 delay-100 flex flex-col items-center
                   ${isAnimating ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
@@ -326,15 +326,9 @@ export default function ExportOptions({
                     <span className="text-[12px] font-medium text-white/80">Preview</span>
                   </div>
 
-                  {/* Frame Container */}
-                  <div className="relative h-[300px] w-[300px] flex items-center justify-center overflow-hidden">
-                    <div
-                      style={{
-                        transform: 'scale(0.70)',
-                        transformOrigin: 'center center',
-                        flexShrink: 0,
-                      }}
-                    >
+                  {/* Frame Container - desktop fixed 320x320 with overflow hidden, mobile scrollable */}
+                  <div className="relative w-full overflow-x-auto md:w-[320px] md:h-[320px] md:overflow-hidden flex justify-center">
+                    <div className="inline-block">
                       <Canvas
                         inputValue={inputValue}
                         canvasBgColor={displayProps.isCustom ? displayProps.bgColorValue : null}

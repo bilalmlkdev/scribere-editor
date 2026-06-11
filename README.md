@@ -28,7 +28,7 @@ Glyphic is a typography-first design workspace that runs entirely in your browse
 
 ---
 
-## Table of Contents
+<!-- ## Table of Contents
 
 - [Getting Started](#getting-started)
 - [Features](#features)
@@ -41,43 +41,9 @@ Glyphic is a typography-first design workspace that runs entirely in your browse
 - [Privacy](#privacy)
 - [License](#license)
 
----
+--- -->
 
-## Getting Started
 
-### Prerequisites
-
-- Node.js (v18 or later recommended)
-- npm
-
-### Installation
-
-Clone the repository and install dependencies:
-
-```bash
-git clone https://github.com/byllzz/glyphic.git
-cd glyphic
-npm install
-```
-
-### Development
-
-Start the local development server:
-
-```bash
-npm run dev
-```
-
-### Build & Preview
-
-```bash
-npm run build      # Create production build
-npm run preview    # Preview production build locally
-```
-
----
-
-## Features
 
 ### Core Editing
 
@@ -270,6 +236,38 @@ src/data/fonts.js
 - [ ] Screenshots included for UI changes
 
 ---
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v18 or later recommended)
+- npm
+
+### Installation
+
+Clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/byllzz/glyphic.git
+cd glyphic
+npm install
+```
+
+### Development
+
+Start the local development server:
+
+```bash
+npm run dev
+```
+
+### Build & Preview
+
+```bash
+npm run build      # Create production build
+npm run preview    # Preview production build locally
+```
 
 ## Roadmap
 

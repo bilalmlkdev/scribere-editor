@@ -211,9 +211,7 @@ export default function KaomojiSelector({ onInsert, currentText = '' }) {
 
           {/* Footer */}
           <div className="px-3 py-1.5 border-t border-white/10">
-            <span className="text-[9px] text-white/30 font-mono">
-              {filteredKaomojis.length} kaomojis
-            </span>
+            <span className="text-[9px] text-white/30 ">{filteredKaomojis.length} kaomojis</span>
           </div>
         </div>
       )}

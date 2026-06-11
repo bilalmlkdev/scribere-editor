@@ -1,5 +1,3 @@
-// components/EditorDesktop.jsx
-
 import CanvasControls from '../controls/CanvasControls';
 import InputArea from '../InputArea';
 import Canvas from '../canvas/Canvas';

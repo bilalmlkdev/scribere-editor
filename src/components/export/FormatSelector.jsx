@@ -1,5 +1,3 @@
-// components/FormatSelector.jsx
-
 export const FormatSelector = ({ format, setFormat, isAnimating }) => {
   return (
     <div

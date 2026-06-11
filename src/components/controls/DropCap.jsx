@@ -51,9 +51,6 @@ export default function DropCap({ onDropCapChange, currentDropCap = false }) {
     { id: 'huge', name: 'Huge', size: '6em', lines: 5 },
   ];
 
-  // const selectedVariant =
-  //   variants.find(v => (v.id === 'none' ? !dropCap : dropCap === v.id)) || variants[0];
-
   return (
     <div className="relative" ref={menuRef}>
       {/* Trigger Button */}

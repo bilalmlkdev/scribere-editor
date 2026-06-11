@@ -1,5 +1,3 @@
-// components/EditorMobile.jsx
-
 import { useState } from 'react';
 import { RiEdit2Line } from 'react-icons/ri';
 import { LuImage } from 'react-icons/lu';

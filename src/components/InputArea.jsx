@@ -1,5 +1,3 @@
-// components/InputArea.jsx
-
 import { forwardRef, useEffect, useRef } from 'react';
 
 const InputArea = forwardRef(({ inputValue, setInputValue, fontSize }, externalRef) => {

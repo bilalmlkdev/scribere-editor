@@ -20,30 +20,12 @@
   <img src="./public/editor.png" alt="Editor preview" width="100%" />
 </p>
 
----
 
 ## Overview
 
 Glyphic is a typography-first design workspace that runs entirely in your browser. Write content, style selected text, apply curated themes, adjust spacing, and export high-resolution images - no accounts, no uploads, no setup required. Everything stays on your device.
 
 ---
-
-<!-- ## Table of Contents
-
-- [Getting Started](#getting-started)
-- [Features](#features)
-- [Architecture](#architecture)
-- [Component Reference](#component-reference)
-- [Keyboard Shortcuts](#keyboard-shortcuts)
-- [Export Options](#export-options)
-- [Contributing](#contributing)
-- [Roadmap](#roadmap)
-- [Privacy](#privacy)
-- [License](#license)
-
---- -->
-
-
 
 ### Core Editing
 

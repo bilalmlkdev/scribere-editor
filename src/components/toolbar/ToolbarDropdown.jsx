@@ -1,5 +1,3 @@
-// components/toolbar/ToolbarDropdown.jsx
-
 import { useEffect, useRef, useState, useLayoutEffect } from 'react';
 import { createPortal } from 'react-dom';
 
@@ -99,11 +97,9 @@ export default function ToolbarDropdown({ isOpen, onClose, trigger, children, al
     return () => document.removeEventListener('mousedown', handleClickOutside, true);
   }, [isOpen, onClose]);
 
-  /* REMOVED: if (!isOpen) return null; */
-
   return (
     <>
-      {/* The trigger wrapper is ALWAYS rendered so the buttons show up in your toolbar */}
+      {/* The trigger wrapper is ALWAYS rendered so the buttons show up in toolbar */}
       <div ref={triggerRef} className="inline-block">
         {trigger}
       </div>

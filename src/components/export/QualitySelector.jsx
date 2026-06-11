@@ -1,5 +1,3 @@
-// components/Export/QualitySelector.jsx
-
 import { qualityMap } from '../../utils/exportHelpers';
 
 export const QualitySelector = ({ quality, setQuality, isAnimating }) => {

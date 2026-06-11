@@ -1,5 +1,3 @@
-// components/ExportButton.jsx
-
 export const ExportButton = ({ format, isExporting, onExport, isAnimating }) => {
   return (
     <div

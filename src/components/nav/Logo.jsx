@@ -1,11 +1,8 @@
-// components/nav/Logo.jsx
-
-import { useEffect, useState } from 'react';
 import glyphicLogo from '../../../public/glyphicLogo.svg';
-import { useViewport } from '../../hooks/useViewport'; // adjust path if needed
+import { useViewport } from '../../hooks/useViewport';
 
 export default function Logo() {
-  const isMobile = useViewport(); // Use the shared hook instead of custom logic
+  const isMobile = useViewport();
 
   return (
     <div className="flex items-center gap-1.5">

@@ -1,8 +1,6 @@
-// components/controls/FontSelector.jsx
-
 import { useState, useRef, useEffect } from 'react';
 import { TbCaretUpDownFilled } from 'react-icons/tb';
-import { fonts } from '../../data/fonts'; // Import central fonts
+import { fonts } from '../../data/fonts';
 
 export default function FontSelector({ onFontChange, currentFont }) {
   const [selectedFont, setSelectedFont] = useState(() => {

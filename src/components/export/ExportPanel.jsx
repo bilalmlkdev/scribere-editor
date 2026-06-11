@@ -1,11 +1,9 @@
-// components/ExportPanel.jsx
-
 import { BiPlus } from 'react-icons/bi';
 import { QualitySelector } from './QualitySelector';
 import { FormatSelector } from './FormatSelector';
 import { ExportButton } from './ExportButton';
 import { PreviewBox } from './PreviewBox';
-import ThemeOverride from './ThemeOverride'; // adjust path as needed
+import ThemeOverride from './ThemeOverride';
 
 export const ExportPanel = ({
   isAnimating,

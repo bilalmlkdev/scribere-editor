@@ -1,5 +1,3 @@
-// components/PreviewBox.jsx
-
 import Canvas from '../canvas/Canvas';
 
 export const PreviewBox = ({

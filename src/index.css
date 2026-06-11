@@ -1,4 +1,3 @@
-/* font : Inter */
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 @import "tailwindcss";
@@ -23,32 +22,33 @@
     cursor: pointer;
   }
 
-}
 
-/* Drop-cap styles – apply only to the first letter of the first paragraph */
-.drop-cap-standard::first-letter {
-  font-size: 3em;
-  font-weight: bold;
-  float: left;
-  margin-right: 0.15em;
-  margin-top: 0.05em;
-  line-height: 0.8;
-}
+  /* Drop-cap styles */
+  .drop-cap-standard::first-letter {
+    font-size: 3em;
+    font-weight: bold;
+    float: left;
+    margin-right: 0.15em;
+    margin-top: 0.05em;
+    line-height: 0.8;
+  }
 
-.drop-cap-large::first-letter {
-  font-size: 4.5em;
-  font-weight: bold;
-  float: left;
-  margin-right: 0.15em;
-  margin-top: 0.05em;
-  line-height: 0.8;
-}
+  .drop-cap-large::first-letter {
+    font-size: 4.5em;
+    font-weight: bold;
+    float: left;
+    margin-right: 0.15em;
+    margin-top: 0.05em;
+    line-height: 0.8;
+  }
 
-.drop-cap-huge::first-letter {
-  font-size: 6em;
-  font-weight: bold;
-  float: left;
-  margin-right: 0.15em;
-  margin-top: 0.05em;
-  line-height: 0.8;
+  .drop-cap-huge::first-letter {
+    font-size: 6em;
+    font-weight: bold;
+    float: left;
+    margin-right: 0.15em;
+    margin-top: 0.05em;
+    line-height: 0.8;
+  }
+
 }

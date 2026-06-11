@@ -1,5 +1,3 @@
-// components/canvas/CanvasContent.jsx
-
 export const CanvasContent = ({ htmlContent, dropCap, fontSize, lineHeight }) => {
   // Determine drop-cap class based on size
   const getDropCapClass = () => {

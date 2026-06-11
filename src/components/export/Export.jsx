@@ -1,4 +1,3 @@
-// index.js
 import { useState } from 'react';
 import { useExportPanel } from '../../hooks/useExportPanel';
 import { useExport } from '../../hooks/useExport';
@@ -51,10 +50,7 @@ export default function ExportOptions({
     textValue: customTextColor || canvasTextColor,
   };
 
-  // Use override colors if available
-  // components/export/Export.jsx (or wherever your main export component is)
-
-  // Inside getDisplayProps, add a safe check:
+  // Inside getDisplayProps, added a safe check:
   const getDisplayProps = () => {
     if (overrideColors) {
       return {
@@ -62,7 +58,7 @@ export default function ExportOptions({
         bgColorValue: overrideColors.bgValue,
         textColorValue: overrideColors.textValue,
         textColorClass: overrideColors.textColor,
-        isCustom: overrideColors.id && overrideColors.id !== 'current', // ✅ add guard
+        isCustom: overrideColors.id && overrideColors.id !== 'current', // add guard
       };
     }
     return {

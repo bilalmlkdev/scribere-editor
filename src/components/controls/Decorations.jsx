@@ -242,7 +242,7 @@ export default function Decorations({ onInsert }) {
 
           {/* Footer */}
           <div className="px-3 py-1.5 border-t border-white/10 flex justify-between">
-            <span className="text-[9px] text-white/30 font-mono">
+            <span className="text-[9px] text-white/30 ">
               {filteredDecorations.length} decorations
             </span>
             <span className="text-[9px] text-white/20">

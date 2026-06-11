@@ -1,4 +1,3 @@
-// components/editor/index.jsx
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import Navbar from '../nav/Navbar';
@@ -16,7 +15,7 @@ const findFontById = fontId => fonts.find(f => f.id === fontId) || defaultFont;
 const findThemeByIndex = index => themes[index] || themes[0];
 
 export default function Editor() {
-  // --- Load persisted state ---
+  // Load persisted state
   const [storedState, setStoredState, clearStoredState] = useLocalStorage(
     STORAGE_KEYS.EDITOR_STATE,
     {
@@ -35,7 +34,7 @@ export default function Editor() {
     },
   );
 
-  // --- Local state ---
+  // Local state
   const [inputValue, setInputValue] = useState(storedState.inputValue);
   const [currentTheme, setCurrentTheme] = useState(findThemeByIndex(storedState.currentThemeId));
   const [viewportSize, setViewportSize] = useState(storedState.viewportSize);
@@ -50,16 +49,16 @@ export default function Editor() {
   const [customBgColor, setCustomBgColor] = useState(storedState.customBgColor);
   const [customTextColor, setCustomTextColor] = useState(storedState.customTextColor);
 
-  // --- Refs ---
+  // Refs
   const canvasRef = useRef(null);
   const textareaRef = useRef(null);
   const isInitialMount = useRef(true); // To avoid saving on first mount
 
-  // --- Hooks ---
+  //  Hooks
   const isMobile = useViewport();
   const { toolbarState, toolbarRef } = useTextSelectionToolbar(textareaRef, isMobile);
 
-  // --- Save to localStorage (only after mount and when state actually changes) ---
+  //  Save to localStorage (only after mount and when state actually changes)
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
@@ -93,10 +92,10 @@ export default function Editor() {
     useCustomColors,
     customBgColor,
     customTextColor,
-    setStoredState, // now stable, won't cause infinite loops
+    setStoredState,
   ]);
 
-  // --- Handlers ---
+  //  Handlers
   const handleInputChange = value => setInputValue(value);
   const handleThemeSelect = theme => setCurrentTheme(theme);
   const handleViewportChange = size => setViewportSize(size);
@@ -135,7 +134,7 @@ export default function Editor() {
     }
   }, [clearStoredState]);
 
-  // --- Derived props ---
+  //  Derived props
   const canvasBgColor = useCustomColors ? customBgColor : null;
   const canvasTextColorValue = useCustomColors ? customTextColor : null;
   const canvasBgClass = !useCustomColors ? currentTheme.bgColor : '';

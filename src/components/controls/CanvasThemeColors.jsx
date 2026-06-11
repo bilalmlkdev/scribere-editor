@@ -209,7 +209,7 @@ export default function CanvasThemeColors({
                 <div className="mb-3">
                   <div className="flex items-center justify-between mb-1.5">
                     <span className="text-[11px] font-medium text-white/60">Background</span>
-                    <span className="text-[10px] font-mono text-white/40">{bgColor}</span>
+                    <span className="text-[10px]  text-white/40">{bgColor}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <input
@@ -229,7 +229,7 @@ export default function CanvasThemeColors({
                 <div className="mb-4">
                   <div className="flex items-center justify-between mb-1.5">
                     <span className="text-[11px] font-medium text-white/60">Text</span>
-                    <span className="text-[10px] font-mono text-white/40">{textColor}</span>
+                    <span className="text-[10px]  text-white/40">{textColor}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <input
@@ -256,7 +256,7 @@ export default function CanvasThemeColors({
                 <div className="mb-2">
                   <div className="flex items-center justify-between mb-1.5">
                     <span className="text-[11px] font-medium text-white/60">Paper Texture</span>
-                    <span className="text-[10px] font-mono text-white/40">{textureIntensity}%</span>
+                    <span className="text-[10px]  text-white/40">{textureIntensity}%</span>
                   </div>
 
                   {/* Texture Intensity Slider */}

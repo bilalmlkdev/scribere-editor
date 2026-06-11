@@ -1,6 +1,5 @@
-//  components/canvas/Canvas
 import { forwardRef } from 'react';
-import { parseFormattedText, getPlainText } from '../../utils/textFormatter';
+import { parseFormattedText } from '../../utils/textFormatter';
 import { useTextureColor } from '../../hooks/useTextureColor';
 import { TextureOverlay } from './TextureOverlay';
 import { CanvasContent } from './CanvasContent';
@@ -34,7 +33,6 @@ const Canvas = forwardRef(
     };
 
     const textureColor = useTextureColor(useCustomColors, canvasBgColor);
-    const plainText = getPlainText(inputValue);
     const formattedHtml = parseFormattedText(inputValue);
 
     return (
@@ -69,7 +67,6 @@ const Canvas = forwardRef(
             {inputValue ? (
               <CanvasContent
                 htmlContent={formattedHtml}
-                // plainText={plainText}
                 dropCap={dropCap}
                 fontSize={canvasFontSize}
                 lineHeight={lineHeight}

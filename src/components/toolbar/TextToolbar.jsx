@@ -100,7 +100,7 @@ export default function TextToolbar({
     const range = selection.getRangeAt(0);
     const isResetValue = value === 'default' || value === 'none' || value === 'transparent';
 
-    // 1. Check if selection matches or is inside an existing inline SPAN wrapper
+    // Check if selection matches or is inside an existing inline SPAN wrapper
     let parentSpan = range.commonAncestorContainer;
     if (parentSpan.nodeType === 3) {
       parentSpan = parentSpan.parentNode;
@@ -129,7 +129,7 @@ export default function TextToolbar({
       return;
     }
 
-    // 2. Fragment extraction: Strip duplicate nested styles causing layout height to get stuck
+    //   Strip duplicate nested styles causing layout height to get stuck
     const span = document.createElement('span');
     if (!isResetValue) {
       span.style[styleProperty] = value;

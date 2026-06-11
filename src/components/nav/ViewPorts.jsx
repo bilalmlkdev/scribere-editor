@@ -176,7 +176,7 @@ export default function ViewPorts({ onViewportChange }) {
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <span className="text-[9px] text-white/30 font-mono">
+                  <span className="text-[9px] text-white/30 ">
                     {opt.width}×{opt.height}
                   </span>
                   {option === opt.id && (

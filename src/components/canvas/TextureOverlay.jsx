@@ -1,5 +1,3 @@
-// components/canvas/TextureOverlay.jsx
-
 export const TextureOverlay = ({ intensity, color }) => {
   if (intensity <= 0) return null;
 

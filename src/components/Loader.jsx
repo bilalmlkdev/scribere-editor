@@ -1,10 +1,12 @@
+// components/Loader.jsx
+
 import { useEffect, useState, useRef } from 'react';
 
 export default function Loader({ onComplete }) {
   const [count, setCount] = useState(0);
   const [fillPercent, setFillPercent] = useState(0);
   const animationFrameRef = useRef();
-  const completedRef = useRef(false); // prevent double onComplete calls
+  const completedRef = useRef(false);
 
   useEffect(() => {
     const duration = 2400;
@@ -17,6 +19,9 @@ export default function Loader({ onComplete }) {
       let progress = Math.min(1, elapsed / duration);
       let eased = easeInOutCubic(progress);
       let targetPercent = eased * 100;
+
+      // Prevent negative values (causes SVG errors)
+      if (targetPercent < 0) targetPercent = 0;
 
       if (targetPercent > 97) {
         const remaining = 100 - 97;
@@ -48,13 +53,16 @@ export default function Loader({ onComplete }) {
     };
   }, [onComplete]);
 
+  // Ensure width never goes negative – clamp between 0 and 600
+  const clipWidth = Math.max(0, Math.min(600, (fillPercent / 100) * 600));
+
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black">
       <div className="relative w-full max-w-[90vw] sm:max-w-[600px]">
         <svg viewBox="0 0 600 150" className="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <clipPath id="glyphicClip">
-              <rect x="0" y="0" width={(fillPercent / 100) * 600} height="150" />
+              <rect x="0" y="0" width={clipWidth} height="150" />
             </clipPath>
           </defs>
 

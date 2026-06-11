@@ -98,20 +98,77 @@ export default function TextToolbar({
     if (!selection || !selection.toString() || selection.rangeCount === 0) return;
 
     const range = selection.getRangeAt(0);
+    const isResetValue = value === 'default' || value === 'none' || value === 'transparent';
+
+    // 1. Check if selection matches or is inside an existing inline SPAN wrapper
+    let parentSpan = range.commonAncestorContainer;
+    if (parentSpan.nodeType === 3) {
+      parentSpan = parentSpan.parentNode;
+    }
+
+    if (
+      parentSpan &&
+      parentSpan.nodeName === 'SPAN' &&
+      parentSpan !== textareaRef.current &&
+      parentSpan.textContent.trim() === selection.toString().trim()
+    ) {
+      if (isResetValue) {
+        parentSpan.style[styleProperty] = '';
+        if (!parentSpan.style.cssText) {
+          const parent = parentSpan.parentNode;
+          while (parentSpan.firstChild) {
+            parent.insertBefore(parentSpan.firstChild, parentSpan);
+          }
+          parentSpan.remove();
+        }
+      } else {
+        parentSpan.style[styleProperty] = value;
+      }
+      triggerInputChange();
+      setTimeout(updateActiveFormats, 20);
+      return;
+    }
+
+    // 2. Fragment extraction: Strip duplicate nested styles causing layout height to get stuck
     const span = document.createElement('span');
-    span.style[styleProperty] = value;
+    if (!isResetValue) {
+      span.style[styleProperty] = value;
+    }
 
     const fragment = range.extractContents();
-    span.appendChild(fragment); // Fixed: was span.appendChild(span)
-    range.insertNode(span);
 
+    // Prevent layering configurations that lock block/line height boxes
+    const innerSpans = fragment.querySelectorAll('span');
+    innerSpans.forEach(s => {
+      if (s.style[styleProperty]) {
+        s.style[styleProperty] = '';
+        if (!s.style.cssText) {
+          const p = s.parentNode;
+          while (s.firstChild) {
+            p.insertBefore(s.firstChild, s);
+          }
+          s.remove();
+        }
+      }
+    });
+
+    if (isResetValue || !span.style.cssText) {
+      range.insertNode(fragment);
+    } else {
+      span.appendChild(fragment);
+      range.insertNode(span);
+    }
+
+    // Reselect transformed contents cleanly
     const newRange = document.createRange();
-    newRange.selectNodeContents(span);
-    selection.removeAllRanges();
-    selection.addRange(newRange);
+    if (span.parentNode && !isResetValue) {
+      newRange.selectNodeContents(span);
+      selection.removeAllRanges();
+      selection.addRange(newRange);
+    }
 
     triggerInputChange();
-    updateActiveFormats();
+    setTimeout(updateActiveFormats, 20);
   };
 
   const toggleQuoteLayout = () => {
@@ -246,7 +303,7 @@ export default function TextToolbar({
   };
 
   return (
-    <div className="w-full relative z-10 lg:z-99 bg-transparent lg:bg-zinc-900  rouned-none lg:rounded-[12px]  border-b border-zinc-800/80 lg:border-none">
+    <div className="w-full relative z-10 lg:z-99 bg-transparent lg:bg-zinc-900 rounded-none lg:rounded-[12px] border-b border-zinc-800/80 lg:border-none">
       <div className="w-full flex items-center justify-start overflow-x-auto whitespace-nowrap gap-[1px] px-2 py-2 lg:px-1 lg:py-0.5 text-white select-none text-xs sm:text-sm scrollbar-none [&::-webkit-scrollbar]:hidden">
         {/* Font Size Selector */}
         <div className="flex items-center gap-1 text-zinc-400 font-medium mr-1 shrink-0">
@@ -254,10 +311,6 @@ export default function TextToolbar({
             <BiText size={16} />
           </span>
           <FontSizeSelector
-            // isOpen={activeMenu === 'fontSize'}
-            // setIsOpen={open => setActiveMenu(open ? 'fontSize' : null)}
-            // label={fontSizeLabel}
-            // onSelect={handleFontSizeChange}
             isOpen={activeMenu === 'fontSize'}
             setIsOpen={open => {
               if (open) setActiveMenu('fontSize');

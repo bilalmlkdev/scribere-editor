@@ -192,7 +192,7 @@ export default function ViewPorts({ onViewportChange }) {
       )}
 
       {/* component styles */}
-      <style jsx>{`
+      <style>{`
         @keyframes scaleIn {
           from {
             transform: scale(0.8);

@@ -18,6 +18,7 @@ export const EditorMobile = ({
   toolbarFontSize,
   onToolbarFontSizeChange,
   defaultFontSize,
+  onResetAll,
 }) => {
   const [activeTab, setActiveTab] = useState('editor');
 
@@ -83,6 +84,25 @@ export const EditorMobile = ({
           <button className="px-3 flex items-center justify-center gap-1 py-2 text-xs bg-white/80 text-black rounded-[8px] font-medium transition-colors">
             <FiGithub size={16} />
             GitHub
+          </button>
+          <button
+            onClick={onResetAll}
+            className="px-3 flex items-center justify-center gap-1 py-2 text-xs bg-white/80 text-black rounded-[8px] font-medium transition-colors"
+            title="Reset all settings"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+            >
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+            Reset
           </button>
         </div>
       </div>

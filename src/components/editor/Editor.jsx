@@ -238,6 +238,7 @@ export default function Editor() {
             toolbarFontSize={toolbarFontSize}
             onToolbarFontSizeChange={handleToolbarFontSizeChange}
             defaultFontSize={DEFAULT_FONT_SIZE}
+            onResetAll={handleResetAll}
           />
         )}
       </div>

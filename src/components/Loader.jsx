@@ -57,9 +57,13 @@ export default function Loader({ onComplete }) {
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black">
       <div className="relative w-full max-w-[90vw] sm:max-w-[600px]">
-        <svg viewBox="0 0 600 150" className="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
+        <svg
+          viewBox="0 0 600 150"
+          className="w-full h-auto"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <defs>
-            <clipPath id="glyphicClip">
+            <clipPath id="ScribereClip">
               <rect x="0" y="0" width={clipWidth} height="150" />
             </clipPath>
           </defs>
@@ -76,7 +80,7 @@ export default function Loader({ onComplete }) {
             fontWeight="400"
             letterSpacing="1"
           >
-            glyphic
+            Scribere
           </text>
 
           <text
@@ -90,9 +94,9 @@ export default function Loader({ onComplete }) {
             fontStyle="italic"
             fontWeight="400"
             letterSpacing="1"
-            clipPath="url(#glyphicClip)"
+            clipPath="url(#ScribereClip)"
           >
-            glyphic
+            Scribere
           </text>
 
           <text
@@ -121,7 +125,7 @@ export default function Loader({ onComplete }) {
             fontStyle="italic"
             fontWeight="400"
             letterSpacing="2"
-            clipPath="url(#glyphicClip)"
+            clipPath="url(#ScribereClip)"
           >
             editor
           </text>

@@ -1,4 +1,4 @@
-import glyphicLogo from '../../../public/glyphicLogo.svg';
+import scribereLogo from "../../../public/scribereLogo.svg";
 import { useViewport } from '../../hooks/useViewport';
 
 export default function Logo() {
@@ -7,12 +7,12 @@ export default function Logo() {
   return (
     <div className="flex items-center gap-1.5">
       <span>
-        <img src={glyphicLogo} alt="glyphic-logo" className="h-5 w-auto" />
+        <img src={scribereLogo} alt="scribere-logo" className="h-5 w-auto" />
       </span>
       <h3
-        className={`font-medium text-[13.5px] tracking-wide bg-gradient-to-b from-white to-white/40 bg-clip-text text-transparent ${isMobile ? 'hidden' : 'block'}`}
+        className={`font-medium text-[13.5px] tracking-wide bg-gradient-to-b from-white to-white/40 bg-clip-text text-transparent ${isMobile ? "hidden" : "block"}`}
       >
-        Glyphic
+        Scribere
       </h3>
     </div>
   );

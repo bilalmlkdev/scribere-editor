@@ -34,7 +34,7 @@ export const useExport = (targetRef, format, quality) => {
       };
 
       const dataUrl = await htmlToImage.toPng(targetRef.current, options);
-      const filename = `glyphic-export-${Date.now()}.png`;
+      const filename = `Scribere-export-${Date.now()}.png`;
       downloadFile(dataUrl, filename);
     } catch (error) {
       console.error('PNG export failed:', error);
@@ -59,11 +59,11 @@ export const useExport = (targetRef, format, quality) => {
         let svgString = serializer.serializeToString(clonedSvg);
         svgString = '<?xml version="1.0" encoding="UTF-8"?>\n' + svgString;
         const dataUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgString);
-        const filename = `glyphic-export-${Date.now()}.svg`;
+        const filename = `Scribere-export-${Date.now()}.svg`;
         downloadFile(dataUrl, filename);
       } else {
         const dataUrl = await htmlToImage.toSvg(targetRef.current, { quality: 1 });
-        downloadFile(dataUrl, `glyphic-export-${Date.now()}.svg`);
+        downloadFile(dataUrl, `Scribere-export-${Date.now()}.svg`);
       }
     } catch (error) {
       console.error('SVG export failed:', error);

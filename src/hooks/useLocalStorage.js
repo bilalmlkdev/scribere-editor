@@ -3,13 +3,13 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 
 export const STORAGE_KEYS = {
-  EDITOR_STATE: 'glyphic_editor_state',
-  THEME: 'glyphic_theme',
-  CUSTOM_COLORS: 'glyphic_custom_colors',
-  FONT: 'glyphic_font',
-  TYPOGRAPHY: 'glyphic_typography',
-  VIEWPORT: 'glyphic_viewport',
-  TEXTURE: 'glyphic_texture',
+  EDITOR_STATE: 'scribere_editor_state',
+  THEME: 'scribere_theme',
+  CUSTOM_COLORS: 'scribere_custom_colors',
+  FONT: 'scribere_font',
+  TYPOGRAPHY: 'scribere_typography',
+  VIEWPORT: 'scribere_viewport',
+  TEXTURE: 'scribere_texture',
 };
 
 export function useLocalStorage(key, initialValue) {

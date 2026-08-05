@@ -1,285 +1,459 @@
-# <a href="https://useglyphic.vercel.app" target="_blank">Glyphic - A browser-based text design tool.</a>
-
-<p align="left">
-  <a href="./LICENSE">
-    <img src="https://img.shields.io/badge/License-MIT-9B72FF.svg?style=flat" />
-  </a>
-  <img src="https://img.shields.io/badge/Repository%20Status-Maintained-9B72FF.svg?style=flat" />
-  <img src="https://img.shields.io/badge/Website%20Status-Online-9B72FF.svg?style=flat" />
-  <a href="https://github.com/byllzz">
-    <img src="https://img.shields.io/badge/Author-Bilal%20Malik-9B72FF.svg?style=flat" />
-  </a>
-  <a href="https://github.com/byllzz/glyphic/releases">
-    <img src="https://img.shields.io/badge/Latest%20Release-10%20June%202026-9B72FF.svg" alt="Latest Release Badge" />
+<p align="center">
+  <a href="https://scribere.vercel.app/">
+    <img src="./public/editor.png" alt="Scribere-Editor Preview">
   </a>
 </p>
 
-[![Visit Glyphic](https://img.shields.io/badge/View-Glyphic-9B72FF?style=flat)](https://useglyphic.vercel.app)
+<h1 align="center">Scribere-Editor</h1>
 
-<p align="start">
-  <img src="./public/editor.png" alt="Editor preview" width="100%" />
+<p align="center">
+  A browser-based typography workspace for creating beautiful text graphics. Write, style, theme, and export high-resolution images without accounts, uploads, or complex design software.
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/License-MIT-9B26FF?style=flat"/>
+  <img src="https://img.shields.io/badge/Status-Maintained-9B26FF?style=flat"/>
+  <img src="https://img.shields.io/badge/Website-Online-9B26FF?style=flat"/>
+  <img src="https://img.shields.io/badge/React-Vite-9B26FF?style=flat"/>
+  <img src="https://img.shields.io/badge/Tailwind-v4-9B26FF?style=flat"/>
+  <img src="https://img.shields.io/badge/Deploy-Vercel-9B26FF?style=flat"/>
+  <img src="https://img.shields.io/badge/Latest%20Release-10%20June%202026-9B26FF?style=flat"/>
+</p>
+
+<p align="center">
+  <a href="https://scribere.vercel.app/">Live Demo</a> •
+  <a href="https://github.com/byllzz/scribere-editor/issues/new">Report Bug</a> •
+  <a href="https://github.com/byllzz/scribere-editor/issues/new">Request Feature</a>
 </p>
 
 
-## Overview
 
-Glyphic is a typography-first design workspace that runs entirely in your browser. Write content, style selected text, apply curated themes, adjust spacing, and export high-resolution images - no accounts, no uploads, no setup required. Everything stays on your device.
+# About
+
+**Scribere-Editor** is a typography-first design workspace built for creators who want to turn text into polished visuals directly in the browser.
+
+Instead of switching between multiple design tools, Scribere-Editor combines rich text editing, theme customization, typography controls, and high-quality exports into a single workflow. Everything runs locally, keeping your content private while delivering professional-quality results.
+
+Whether you're creating social media posts, editorial quotes, documentation graphics, presentations, or typography experiments, Scribere-Editor provides a fast and distraction-free editing experience.
 
 ---
 
-### Core Editing
+# Features
 
-Glyphic uses a live canvas preview that updates in real time as you type and format. The rich text toolbar applies formatting **only to the selected text**, giving you precise control over individual words, lines, or paragraphs.
+- Rich text editor with real-time canvas preview.
+- 25+ professionally designed themes.
+- Advanced typography controls for spacing and layout.
+- Full color customization with live preview.
+- Per-selection formatting including headings, lists, bold, italic, underline, and case conversion.
+- Built-in Kaomoji library and decorative symbols.
+- Adjustable paper texture effects.
+- Export as high-resolution PNG or scalable SVG.
+- Runs entirely in your browser with no accounts or uploads.
+- Local-first workflow for complete privacy.
 
-Supported formatting actions:
+---
 
-- Bold, Italic, Underline, Strikethrough
-- Headings
-- Ordered and unordered lists
-- Case transforms (uppercase, lowercase, title case)
-- Per-selection font sizing
+# How It Works
+
+Creating typography graphics with Scribere-Editor is simple:
+
+1. Write your content on the live canvas.
+2. Format selected text using the editing toolbar.
+3. Choose a theme or customize colors and texture.
+4. Export your design as PNG or SVG.
+
+Everything is processed locally, so your content never leaves your device.
+
+---
+
+# Theme System
+
+Themes define the overall appearance of your design while remaining completely customizable.
+
+### Included Features
+
+- 25+ handcrafted themes
+- Serif, sans-serif, monospace, editorial, vintage, and minimal styles
+- Live theme previews
+- Background and text color overrides
+- Adjustable texture intensity
+- Random theme generation
+- Non-destructive editing
+
+Themes only affect the editor until you export, allowing independent export customization.
+
+---
+
+# Creative Tools
+
+Scribere-Editor includes several creative utilities to speed up your workflow.
 
 ### Typography Controls
 
-Fine-tune how your text sits on the canvas:
-
-- 20+ Google Fonts (serif, sans-serif, monospace, handwriting)
+- Font family
+- Font size
 - Line height
 - Letter spacing
 - Word spacing
-- Internal padding
-- Drop caps - Standard, Large, and Huge variants
+- Padding
+- Drop caps
 
-### Theme System
+### Kaomoji Library
 
-Glyphic ships with 25+ curated themes spanning a range of styles: serif editorial, sans-serif minimal, monospace terminal, vintage, code block, and more.
+Insert expressive text emoticons directly at the cursor.
 
-Every theme supports full color overrides:
+Examples:
 
-- Background color
-- Text color
-- Texture intensity
+```text
+(｡◕‿◕｡)
+(♥‿♥)
+(╯°□°）╯︵ ┻━┻
+```
 
-Themes can be applied, previewed, and overridden non-destructively. Export-time overrides are independent from the editor canvas.
+### Decorative Elements
 
-### Creative Tools
+Quickly insert:
 
-**Kaomoji Library** - Insert expressive text emoticons at cursor position, e.g. `(｡◕‿◕｡)`.
-
-**Decorative Elements** - Add inline decorative characters including:
-
-- Dividers
-- Bullets
 - Stars
 - Hearts
+- Bullets
+- Dividers
 - Arrows
 - Notes
+- Symbols
 
-**Paper Texture** - A slider from 0% (clean) to 100% (heavy grain and noise) adds a physical feel to the canvas without affecting export quality.
+### Paper Texture
 
-### Viewports
-
-Switch between preset canvas dimensions to design for different contexts:
-
-- Social media
-- Desktop
-- Mobile
+Adjust texture intensity from a perfectly clean background to a realistic paper grain without affecting export quality.
 
 ---
 
-## Export Options
+# Tech Stack
 
-Glyphic supports PNG and SVG export directly from the browser. Export-time color overrides allow you to customize the output independently from the editor.
+### Frontend
 
-### PNG Export
+- React
+- Vite
+- Tailwind CSS v4
+- JavaScript (ES6+)
+- html-to-image
 
-| Scale | Max Resolution |
-|-------|---------------|
-| 2×    | Up to 2880 × 2880 |
-| 3×    | Up to 4320 × 4320 |
-| 4×    | Up to 4320 × 4320 |
+### Export
 
-### SVG Export
+- PNG Renderer
+- SVG Generator
 
-Vector output that is print-ready and editable in design software (Figma, Illustrator, Inkscape, etc.).
+### Deployment
 
----
+- Vercel
 
-## Keyboard Shortcuts
-
-| Shortcut     | Action     |
-|-------------|------------|
-| `Ctrl + B`  | Bold       |
-| `Ctrl + I`  | Italic     |
-| `Ctrl + U`  | Underline  |
+<p align="left">
+  <img src="https://skillicons.dev/icons?i=react,vite,tailwind,js,vercel" />
+</p>
 
 ---
+# Getting Started
 
-## Architecture
+Run scribere-editor locally in just a few minutes.
 
-Glyphic is structured around three primary layers:
+## Prerequisites
 
-```
-User Input
-    │
-    ▼
-Text Toolbar
-    │
-    ▼
-Formatting Engine
-    │
-    ▼
-Canvas Renderer
-    │
-    ▼
-Theme System
-    │
-    ▼
-Export Module
-    │
-    ▼
-PNG / SVG Output
-```
-
-### Canvas Layer
-
-Handles rendering, typography, textures, themes, and viewport dimensions.
-
-### Theme Layer
-
-Manages theme presets, color overrides, random theme generation, and color state.
-
-### Export Layer
-
-Powered by `html-to-image`. Handles PNG scaling, SVG generation, and export-time color overrides.
-
----
-
-## Component Reference
-
-| Component           | Responsibility                        |
-|---------------------|---------------------------------------|
-| `Canvas`            | Typography rendering                  |
-| `TextToolbar`       | Formatting actions                    |
-| `Themes`            | Theme gallery                         |
-| `ThemeColors`       | Custom color picker                   |
-| `ViewPorts`         | Canvas dimensions                     |
-| `FontSelector`      | Font selection                        |
-| `FontSize`          | Font sizing                           |
-| `LineHeight`        | Line spacing                          |
-| `Padding`           | Internal spacing                      |
-| `DropCap`           | Editorial drop cap styling            |
-| `KaomojiSelector`   | Kaomoji insertion                     |
-| `Decorations`       | Decorative elements                   |
-| `ExportOptions`     | Export pipeline                       |
-| `Navbar`            | Global actions                        |
-
----
-
-## Contributing
-
-Contributions are welcome. See the areas below for where help is most useful.
-
-### Themes
-
-Add or modify theme presets in:
-
-```
-src/data/themes.js
-```
-
-### Fonts
-
-Add or modify available fonts in:
-
-```
-src/data/fonts.js
-```
-
-### Other Areas
-
-- **Accessibility** - Keyboard navigation, screen reader support, focus management
-- **Export** - Custom dimensions, PDF support, batch exports
-- **Mobile** - Touch interactions, layout refinements
-
-### Workflow
-
-1. Fork and clone the repository
-2. Create a feature branch: `git checkout -b feat/my-feature`
-3. Develop and test: `npm run dev` / `npm run build`
-4. Commit using [Conventional Commits](https://www.conventionalcommits.org/): `feat:`, `fix:`, `docs:`, `refactor:`
-5. Open a pull request with a description, screenshots (if UI changed), and testing notes
-
-### Pull Request Checklist
-
-- [ ] No console errors
-- [ ] Existing functionality remains intact
-- [ ] Documentation updated
-- [ ] Screenshots included for UI changes
-
----
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js (v18 or later recommended)
+- Node.js v18+
 - npm
 
-### Installation
-
-Clone the repository and install dependencies:
+## Installation
 
 ```bash
-git clone https://github.com/byllzz/glyphic.git
-cd glyphic
+git clone https://github.com/byllzz/scribere-editor.git
+cd scribere-editor
 npm install
-```
-
-### Development
-
-Start the local development server:
-
-```bash
 npm run dev
 ```
 
-### Build & Preview
+The development server will be available at:
 
-```bash
-npm run build      # Create production build
-npm run preview    # Preview production build locally
+```text
+http://localhost:5173
 ```
 
-## Roadmap
+---
 
-The following features are planned for future releases:
+# Build & Preview
+
+Create an optimized production build.
+
+```bash
+npm run build
+```
+
+Preview the production build locally.
+
+```bash
+npm run preview
+```
+
+---
+
+# Export Options
+
+Scribere-Editor supports two export formats designed for different workflows.
+
+### PNG Export
+
+Perfect for:
+
+- Social media
+- Blog posts
+- Presentations
+- Websites
+- Documentation
+
+Features:
+
+- 2×, 3×, and 4× scaling
+- Up to **4320 × 4320** resolution
+- High-quality raster output
+
+### SVG Export
+
+Ideal for:
+
+- Figma
+- Illustrator
+- Printing
+- Vector editing
+- Infinite scaling
+
+Both export modes support independent color overrides without modifying the editor canvas.
+
+---
+
+# Keyboard Shortcuts
+
+Improve editing speed with built-in shortcuts.
+
+- `Ctrl + B` → Bold
+- `Ctrl + I` → Italic
+- `Ctrl + U` → Underline
+
+---
+
+# Project Structure
+
+```text
+Scribere-Editor/
+├── public/
+├── src/
+│   ├── components/
+│   ├── data/
+│   ├── hooks/
+│   ├── lib/
+│   ├── utils/
+│   ├── App.jsx
+│   └── main.jsx
+├── package.json
+└── vite.config.js
+```
+
+---
+
+# Architecture
+
+Scribere-Editor follows a modular rendering pipeline.
+
+```text
+User Input
+      │
+      ▼
+Formatting Toolbar
+      │
+      ▼
+Typography Engine
+      │
+      ▼
+Canvas Renderer
+      │
+      ▼
+Theme System
+      │
+      ▼
+PNG / SVG Export
+```
+
+Each module is isolated, making the application easier to maintain, extend, and test.
+
+---
+
+# Component Overview
+
+The application is built from reusable feature-focused components.
+
+### Editing
+
+- Canvas
+- TextToolbar
+- FontSelector
+- FontSize
+- LineHeight
+- Padding
+- DropCap
+
+### Themes
+
+- Themes
+- ThemeColors
+- ViewPorts
+
+### Creative Tools
+
+- KaomojiSelector
+- Decorations
+
+### Export
+
+- ExportOptions
+
+### Layout
+
+- Navbar
+
+---
+
+# Privacy
+
+Scribere-Editor follows a **local-first** philosophy.
+
+- No user accounts
+- No cloud storage
+- No analytics
+- No tracking
+- No content uploads
+- Everything runs entirely inside your browser
+
+Your designs remain private from start to finish.
+
+---
+
+# Roadmap
+
+The following improvements are planned for future releases.
 
 - Custom canvas dimensions
-- User-created themes
-- Theme import / export
-- Undo / Redo
-- Text shadows
+- Import and export custom themes
+- Undo and Redo history
 - Gradient backgrounds
-- Template library
-- Keyboard shortcuts guide
+- Text shadows and advanced effects
+- Template gallery
+- Expanded keyboard shortcuts
+- PDF export
+- Improved mobile editing experience
+- Accessibility enhancements
 
 ---
 
-## Privacy
+# Contributing
 
-Glyphic is designed to be fully local-first:
+Contributions of all sizes are welcome, from bug fixes and documentation improvements to new themes and editor features.
 
-- No accounts required
-- No tracking or analytics
-- No content uploads
-- Exports generated entirely in your browser
-- Nothing leaves your device
+## Development Workflow
+
+```bash
+# Fork the repository
+
+git checkout -b feat/your-feature
+
+# Make your changes
+
+npm run dev
+npm run build
+
+git commit -m "feat: add amazing feature"
+
+git push origin feat/your-feature
+```
+
+Open a Pull Request with a clear description of your changes and include screenshots if the UI has been modified.
+
+### Areas to Contribute
+
+####  Themes
+
+- Add new theme presets
+- Improve existing color palettes
+- Create typography-focused themes
+
+####  Fonts
+
+- Add new font families
+- Improve font loading
+- Expand typography options
+
+#### Editor
+
+- Rich text features
+- Keyboard shortcuts
+- Accessibility improvements
+- Mobile experience
+- Performance optimizations
+
+#### Export
+
+- Custom export dimensions
+- Additional image formats
+- Better SVG generation
+- Batch exports
+
+### Contribution Guidelines
+
+- Follow the existing project structure.
+- Keep components reusable.
+- Test new features before submitting.
+- Update documentation when necessary.
+- Use descriptive commit messages.
 
 ---
 
-## License
+# Author
 
-MIT © Bilal Malik
+<img src="https://github.com/byllzz.png" width="90" alt="Bilal Malik"/>
 
-This project is licensed under the MIT License - see the [LICENSE.md](./LICENSE) file for details.
+## Bilal Malik
+
+[![GitHub](https://img.shields.io/badge/GitHub-byllzz-9B26FF?style=flat&logo=github&logoColor=white)](https://github.com/byllzz)
+[![X](https://img.shields.io/badge/Twitter-@bilalmlkdev-9B26FF?style=flat&logo=x&logoColor=white)](https://x.com/bilalmlkdev)
+[![Portfolio](https://img.shields.io/badge/Portfolio-bilalmlkdev.vercel.app-9B26FF?style=flat&logo=vercel&logoColor=white)](https://bilalmlkdev.vercel.app)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Bilal%20Malik-9B26FF?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/bilalmlkdev/)
+[![Email](https://img.shields.io/badge/Email-bilalmlkdev@gmail.com-9B26FF?style=flat&logo=gmail&logoColor=white)](mailto:bilalmlkdev@gmail.com)
+
+If you enjoyed this project, consider giving it a ⭐ on GitHub. It helps others discover the project and motivates future improvements.
+
+<p align="right">
+  <a href="#scribere-editor">⬆ Back to Top</a>
+</p>
+
+# License (MIT)
+
+This project is licensed under the **MIT License**.
+
+```text
+
+MIT License
+
+Copyright (c) 2026 Bilal Malik
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software.The above copyright notice and this permission notice shall
+be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+© 2026 texturae. Licensed under the MIT License.

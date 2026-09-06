@@ -1,8 +1,13 @@
 {
   "name": "scribere-editor",
-  "private": true,
   "version": "0.0.0",
   "type": "module",
+  "author": "Bilal Malik (bilalmlkdev)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bilalmlkdev/scribere-editor.git"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",

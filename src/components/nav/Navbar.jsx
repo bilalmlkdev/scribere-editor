@@ -1,8 +1,8 @@
-import { FiGithub } from 'react-icons/fi';
-import ExportOptions from '../export/Export';
-import Logo from './Logo';
-import Themes from './Themes';
-import ViewPorts from './ViewPorts';
+import { FiGithub } from "react-icons/fi";
+import ExportOptions from "../export/Export";
+import Logo from "./Logo";
+import Themes from "./Themes";
+import ViewPorts from "./ViewPorts";
 
 export default function Navbar({
   targetRef,
@@ -36,7 +36,7 @@ export default function Navbar({
 
         {/* GitHub icon - hidden on screens smaller than 768px */}
         <a
-          href="https://github.com/byllzz/scribere-editor.git"
+          href="https://github.com/bilalmlkdev/scribere-editor"
           className="hidden md:flex items-center gap-1 bg-gray-100/10 border border-white/5 px-2 py-[7px] rounded-[7px]"
           target="_blank"
           rel="noopener noreferrer"

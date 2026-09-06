@@ -21,6 +21,7 @@
 </p>
 
 
+[![Scribere HomePage](https://raw.githubusercontent.com/bilalmlkdev/scribere-editor/main/public/editorHome.png)](https://scribere.vercel.app/)
 [![Scribere Dashboard](https://raw.githubusercontent.com/bilalmlkdev/scribere-editor/main/public/editor.png)](https://scribere.vercel.app/)
 
 

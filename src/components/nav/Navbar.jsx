@@ -3,6 +3,7 @@ import ExportOptions from "../export/Export";
 import Logo from "./Logo";
 import Themes from "./Themes";
 import ViewPorts from "./ViewPorts";
+import { Link } from "react-router-dom";
 
 export default function Navbar({
   targetRef,
@@ -27,7 +28,9 @@ export default function Navbar({
   return (
     <nav className="flex items-center justify-between h-12 w-full max-w-full px-4 border-b border-white/20">
       {/* logo */}
-      <Logo />
+      <Link to="/">
+        <Logo />
+      </Link>
 
       {/* right side */}
       <div className="flex items-center gap-1.5">

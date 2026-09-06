@@ -1,7 +1,7 @@
 <div align="center">
 
   <a href="https://scribere.vercel.app/">
-    <img src="https://raw.githubusercontent.com/bilalmlkdev/scribere-editor/main/public/scribereLogo.png" alt="scribere Logo" width="100%" height="120">
+    <img src="https://raw.githubusercontent.com/bilalmlkdev/scribere-editor/main/public/scribereLogo.svg" alt="scribere Logo" width="100%" height="120">
   </a>
 
 
